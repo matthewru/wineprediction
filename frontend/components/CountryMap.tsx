@@ -1,7 +1,8 @@
 // components/CountryMap.tsx
 import { View } from 'react-native';
-import USMap from './maps/USMap';
 import { ThemedText } from './ThemedText';
+
+import USMap from './maps/USMap';
 import ItalyMap from './maps/ItalyMap';
 import FranceMap from './maps/FranceMap';
 import SpainMap from './maps/SpainMap';
@@ -11,33 +12,43 @@ import ArgentinaMap from './maps/ArgentinaMap';
 import GermanyMap from './maps/GermanyMap';
 import AustriaMap from './maps/AustriaMap';
 import AustraliaMap from './maps/AustraliaMap';
+
+const mapComponents: Record<string, React.ReactNode> = {
+  US: <USMap onRegionClick={() => {}} highlightedRegion="" />,
+  Italy: <ItalyMap onRegionClick={() => {}} highlightedRegion="" />,
+  France: <FranceMap onRegionClick={() => {}} highlightedRegion="" />,
+  Spain: <SpainMap onRegionClick={() => {}} highlightedRegion="" />,
+  Portugal: <PortugalMap onRegionClick={() => {}} highlightedRegion="" />,
+  Chile: <ChileMap onRegionClick={() => {}} highlightedRegion="" />,
+  Argentina: <ArgentinaMap onRegionClick={() => {}} highlightedRegion="" />,
+  Austria: <AustriaMap onRegionClick={() => {}} highlightedRegion="" />,
+  Germany: <GermanyMap onRegionClick={() => {}} highlightedRegion="" />,
+  Australia: <AustraliaMap onRegionClick={() => {}} highlightedRegion="" />,
+};
+
+const MapWrapper = ({ children }: { children: React.ReactNode }) => (
+  <View
+    style={{
+      width: '100%',
+      height: 300,
+      alignItems: 'center',
+      justifyContent: 'center',
+      // transform: removed for now
+      // borderWidth: 1,
+      // borderColor: 'red',
+    }}
+  >
+    {children}
+  </View>
+);
+
 export default function CountryMap({ country }: { country: string }) {
-  switch (country) {
-    case 'US':
-        return <USMap onRegionClick={() => {}} highlightedRegion="" />;
-    case 'Italy':
-        return <ItalyMap onRegionClick={() => {}} highlightedRegion="" />;
-    case 'France':
-        return <FranceMap onRegionClick={() => {}} highlightedRegion="" />;
-    case 'Spain':
-        return <SpainMap onRegionClick={() => {}} highlightedRegion="" />;
-    case 'Portugal':
-        return <PortugalMap onRegionClick={() => {}} highlightedRegion="" />;
-    case 'Chile':
-        return <ChileMap onRegionClick={() => {}} highlightedRegion="" />;
-    case 'Argentina':
-        return <ArgentinaMap onRegionClick={() => {}} highlightedRegion="" />;
-    case 'Austria':
-        return <AustriaMap onRegionClick={() => {}} highlightedRegion="" />;
-    case 'Germany':
-        return <GermanyMap onRegionClick={() => {}} highlightedRegion="" />;
-    case 'Australia':
-        return <AustraliaMap onRegionClick={() => {}} highlightedRegion="" />;
-    default:
-      return (
-        <PlaceholderMap country={country} />
-      );
-  }
+  const MapComponent = mapComponents[country];
+  return (
+    <MapWrapper>
+      {MapComponent || <PlaceholderMap country={country} />}
+    </MapWrapper>
+  );
 }
 
 function PlaceholderMap({ country }: { country: string }) {

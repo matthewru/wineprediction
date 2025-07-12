@@ -1,32 +1,34 @@
-import { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { useRef, useState } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ThemedText } from '../components/ThemedText';
 import { WineButton } from '../components/WineButton';
-import GestureRecognizer from 'react-native-swipe-gestures';
 import ScreenLayout from '../components/ScreenLayout';
 import CountryMap from '@/components/CountryMap';
+import type { ICarouselInstance } from 'react-native-reanimated-carousel';
+
+import Carousel from 'react-native-reanimated-carousel';
+
+const { width: screenWidth } = Dimensions.get('window');
+const carouselRef = useRef<ICarouselInstance>(null);
+
+const countryList = [
+  'US', 'Italy', 'France', 'Spain', 'Portugal',
+  'Chile', 'Argentina', 'Austria', 'Germany', 'Australia',
+];
 
 export default function CountryScreen() {
   const router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const countryList = [
-    'US', 'Italy', 'France', 'Spain', 'Portugal',
-    'Chile', 'Argentina', 'Austria', 'Germany', 'Australia'
-  ];
-
   const handlePrev = () => {
-    setSelectedIndex((prev) =>
-      prev > 0 ? prev - 1 : countryList.length - 1
-    );
+    carouselRef.current?.prev();
   };
-
+  
   const handleNext = () => {
-    setSelectedIndex((prev) =>
-      prev < countryList.length - 1 ? prev + 1 : 0
-    );
+    carouselRef.current?.next();
   };
+  
 
   const handleContinue = () => {
     router.push('/primary-region');
@@ -34,38 +36,28 @@ export default function CountryScreen() {
 
   return (
     <ScreenLayout onContinue={handleContinue}>
-      <GestureRecognizer
-        onSwipeLeft={handleNext}
-        onSwipeRight={handlePrev}
-        config={{
-          velocityThreshold: 0.3,
-          directionalOffsetThreshold: 80,
-        }}
-      >
-        <View style={styles.pickerWrapper}>
-          <View style={styles.pickerRow}>
-            <WineButton
-              title="←"
-              onPress={handlePrev}
-              variant="secondary"
-              style={styles.navButton}
-            />
-            <ThemedText type="subtitle">
-              {countryList[selectedIndex]}
-            </ThemedText>
-            <WineButton
-              title="→"
-              onPress={handleNext}
-              variant="secondary"
-              style={styles.navButton}
-            />
-          </View>
+      <View style={styles.pickerWrapper}>
+        <View style={styles.pickerRow}>
+          <WineButton title="←" onPress={handlePrev} variant="secondary" style={styles.navButton} />
+          <ThemedText type="subtitle">{countryList[selectedIndex]}</ThemedText>
+          <WineButton title="→" onPress={handleNext} variant="secondary" style={styles.navButton} />
         </View>
-      </GestureRecognizer>
-
-      <View style={styles.mapContainer}>
-          <CountryMap country={countryList[selectedIndex]} />
       </View>
+
+      <Carousel
+        ref={carouselRef}
+        loop
+        width={screenWidth}
+        height={340} // 300 map + spacing
+        data={countryList}
+        scrollAnimationDuration={250}
+        onSnapToItem={(index) => setSelectedIndex(index)}
+        renderItem={({ item }) => (
+          <View style={styles.countrySlide}>
+            <CountryMap country={item} />
+          </View>
+        )}
+      />
     </ScreenLayout>
   );
 }
@@ -87,11 +79,9 @@ const styles = StyleSheet.create({
     minWidth: 50,
     minHeight: 50,
   },
-  mapContainer: {
+  countrySlide: {
+    width: screenWidth,
     alignItems: 'center',
-  },
-  mapPlaceholder: {
-    width: '100%',
-    height: 250, // same height as the map for layout consistency
+    justifyContent: 'center',
   },
 });
