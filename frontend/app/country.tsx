@@ -1,30 +1,31 @@
 import { useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import { wineTheme } from '../constants/Colors';
-import { WineButton } from '../components/WineButton';
 import { ThemedText } from '../components/ThemedText';
+import { WineButton } from '../components/WineButton';
+import GestureRecognizer from 'react-native-swipe-gestures';
+import ScreenLayout from '../components/ScreenLayout';
+import CountryMap from '@/components/CountryMap';
 
 export default function CountryScreen() {
   const router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const countryList = ['France', 'Italy', 'Spain', 'United States', 'Argentina'];
-  //   const countryImages: { [key: number]: any } = {
-  //     0: require('../assets/images/france.jpg'),
-  //     1: require('../assets/images/italy.jpg'),
-  //     2: require('../assets/images/spain.jpg'),
-  //     3: require('../assets/images/usa.jpg'),
-  //     4: require('../assets/images/argentina.jpg'),
-  //   };
+  const countryList = [
+    'US', 'Italy', 'France', 'Spain', 'Portugal',
+    'Chile', 'Argentina', 'Austria', 'Germany', 'Australia'
+  ];
 
   const handlePrev = () => {
-    setSelectedIndex((prev) => (prev > 0 ? prev - 1 : countryList.length - 1));
+    setSelectedIndex((prev) =>
+      prev > 0 ? prev - 1 : countryList.length - 1
+    );
   };
 
   const handleNext = () => {
-    setSelectedIndex((prev) => (prev < countryList.length - 1 ? prev + 1 : 0));
+    setSelectedIndex((prev) =>
+      prev < countryList.length - 1 ? prev + 1 : 0
+    );
   };
 
   const handleContinue = () => {
@@ -32,58 +33,65 @@ export default function CountryScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <WineButton 
-          title="←" 
-          onPress={handlePrev}
-          variant="secondary"
-          style={styles.navButton}
-        />
+    <ScreenLayout onContinue={handleContinue}>
+      <GestureRecognizer
+        onSwipeLeft={handleNext}
+        onSwipeRight={handlePrev}
+        config={{
+          velocityThreshold: 0.3,
+          directionalOffsetThreshold: 80,
+        }}
+      >
+        <View style={styles.pickerWrapper}>
+          <View style={styles.pickerRow}>
+            <WineButton
+              title="←"
+              onPress={handlePrev}
+              variant="secondary"
+              style={styles.navButton}
+            />
+            <ThemedText type="subtitle">
+              {countryList[selectedIndex]}
+            </ThemedText>
+            <WineButton
+              title="→"
+              onPress={handleNext}
+              variant="secondary"
+              style={styles.navButton}
+            />
+          </View>
+        </View>
+      </GestureRecognizer>
 
-        <ThemedText type="subtitle">{countryList[selectedIndex]}</ThemedText>
-
-        <WineButton 
-          title="→" 
-          onPress={handleNext}
-          variant="secondary"
-          style={styles.navButton}
-        />
+      <View style={styles.mapContainer}>
+          <CountryMap country={countryList[selectedIndex]} />
       </View>
-
-      {/* <Image source={countryImages[selectedIndex]} style={styles.image} /> */}
-
-      <View style={styles.actions}>
-        <WineButton title="Continue" onPress={handleContinue} />
-      </View>
-    </SafeAreaView>
+    </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: wineTheme.colors.background,
-    padding: 20,
+  pickerWrapper: {
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  header: {
+  pickerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    width: '100%',
   },
   navButton: {
     minWidth: 50,
     minHeight: 50,
   },
-  image: {
-    width: '100%',
-    height: 200,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  actions: {
+  mapContainer: {
     alignItems: 'center',
-    gap: 15,
+  },
+  mapPlaceholder: {
+    width: '100%',
+    height: 250, // same height as the map for layout consistency
   },
 });

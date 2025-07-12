@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 df = pd.read_csv('backend/data/wine_clean.csv')
 
@@ -90,7 +91,10 @@ print(f"\n=== ALL VALID PRIMARY REGIONS ===")
 print(f"Total valid primary regions: {len(valid_primary_regions)}")
 print(f"Regions: {sorted(valid_primary_regions)}")
 
-# Get secondary regions for each primary region
+# Create JSON structure
+regions_json = {}
+
+# Get secondary regions for each primary region and build JSON
 print(f"\n=== TOP 6 SECONDARY REGIONS PER PRIMARY REGION ===")
 for primary_region in sorted(valid_primary_regions):
     # Filter data for this primary region
@@ -105,6 +109,16 @@ for primary_region in sorted(valid_primary_regions):
     print(f"  Top 6 secondary regions:")
     for region, count in top_secondary_regions.items():
         print(f"    {region}: {count} wines")
+    
+    # Find which country this primary region belongs to
+    country_data = included_df[included_df['primary_region'] == primary_region]
+    country = country_data['country'].iloc[0]
+    
+    # Add to JSON structure
+    if country not in regions_json:
+        regions_json[country] = {}
+    
+    regions_json[country][primary_region] = list(top_secondary_regions.index)
 
 # Get primary regions for each included country (filtered)
 print("\n=== PRIMARY REGIONS PER INCLUDED COUNTRY (filtered) ===")
@@ -134,6 +148,15 @@ print(f"\n=== WINE COUNTS PER VALID PRIMARY REGION ===")
 for region in sorted(valid_primary_regions):
     count = primary_region_counts.get(region, 0)
     print(f"{region}: {count} wines")
+
+# Save JSON file
+print(f"\n=== SAVING JSON FILE ===")
+with open('backend/data/regions.json', 'w') as f:
+    json.dump(regions_json, f, indent=2)
+
+print("JSON file saved to: backend/data/regions.json")
+print("\nJSON structure:")
+print(json.dumps(regions_json, indent=2))
 
 
 
