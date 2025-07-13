@@ -48,7 +48,7 @@ export default function CountryScreen() {
         ref={carouselRef}
         loop
         width={screenWidth}
-        height={340} // 300 map + spacing
+        height={600} // 300 map + spacing
         data={countryList}
         scrollAnimationDuration={250}
         onSnapToItem={(index) => setSelectedIndex(index)}
