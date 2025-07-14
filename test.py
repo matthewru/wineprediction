@@ -8,7 +8,10 @@ payload = {
     "region_hierarchy": "US > California > Sonoma County"
 }
 
-r = requests.post("http://localhost:5001/predict-price-lite", json=payload)
+r_price = requests.post("http://localhost:5001/predict-price-lite", json=payload)
+r_rating = requests.post("http://localhost:5001/predict-rating-lite", json=payload)
 
-print(r.status_code)
-print(r.text)
+print(r_price.status_code)
+print(r_price.text)
+print(r_rating.status_code)
+print(r_rating.text)
