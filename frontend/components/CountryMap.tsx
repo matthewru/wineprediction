@@ -13,18 +13,27 @@ import GermanyMap from './maps/GermanyMap';
 import AustriaMap from './maps/AustriaMap';
 import AustraliaMap from './maps/AustraliaMap';
 
-const mapComponents: Record<string, React.ReactNode> = {
-  US: <USMap onRegionClick={() => {}} highlightedRegion="" />,
-  Italy: <ItalyMap onRegionClick={() => {}} highlightedRegion="" />,
-  France: <FranceMap onRegionClick={() => {}} highlightedRegion="" />,
-  Spain: <SpainMap onRegionClick={() => {}} highlightedRegion="" />,
-  Portugal: <PortugalMap onRegionClick={() => {}} highlightedRegion="" />,
-  Chile: <ChileMap onRegionClick={() => {}} highlightedRegion="" />,
-  Argentina: <ArgentinaMap onRegionClick={() => {}} highlightedRegion="" />,
-  Austria: <AustriaMap onRegionClick={() => {}} highlightedRegion="" />,
-  Germany: <GermanyMap onRegionClick={() => {}} highlightedRegion="" />,
-  Australia: <AustraliaMap onRegionClick={() => {}} highlightedRegion="" />,
-};
+export default function CountryMap({ country, highlightedRegion = "" }: { country: string; highlightedRegion?: string }) {
+  const mapComponents: Record<string, React.ReactNode> = {
+    US: <USMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+    Italy: <ItalyMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+    France: <FranceMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+    Spain: <SpainMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+    Portugal: <PortugalMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+    Chile: <ChileMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+    Argentina: <ArgentinaMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+    Austria: <AustriaMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+    Germany: <GermanyMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+    Australia: <AustraliaMap onRegionClick={() => {}} highlightedRegion={highlightedRegion} />,
+  };
+
+  const MapComponent = mapComponents[country];
+  return (
+    <MapWrapper>
+      {MapComponent || <PlaceholderMap country={country} />}
+    </MapWrapper>
+  );
+}
 
 const MapWrapper = ({ children }: { children: React.ReactNode }) => (
   <View
@@ -41,15 +50,6 @@ const MapWrapper = ({ children }: { children: React.ReactNode }) => (
     {children}
   </View>
 );
-
-export default function CountryMap({ country }: { country: string }) {
-  const MapComponent = mapComponents[country];
-  return (
-    <MapWrapper>
-      {MapComponent || <PlaceholderMap country={country} />}
-    </MapWrapper>
-  );
-}
 
 function PlaceholderMap({ country }: { country: string }) {
   return (

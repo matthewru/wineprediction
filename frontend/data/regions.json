@@ -1,0 +1,442 @@
+{
+  "Chile": {
+    "Aconcagua Valley": [
+      "Unknown"
+    ],
+    "Cachapoal Valley": [
+      "Unknown"
+    ],
+    "Casablanca Valley": [
+      "Unknown"
+    ],
+    "Central Valley": [
+      "Unknown"
+    ],
+    "Colchagua Valley": [
+      "Unknown"
+    ],
+    "Curic\u00f3 Valley": [
+      "Unknown"
+    ],
+    "Leyda Valley": [
+      "Unknown"
+    ],
+    "Limar\u00ed Valley": [
+      "Unknown"
+    ],
+    "Maipo Valley": [
+      "Unknown"
+    ],
+    "Maule Valley": [
+      "Unknown"
+    ],
+    "Rapel Valley": [
+      "Unknown"
+    ],
+    "San Antonio": [
+      "Unknown"
+    ]
+  },
+  "Portugal": {
+    "Alentejano": [
+      "Unknown"
+    ],
+    "Alentejo": [
+      "Unknown"
+    ],
+    "Bairrada": [
+      "Unknown"
+    ],
+    "Douro": [
+      "Unknown"
+    ],
+    "D\u00e3o": [
+      "Unknown"
+    ],
+    "Lisboa": [
+      "Unknown"
+    ],
+    "Pen\u00ednsula de Set\u00fabal": [
+      "Unknown"
+    ],
+    "Port": [
+      "Unknown"
+    ],
+    "Tejo": [
+      "Unknown"
+    ],
+    "Vinho Verde": [
+      "Unknown"
+    ]
+  },
+  "France": {
+    "Alsace": [
+      "Alsace",
+      "Cr\u00e9mant d'Alsace"
+    ],
+    "Beaujolais": [
+      "Beaujolais-Villages",
+      "Morgon",
+      "Beaujolais",
+      "Fleurie",
+      "Moulin-\u00e0-Vent",
+      "Brouilly"
+    ],
+    "Bordeaux": [
+      "Bordeaux",
+      "Blaye C\u00f4tes de Bordeaux",
+      "Bordeaux Sup\u00e9rieur",
+      "Bordeaux Blanc",
+      "Bordeaux Ros\u00e9",
+      "Saint-\u00c9milion"
+    ],
+    "Burgundy": [
+      "Chablis",
+      "Pouilly-Fuiss\u00e9",
+      "Beaune",
+      "Bourgogne",
+      "Mercurey",
+      "Meursault"
+    ],
+    "Champagne": [
+      "Champagne"
+    ],
+    "France Other": [
+      "Vin de France",
+      "Vin Mousseux",
+      "Mediterran\u00e9e",
+      "Arbois",
+      "Ile de Beaut\u00e9",
+      "Savoie"
+    ],
+    "Languedoc-Roussillon": [
+      "Pays d'Oc",
+      "Vin de Pays d'Oc",
+      "Coteaux du Languedoc",
+      "Corbi\u00e8res",
+      "Minervois",
+      "Languedoc"
+    ],
+    "Loire Valley": [
+      "Sancerre",
+      "Muscadet S\u00e8vre et Maine",
+      "Vouvray",
+      "Pouilly-Fum\u00e9",
+      "Touraine",
+      "Menetou-Salon"
+    ],
+    "Provence": [
+      "C\u00f4tes de Provence",
+      "Coteaux d'Aix-en-Provence",
+      "Bandol",
+      "Coteaux Varois en Provence",
+      "C\u00f4tes de Provence Sainte-Victoire",
+      "Les Baux de Provence"
+    ],
+    "Rh\u00f4ne Valley": [
+      "C\u00f4tes du Rh\u00f4ne",
+      "Ch\u00e2teauneuf-du-Pape",
+      "Costi\u00e8res de N\u00eemes",
+      "C\u00f4tes du Rh\u00f4ne Villages",
+      "Crozes-Hermitage",
+      "Cornas"
+    ],
+    "Southwest France": [
+      "Cahors",
+      "C\u00f4tes de Gascogne",
+      "Gaillac",
+      "Madiran",
+      "Fronton",
+      "Bergerac Sec"
+    ]
+  },
+  "Spain": {
+    "Andalucia": [
+      "Jerez",
+      "M\u00e1laga",
+      "Montilla-Moriles",
+      "Manzanilla-Sanl\u00facar de Barrameda",
+      "Vino de la Tierra de C\u00e1diz",
+      "Unknown"
+    ],
+    "Catalonia": [
+      "Cava",
+      "Priorat",
+      "Pened\u00e8s",
+      "Montsant",
+      "Terra Alta",
+      "Catalunya"
+    ],
+    "Central Spain": [
+      "Vino de la Tierra de Castilla",
+      "La Mancha",
+      "Valdepe\u00f1as",
+      "Dominio de Valdepusa",
+      "Almansa",
+      "Ucl\u00e9s"
+    ],
+    "Galicia": [
+      "R\u00edas Baixas",
+      "Ribeira Sacra",
+      "Ribeiro",
+      "Monterrei"
+    ],
+    "Levante": [
+      "Jumilla",
+      "Alicante",
+      "Valencia",
+      "Utiel-Requena",
+      "Yecla",
+      "Vino de la Tierra de Castell\u00f3"
+    ],
+    "Northern Spain": [
+      "Rioja",
+      "Ribera del Duero",
+      "Toro",
+      "Navarra",
+      "Rueda",
+      "Cari\u00f1ena"
+    ]
+  },
+  "Australia": {
+    "Australia Other": [
+      "South Eastern Australia",
+      "Australia",
+      "Central Ranges"
+    ],
+    "New South Wales": [
+      "Hunter Valley",
+      "New South Wales",
+      "Riverina",
+      "Mudgee",
+      "Orange",
+      "Gundagai"
+    ],
+    "South Australia": [
+      "McLaren Vale",
+      "Barossa Valley",
+      "South Australia",
+      "Barossa",
+      "Clare Valley",
+      "Adelaide Hills"
+    ],
+    "Victoria": [
+      "Yarra Valley",
+      "Victoria",
+      "Rutherglen",
+      "Heathcote",
+      "Mornington Peninsula",
+      "Pyrenees"
+    ],
+    "Western Australia": [
+      "Margaret River",
+      "Western Australia",
+      "Frankland River",
+      "Great Southern",
+      "Pemberton",
+      "Geographe"
+    ]
+  },
+  "Germany": {
+    "Baden": [
+      "Unknown"
+    ],
+    "Mosel": [
+      "Unknown"
+    ],
+    "Mosel-Saar-Ruwer": [
+      "Unknown"
+    ],
+    "Nahe": [
+      "Unknown"
+    ],
+    "Pfalz": [
+      "Unknown"
+    ],
+    "Rheingau": [
+      "Unknown"
+    ],
+    "Rheinhessen": [
+      "Unknown"
+    ]
+  },
+  "Austria": {
+    "Burgenland": [
+      "Unknown"
+    ],
+    "Carnuntum": [
+      "Unknown"
+    ],
+    "Kamptal": [
+      "Unknown"
+    ],
+    "Kremstal": [
+      "Unknown"
+    ],
+    "Nieder\u00f6sterreich": [
+      "Unknown"
+    ],
+    "S\u00fcdsteiermark": [
+      "Unknown"
+    ],
+    "Thermenregion": [
+      "Unknown"
+    ],
+    "Wachau": [
+      "Unknown"
+    ],
+    "Wagram": [
+      "Unknown"
+    ],
+    "Weinviertel": [
+      "Unknown"
+    ],
+    "\u00d6sterreichischer Sekt": [
+      "Unknown"
+    ]
+  },
+  "US": {
+    "California": [
+      "Napa Valley",
+      "Russian River Valley",
+      "Paso Robles",
+      "California",
+      "Sonoma Coast",
+      "Sta. Rita Hills"
+    ],
+    "Colorado": [
+      "Grand Valley",
+      "Colorado"
+    ],
+    "Michigan": [
+      "Old Mission Peninsula",
+      "Lake Michigan Shore",
+      "Leelanau Peninsula",
+      "Michigan"
+    ],
+    "Missouri": [
+      "Missouri",
+      "Augusta"
+    ],
+    "New York": [
+      "Finger Lakes",
+      "North Fork of Long Island",
+      "New York",
+      "Seneca Lake",
+      "Hudson River Region",
+      "Long Island"
+    ],
+    "Oregon": [
+      "Willamette Valley",
+      "Dundee Hills",
+      "Chehalem Mountains",
+      "Eola-Amity Hills",
+      "Oregon",
+      "Rogue Valley"
+    ],
+    "Texas": [
+      "Texas",
+      "Texas High Plains",
+      "Unknown"
+    ],
+    "Virginia": [
+      "Virginia",
+      "Monticello",
+      "Middleburg",
+      "Shenandoah Valley",
+      "Virginia's Eastern Shore"
+    ],
+    "Washington": [
+      "Columbia Valley (WA)",
+      "Walla Walla Valley (WA)",
+      "Yakima Valley",
+      "Red Mountain",
+      "Horse Heaven Hills",
+      "Wahluke Slope"
+    ]
+  },
+  "Italy": {
+    "Central Italy": [
+      "Montepulciano d'Abruzzo",
+      "Umbria",
+      "Verdicchio dei Castelli di Jesi Classico Superiore",
+      "Romagna",
+      "Verdicchio dei Castelli di Jesi Classico",
+      "Montefalco Sagrantino"
+    ],
+    "Lombardy": [
+      "Franciacorta",
+      "Lugana",
+      "Valtellina Superiore",
+      "Sforzato di Valtellina",
+      "Terrazze Retiche di Sondrio",
+      "Curtefranca"
+    ],
+    "Northeastern Italy": [
+      "Alto Adige",
+      "Collio",
+      "Trento",
+      "Colli Orientali del Friuli",
+      "Trentino",
+      "Venezia Giulia"
+    ],
+    "Piedmont": [
+      "Barolo",
+      "Barbaresco",
+      "Barbera d'Alba",
+      "Barbera d'Asti",
+      "Barbera d'Asti Superiore",
+      "Langhe"
+    ],
+    "Sicily & Sardinia": [
+      "Sicilia",
+      "Etna",
+      "Terre Siciliane",
+      "Isola dei Nuraghi",
+      "Vermentino di Sardegna",
+      "Cannonau di Sardegna"
+    ],
+    "Southern Italy": [
+      "Salento",
+      "Taurasi",
+      "Puglia",
+      "Aglianico del Vulture",
+      "Irpinia",
+      "Fiano di Avellino"
+    ],
+    "Tuscany": [
+      "Toscana",
+      "Chianti Classico",
+      "Brunello di Montalcino",
+      "Bolgheri",
+      "Vino Nobile di Montepulciano",
+      "Morellino di Scansano"
+    ],
+    "Veneto": [
+      "Amarone della Valpolicella Classico",
+      "Conegliano Valdobbiadene Prosecco Superiore",
+      "Valdobbiadene Prosecco Superiore",
+      "Prosecco",
+      "Veneto",
+      "Soave Classico"
+    ]
+  },
+  "Argentina": {
+    "Mendoza Province": [
+      "Mendoza",
+      "Uco Valley",
+      "Tupungato",
+      "Luj\u00e1n de Cuyo",
+      "Valle de Uco",
+      "Agrelo"
+    ],
+    "Other": [
+      "Cafayate",
+      "Salta",
+      "San Juan",
+      "Patagonia",
+      "Calchaqu\u00ed Valley",
+      "Neuqu\u00e9n"
+    ]
+  }
+}
