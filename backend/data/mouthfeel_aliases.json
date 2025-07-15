@@ -1,0 +1,28 @@
+{
+  "tannic": [
+    "tannins",
+    "grippy",
+    "astringent",
+    "tight"
+  ],
+  "acidic": [
+    "acidity",
+    "zippy",
+    "crisp",
+    "sharp"
+  ],
+  "soft": [
+    "soft",
+    "buttery",
+    "silky",
+    "smooth",
+    "velvety"
+  ],
+  "rich": [
+    "rich",
+    "creamy",
+    "dense",
+    "full-bodied",
+    "heavy"
+  ]
+}

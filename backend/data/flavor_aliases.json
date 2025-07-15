@@ -1,0 +1,37 @@
+{
+  "fruit": [
+    "fruit",
+    "fruits",
+    "cherry",
+    "berry",
+    "blackberry",
+    "plum",
+    "apple",
+    "ripe"
+  ],
+  "spice": [
+    "spice",
+    "pepper",
+    "clove",
+    "cinnamon"
+  ],
+  "oak": [
+    "oak",
+    "vanilla",
+    "toast",
+    "smoky"
+  ],
+  "earth": [
+    "earthy",
+    "mushroom",
+    "truffle",
+    "soil"
+  ],
+  "citrus": [
+    "lemon",
+    "lime",
+    "orange",
+    "grapefruit",
+    "citrus"
+  ]
+}

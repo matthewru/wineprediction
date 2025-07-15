@@ -1,0 +1,3707 @@
+{
+  "mouthfeel": {
+    "acid": [
+      "acid",
+      "acided",
+      "aciding",
+      "acidly",
+      "acids",
+      "acidy"
+    ],
+    "acidic": [
+      "acidic",
+      "acidiced",
+      "acidicing",
+      "acidicly",
+      "acidics",
+      "acidicy"
+    ],
+    "acidity": [
+      "acidities",
+      "acidity",
+      "acidityed",
+      "aciditying",
+      "acidityly",
+      "aciditys"
+    ],
+    "acids": [
+      "acid",
+      "acids",
+      "acidsed",
+      "acidsing",
+      "acidsly",
+      "acidsy"
+    ],
+    "astringent": [
+      "astringent",
+      "astringented",
+      "astringenting",
+      "astringently",
+      "astringents",
+      "astringenty"
+    ],
+    "balanced": [
+      "balanced",
+      "balanceding",
+      "balancedly",
+      "balanceds",
+      "balancedy"
+    ],
+    "bold": [
+      "bold",
+      "bolded",
+      "bolding",
+      "boldly",
+      "bolds",
+      "boldy"
+    ],
+    "brisk": [
+      "brisk",
+      "brisked",
+      "brisking",
+      "briskly",
+      "brisks",
+      "brisky"
+    ],
+    "broad": [
+      "broad",
+      "broaded",
+      "broading",
+      "broadly",
+      "broads",
+      "broady"
+    ],
+    "chalky": [
+      "chalkies",
+      "chalky",
+      "chalkyed",
+      "chalkying",
+      "chalkyly",
+      "chalkys"
+    ],
+    "chewy": [
+      "chewies",
+      "chewy",
+      "chewyed",
+      "chewying",
+      "chewyly",
+      "chewys"
+    ],
+    "clean": [
+      "clean",
+      "cleaned",
+      "cleaning",
+      "cleanly",
+      "cleans",
+      "cleany"
+    ],
+    "complex": [
+      "complex",
+      "complexed",
+      "complexing",
+      "complexly",
+      "complexs",
+      "complexy"
+    ],
+    "complexity": [
+      "complexities",
+      "complexity",
+      "complexityed",
+      "complexitying",
+      "complexityly",
+      "complexitys"
+    ],
+    "concentrated": [
+      "concentrated",
+      "concentrateding",
+      "concentratedly",
+      "concentrateds",
+      "concentratedy"
+    ],
+    "concentration": [
+      "concentration",
+      "concentrationed",
+      "concentrationing",
+      "concentrationly",
+      "concentrations",
+      "concentrationy"
+    ],
+    "cream": [
+      "cream",
+      "creamed",
+      "creaming",
+      "creamly",
+      "creams",
+      "creamy"
+    ],
+    "creamy": [
+      "creamies",
+      "creamy",
+      "creamyed",
+      "creamying",
+      "creamyly",
+      "creamys"
+    ],
+    "crisp": [
+      "crisp",
+      "crisped",
+      "crisping",
+      "crisply",
+      "crisps",
+      "crispy"
+    ],
+    "crispness": [
+      "crispness",
+      "crispnessed",
+      "crispnessing",
+      "crispnessly",
+      "crispnesss",
+      "crispnessy"
+    ],
+    "dense": [
+      "dense",
+      "densed",
+      "denseing",
+      "densely",
+      "denses"
+    ],
+    "depth": [
+      "depth",
+      "depthed",
+      "depthing",
+      "depthly",
+      "depths",
+      "depthy"
+    ],
+    "dry": [
+      "dries",
+      "dry",
+      "dryed",
+      "dryly",
+      "drys"
+    ],
+    "drying": [
+      "drying",
+      "dryinged",
+      "dryingly",
+      "dryings",
+      "dryingy"
+    ],
+    "dryness": [
+      "dryness",
+      "drynessed",
+      "drynessing",
+      "drynessly",
+      "drynesss",
+      "drynessy"
+    ],
+    "elegant": [
+      "elegant",
+      "eleganted",
+      "eleganting",
+      "elegantly",
+      "elegants",
+      "eleganty"
+    ],
+    "fresh": [
+      "fresh",
+      "freshed",
+      "freshing",
+      "freshly",
+      "freshs",
+      "freshy"
+    ],
+    "freshly": [
+      "freshlies",
+      "freshly",
+      "freshlyed",
+      "freshlying",
+      "freshlys"
+    ],
+    "freshness": [
+      "freshness",
+      "freshnessed",
+      "freshnessing",
+      "freshnessly",
+      "freshnesss",
+      "freshnessy"
+    ],
+    "full": [
+      "full",
+      "fulled",
+      "fulling",
+      "fullly",
+      "fulls",
+      "fully"
+    ],
+    "grained": [
+      "grained",
+      "graineding",
+      "grainedly",
+      "graineds",
+      "grainedy"
+    ],
+    "grip": [
+      "grip",
+      "griped",
+      "griping",
+      "griply",
+      "grips",
+      "gripy"
+    ],
+    "grippy": [
+      "grippies",
+      "grippy",
+      "grippyed",
+      "grippying",
+      "grippyly",
+      "grippys"
+    ],
+    "heavy": [
+      "heavies",
+      "heavy",
+      "heavyed",
+      "heavying",
+      "heavyly",
+      "heavys"
+    ],
+    "intense": [
+      "intense",
+      "intensed",
+      "intenseing",
+      "intensely",
+      "intenses"
+    ],
+    "intensely": [
+      "intenselies",
+      "intensely",
+      "intenselyed",
+      "intenselying",
+      "intenselys"
+    ],
+    "intensity": [
+      "intensities",
+      "intensity",
+      "intensityed",
+      "intensitying",
+      "intensityly",
+      "intensitys"
+    ],
+    "juicy": [
+      "juicies",
+      "juicy",
+      "juicyed",
+      "juicying",
+      "juicyly",
+      "juicys"
+    ],
+    "lasting": [
+      "lasting",
+      "lastinged",
+      "lastingly",
+      "lastings",
+      "lastingy"
+    ],
+    "layered": [
+      "layered",
+      "layereding",
+      "layeredly",
+      "layereds",
+      "layeredy"
+    ],
+    "layers": [
+      "layer",
+      "layers",
+      "layersed",
+      "layersing",
+      "layersly",
+      "layersy"
+    ],
+    "lean": [
+      "lean",
+      "leaned",
+      "leaning",
+      "leanly",
+      "leans",
+      "leany"
+    ],
+    "light": [
+      "light",
+      "lighted",
+      "lighting",
+      "lightly",
+      "lights",
+      "lighty"
+    ],
+    "lighter": [
+      "lighter",
+      "lightered",
+      "lightering",
+      "lighterly",
+      "lighters",
+      "lightery"
+    ],
+    "lingering": [
+      "lingering",
+      "lingeringed",
+      "lingeringly",
+      "lingerings",
+      "lingeringy"
+    ],
+    "lingers": [
+      "linger",
+      "lingers",
+      "lingersed",
+      "lingersing",
+      "lingersly",
+      "lingersy"
+    ],
+    "long": [
+      "long",
+      "longed",
+      "longing",
+      "longly",
+      "longs",
+      "longy"
+    ],
+    "lush": [
+      "lush",
+      "lushed",
+      "lushing",
+      "lushly",
+      "lushs",
+      "lushy"
+    ],
+    "medium": [
+      "medium",
+      "mediumed",
+      "mediuming",
+      "mediumly",
+      "mediums",
+      "mediumy"
+    ],
+    "mineral": [
+      "mineral",
+      "mineraled",
+      "mineraling",
+      "minerally",
+      "minerals",
+      "mineraly"
+    ],
+    "minerality": [
+      "mineralities",
+      "minerality",
+      "mineralityed",
+      "mineralitying",
+      "mineralityly",
+      "mineralitys"
+    ],
+    "minerally": [
+      "minerallies",
+      "minerally",
+      "minerallyed",
+      "minerallying",
+      "minerallys"
+    ],
+    "minerals": [
+      "mineral",
+      "minerals",
+      "mineralsed",
+      "mineralsing",
+      "mineralsly",
+      "mineralsy"
+    ],
+    "mouthwatering": [
+      "mouthwatering",
+      "mouthwateringed",
+      "mouthwateringly",
+      "mouthwaterings",
+      "mouthwateringy"
+    ],
+    "plump": [
+      "plump",
+      "plumped",
+      "plumping",
+      "plumply",
+      "plumps",
+      "plumpy"
+    ],
+    "plush": [
+      "plush",
+      "plushed",
+      "plushing",
+      "plushly",
+      "plushs",
+      "plushy"
+    ],
+    "power": [
+      "power",
+      "powered",
+      "powering",
+      "powerly",
+      "powers",
+      "powery"
+    ],
+    "powerful": [
+      "powerful",
+      "powerfuled",
+      "powerfuling",
+      "powerfully",
+      "powerfuls",
+      "powerfuly"
+    ],
+    "refreshing": [
+      "refreshing",
+      "refreshinged",
+      "refreshingly",
+      "refreshings",
+      "refreshingy"
+    ],
+    "rich": [
+      "rich",
+      "riched",
+      "riching",
+      "richly",
+      "richs",
+      "richy"
+    ],
+    "richer": [
+      "richer",
+      "richered",
+      "richering",
+      "richerly",
+      "richers",
+      "richery"
+    ],
+    "richness": [
+      "richness",
+      "richnessed",
+      "richnessing",
+      "richnessly",
+      "richnesss",
+      "richnessy"
+    ],
+    "rough": [
+      "rough",
+      "roughed",
+      "roughing",
+      "roughly",
+      "roughs",
+      "roughy"
+    ],
+    "silky": [
+      "silkies",
+      "silky",
+      "silkyed",
+      "silkying",
+      "silkyly",
+      "silkys"
+    ],
+    "slate": [
+      "slate",
+      "slated",
+      "slateing",
+      "slately",
+      "slates"
+    ],
+    "slight": [
+      "slight",
+      "slighted",
+      "slighting",
+      "slightly",
+      "slights",
+      "slighty"
+    ],
+    "smooth": [
+      "smooth",
+      "smoothed",
+      "smoothing",
+      "smoothly",
+      "smooths",
+      "smoothy"
+    ],
+    "soft": [
+      "soft",
+      "softed",
+      "softing",
+      "softly",
+      "softs",
+      "softy"
+    ],
+    "softly": [
+      "softlies",
+      "softly",
+      "softlyed",
+      "softlying",
+      "softlys"
+    ],
+    "softness": [
+      "softness",
+      "softnessed",
+      "softnessing",
+      "softnessly",
+      "softnesss",
+      "softnessy"
+    ],
+    "steely": [
+      "steelies",
+      "steely",
+      "steelyed",
+      "steelying",
+      "steelys"
+    ],
+    "stone": [
+      "stone",
+      "stoned",
+      "stoneing",
+      "stonely",
+      "stones"
+    ],
+    "stony": [
+      "stonies",
+      "stony",
+      "stonyed",
+      "stonying",
+      "stonyly",
+      "stonys"
+    ],
+    "structured": [
+      "structured",
+      "structureding",
+      "structuredly",
+      "structureds",
+      "structuredy"
+    ],
+    "sugar": [
+      "sugar",
+      "sugared",
+      "sugaring",
+      "sugarly",
+      "sugars",
+      "sugary"
+    ],
+    "sugary": [
+      "sugaries",
+      "sugary",
+      "sugaryed",
+      "sugarying",
+      "sugaryly",
+      "sugarys"
+    ],
+    "sweet": [
+      "sweet",
+      "sweeted",
+      "sweeting",
+      "sweetly",
+      "sweets",
+      "sweety"
+    ],
+    "sweetness": [
+      "sweetness",
+      "sweetnessed",
+      "sweetnessing",
+      "sweetnessly",
+      "sweetnesss",
+      "sweetnessy"
+    ],
+    "tannin": [
+      "tannin",
+      "tannined",
+      "tannining",
+      "tanninly",
+      "tannins",
+      "tanniny"
+    ],
+    "tannins": [
+      "tannin",
+      "tannins",
+      "tanninsed",
+      "tanninsing",
+      "tanninsly",
+      "tanninsy"
+    ],
+    "taut": [
+      "taut",
+      "tauted",
+      "tauting",
+      "tautly",
+      "tauts",
+      "tauty"
+    ],
+    "textured": [
+      "textured",
+      "textureding",
+      "texturedly",
+      "textureds",
+      "texturedy"
+    ],
+    "thick": [
+      "thick",
+      "thicked",
+      "thicking",
+      "thickly",
+      "thicks",
+      "thicky"
+    ],
+    "thin": [
+      "thin",
+      "thined",
+      "thining",
+      "thinly",
+      "thins",
+      "thiny"
+    ],
+    "tight": [
+      "tight",
+      "tighted",
+      "tighting",
+      "tightly",
+      "tights",
+      "tighty"
+    ],
+    "velvety": [
+      "velveties",
+      "velvety",
+      "velvetyed",
+      "velvetying",
+      "velvetyly",
+      "velvetys"
+    ],
+    "vibrant": [
+      "vibrant",
+      "vibranted",
+      "vibranting",
+      "vibrantly",
+      "vibrants",
+      "vibranty"
+    ],
+    "weight": [
+      "weight",
+      "weighted",
+      "weighting",
+      "weightly",
+      "weights",
+      "weighty"
+    ],
+    "zest": [
+      "zest",
+      "zested",
+      "zesting",
+      "zestly",
+      "zests",
+      "zesty"
+    ],
+    "zesty": [
+      "zesties",
+      "zesty",
+      "zestyed",
+      "zestying",
+      "zestyly",
+      "zestys"
+    ]
+  },
+  "flavor": {
+    "aftertaste": [
+      "aftertaste",
+      "aftertasted",
+      "aftertasteing",
+      "aftertastely",
+      "aftertastes"
+    ],
+    "aged": [
+      "aged",
+      "ageding",
+      "agedly",
+      "ageds",
+      "agedy"
+    ],
+    "aging": [
+      "aging",
+      "aginged",
+      "agingly",
+      "agings",
+      "agingy"
+    ],
+    "almond": [
+      "almond",
+      "almonded",
+      "almonding",
+      "almondly",
+      "almonds",
+      "almondy"
+    ],
+    "ample": [
+      "ample",
+      "ampled",
+      "ampleing",
+      "amplely",
+      "amples"
+    ],
+    "anise": [
+      "anise",
+      "anised",
+      "aniseing",
+      "anisely",
+      "anises"
+    ],
+    "appellation": [
+      "appellation",
+      "appellationed",
+      "appellationing",
+      "appellationly",
+      "appellations",
+      "appellationy"
+    ],
+    "appetizing": [
+      "appetizing",
+      "appetizinged",
+      "appetizingly",
+      "appetizings",
+      "appetizingy"
+    ],
+    "apple": [
+      "apple",
+      "appled",
+      "appleing",
+      "applely",
+      "apples"
+    ],
+    "apples": [
+      "apple",
+      "apples",
+      "applesed",
+      "applesing",
+      "applesly",
+      "applesy"
+    ],
+    "approachable": [
+      "approachable",
+      "approachabled",
+      "approachableing",
+      "approachablely",
+      "approachables"
+    ],
+    "apricot": [
+      "apricot",
+      "apricoted",
+      "apricoting",
+      "apricotly",
+      "apricots",
+      "apricoty"
+    ],
+    "apricots": [
+      "apricot",
+      "apricots",
+      "apricotsed",
+      "apricotsing",
+      "apricotsly",
+      "apricotsy"
+    ],
+    "ap\u00e9ritif": [
+      "ap\u00e9ritif",
+      "ap\u00e9ritifed",
+      "ap\u00e9ritifing",
+      "ap\u00e9ritifly",
+      "ap\u00e9ritifs",
+      "ap\u00e9ritify"
+    ],
+    "aroma": [
+      "aroma",
+      "aromaed",
+      "aromaing",
+      "aromaly",
+      "aromas",
+      "aromay"
+    ],
+    "aromatic": [
+      "aromatic",
+      "aromaticed",
+      "aromaticing",
+      "aromaticly",
+      "aromatics",
+      "aromaticy"
+    ],
+    "aromatics": [
+      "aromatic",
+      "aromatics",
+      "aromaticsed",
+      "aromaticsing",
+      "aromaticsly",
+      "aromaticsy"
+    ],
+    "asian": [
+      "asian",
+      "asianed",
+      "asianing",
+      "asianly",
+      "asians",
+      "asiany"
+    ],
+    "austere": [
+      "austere",
+      "austered",
+      "austereing",
+      "austerely",
+      "austeres"
+    ],
+    "backbone": [
+      "backbone",
+      "backboned",
+      "backboneing",
+      "backbonely",
+      "backbones"
+    ],
+    "backed": [
+      "backed",
+      "backeding",
+      "backedly",
+      "backeds",
+      "backedy"
+    ],
+    "background": [
+      "background",
+      "backgrounded",
+      "backgrounding",
+      "backgroundly",
+      "backgrounds",
+      "backgroundy"
+    ],
+    "bacon": [
+      "bacon",
+      "baconed",
+      "baconing",
+      "baconly",
+      "bacons",
+      "bacony"
+    ],
+    "baked": [
+      "baked",
+      "bakeding",
+      "bakedly",
+      "bakeds",
+      "bakedy"
+    ],
+    "balsamic": [
+      "balsamic",
+      "balsamiced",
+      "balsamicing",
+      "balsamicly",
+      "balsamics",
+      "balsamicy"
+    ],
+    "banana": [
+      "banana",
+      "bananaed",
+      "bananaing",
+      "bananaly",
+      "bananas",
+      "bananay"
+    ],
+    "barbecue": [
+      "barbecue",
+      "barbecued",
+      "barbecueing",
+      "barbecuely",
+      "barbecues"
+    ],
+    "barrel": [
+      "barrel",
+      "barreled",
+      "barreling",
+      "barrelly",
+      "barrels",
+      "barrely"
+    ],
+    "barrels": [
+      "barrel",
+      "barrels",
+      "barrelsed",
+      "barrelsing",
+      "barrelsly",
+      "barrelsy"
+    ],
+    "bean": [
+      "bean",
+      "beaned",
+      "beaning",
+      "beanly",
+      "beans",
+      "beany"
+    ],
+    "beautiful": [
+      "beautiful",
+      "beautifuled",
+      "beautifuling",
+      "beautifully",
+      "beautifuls",
+      "beautifuly"
+    ],
+    "beef": [
+      "beef",
+      "beefed",
+      "beefing",
+      "beefly",
+      "beefs",
+      "beefy"
+    ],
+    "berries": [
+      "berrie",
+      "berries",
+      "berriesed",
+      "berriesing",
+      "berriesly",
+      "berriesy",
+      "berry"
+    ],
+    "berry": [
+      "berries",
+      "berry",
+      "berryed",
+      "berrying",
+      "berryly",
+      "berrys"
+    ],
+    "bite": [
+      "bite",
+      "bited",
+      "biteing",
+      "bitely",
+      "bites"
+    ],
+    "bitter": [
+      "bitter",
+      "bittered",
+      "bittering",
+      "bitterly",
+      "bitters",
+      "bittery"
+    ],
+    "bitterness": [
+      "bitterness",
+      "bitternessed",
+      "bitternessing",
+      "bitternessly",
+      "bitternesss",
+      "bitternessy"
+    ],
+    "black": [
+      "black",
+      "blacked",
+      "blacking",
+      "blackly",
+      "blacks",
+      "blacky"
+    ],
+    "blackberries": [
+      "blackberrie",
+      "blackberries",
+      "blackberriesed",
+      "blackberriesing",
+      "blackberriesly",
+      "blackberriesy",
+      "blackberry"
+    ],
+    "blackberry": [
+      "blackberries",
+      "blackberry",
+      "blackberryed",
+      "blackberrying",
+      "blackberryly",
+      "blackberrys"
+    ],
+    "blend": [
+      "blend",
+      "blended",
+      "blending",
+      "blendly",
+      "blends",
+      "blendy"
+    ],
+    "blended": [
+      "blended",
+      "blendeding",
+      "blendedly",
+      "blendeds",
+      "blendedy"
+    ],
+    "blossom": [
+      "blossom",
+      "blossomed",
+      "blossoming",
+      "blossomly",
+      "blossoms",
+      "blossomy"
+    ],
+    "blue": [
+      "blue",
+      "blued",
+      "blueing",
+      "bluely",
+      "blues"
+    ],
+    "blueberry": [
+      "blueberries",
+      "blueberry",
+      "blueberryed",
+      "blueberrying",
+      "blueberryly",
+      "blueberrys"
+    ],
+    "bone": [
+      "bone",
+      "boned",
+      "boneing",
+      "bonely",
+      "bones"
+    ],
+    "bordeaux": [
+      "bordeaux",
+      "bordeauxed",
+      "bordeauxing",
+      "bordeauxly",
+      "bordeauxs",
+      "bordeauxy"
+    ],
+    "bouquet": [
+      "bouquet",
+      "bouqueted",
+      "bouqueting",
+      "bouquetly",
+      "bouquets",
+      "bouquety"
+    ],
+    "boysenberry": [
+      "boysenberries",
+      "boysenberry",
+      "boysenberryed",
+      "boysenberrying",
+      "boysenberryly",
+      "boysenberrys"
+    ],
+    "bramble": [
+      "bramble",
+      "brambled",
+      "brambleing",
+      "bramblely",
+      "brambles"
+    ],
+    "brambly": [
+      "bramblies",
+      "brambly",
+      "bramblyed",
+      "bramblying",
+      "bramblys"
+    ],
+    "bread": [
+      "bread",
+      "breaded",
+      "breading",
+      "breadly",
+      "breads",
+      "bready"
+    ],
+    "bright": [
+      "bright",
+      "brighted",
+      "brighting",
+      "brightly",
+      "brights",
+      "brighty"
+    ],
+    "briny": [
+      "brinies",
+      "briny",
+      "brinyed",
+      "brinying",
+      "brinyly",
+      "brinys"
+    ],
+    "brooding": [
+      "brooding",
+      "broodinged",
+      "broodingly",
+      "broodings",
+      "broodingy"
+    ],
+    "brown": [
+      "brown",
+      "browned",
+      "browning",
+      "brownly",
+      "browns",
+      "browny"
+    ],
+    "bubbles": [
+      "bubble",
+      "bubbles",
+      "bubblesed",
+      "bubblesing",
+      "bubblesly",
+      "bubblesy"
+    ],
+    "burnt": [
+      "burnt",
+      "burnted",
+      "burnting",
+      "burntly",
+      "burnts",
+      "burnty"
+    ],
+    "butter": [
+      "butter",
+      "buttered",
+      "buttering",
+      "butterly",
+      "butters",
+      "buttery"
+    ],
+    "buttered": [
+      "buttered",
+      "buttereding",
+      "butteredly",
+      "buttereds",
+      "butteredy"
+    ],
+    "butterscotch": [
+      "butterscotch",
+      "butterscotched",
+      "butterscotching",
+      "butterscotchly",
+      "butterscotchs",
+      "butterscotchy"
+    ],
+    "buttery": [
+      "butteries",
+      "buttery",
+      "butteryed",
+      "butterying",
+      "butteryly",
+      "butterys"
+    ],
+    "cake": [
+      "cake",
+      "caked",
+      "cakeing",
+      "cakely",
+      "cakes"
+    ],
+    "candied": [
+      "candied",
+      "candieding",
+      "candiedly",
+      "candieds",
+      "candiedy"
+    ],
+    "candy": [
+      "candies",
+      "candy",
+      "candyed",
+      "candying",
+      "candyly",
+      "candys"
+    ],
+    "caramel": [
+      "caramel",
+      "carameled",
+      "carameling",
+      "caramelly",
+      "caramels",
+      "caramely"
+    ],
+    "caramelized": [
+      "caramelized",
+      "caramelizeding",
+      "caramelizedly",
+      "caramelizeds",
+      "caramelizedy"
+    ],
+    "cassis": [
+      "cassi",
+      "cassis",
+      "cassised",
+      "cassising",
+      "cassisly",
+      "cassisy"
+    ],
+    "cedar": [
+      "cedar",
+      "cedared",
+      "cedaring",
+      "cedarly",
+      "cedars",
+      "cedary"
+    ],
+    "char": [
+      "char",
+      "chared",
+      "charing",
+      "charly",
+      "chars",
+      "chary"
+    ],
+    "charred": [
+      "charred",
+      "charreding",
+      "charredly",
+      "charreds",
+      "charredy"
+    ],
+    "cheese": [
+      "cheese",
+      "cheesed",
+      "cheeseing",
+      "cheesely",
+      "cheeses"
+    ],
+    "cherries": [
+      "cherrie",
+      "cherries",
+      "cherriesed",
+      "cherriesing",
+      "cherriesly",
+      "cherriesy",
+      "cherry"
+    ],
+    "cherry": [
+      "cherries",
+      "cherry",
+      "cherryed",
+      "cherrying",
+      "cherryly",
+      "cherrys"
+    ],
+    "chocolate": [
+      "chocolate",
+      "chocolated",
+      "chocolateing",
+      "chocolately",
+      "chocolates"
+    ],
+    "chocolaty": [
+      "chocolaties",
+      "chocolaty",
+      "chocolatyed",
+      "chocolatying",
+      "chocolatyly",
+      "chocolatys"
+    ],
+    "chopped": [
+      "chopped",
+      "choppeding",
+      "choppedly",
+      "choppeds",
+      "choppedy"
+    ],
+    "chunky": [
+      "chunkies",
+      "chunky",
+      "chunkyed",
+      "chunkying",
+      "chunkyly",
+      "chunkys"
+    ],
+    "cigar": [
+      "cigar",
+      "cigared",
+      "cigaring",
+      "cigarly",
+      "cigars",
+      "cigary"
+    ],
+    "cinnamon": [
+      "cinnamon",
+      "cinnamoned",
+      "cinnamoning",
+      "cinnamonly",
+      "cinnamons",
+      "cinnamony"
+    ],
+    "citric": [
+      "citric",
+      "citriced",
+      "citricing",
+      "citricly",
+      "citrics",
+      "citricy"
+    ],
+    "citrus": [
+      "citru",
+      "citrus",
+      "citrused",
+      "citrusing",
+      "citrusly",
+      "citrusy"
+    ],
+    "citrusy": [
+      "citrusies",
+      "citrusy",
+      "citrusyed",
+      "citrusying",
+      "citrusyly",
+      "citrusys"
+    ],
+    "classic": [
+      "classic",
+      "classiced",
+      "classicing",
+      "classicly",
+      "classics",
+      "classicy"
+    ],
+    "clove": [
+      "clove",
+      "cloved",
+      "cloveing",
+      "clovely",
+      "cloves"
+    ],
+    "cocoa": [
+      "cocoa",
+      "cocoaed",
+      "cocoaing",
+      "cocoaly",
+      "cocoas",
+      "cocoay"
+    ],
+    "coconut": [
+      "coconut",
+      "coconuted",
+      "coconuting",
+      "coconutly",
+      "coconuts",
+      "coconuty"
+    ],
+    "coffee": [
+      "coffee",
+      "coffeed",
+      "coffeeing",
+      "coffeely",
+      "coffees"
+    ],
+    "cola": [
+      "cola",
+      "colaed",
+      "colaing",
+      "colaly",
+      "colas",
+      "colay"
+    ],
+    "color": [
+      "color",
+      "colored",
+      "coloring",
+      "colorly",
+      "colors",
+      "colory"
+    ],
+    "colored": [
+      "colored",
+      "coloreding",
+      "coloredly",
+      "coloreds",
+      "coloredy"
+    ],
+    "compact": [
+      "compact",
+      "compacted",
+      "compacting",
+      "compactly",
+      "compacts",
+      "compacty"
+    ],
+    "compelling": [
+      "compelling",
+      "compellinged",
+      "compellingly",
+      "compellings",
+      "compellingy"
+    ],
+    "cool": [
+      "cool",
+      "cooled",
+      "cooling",
+      "coolly",
+      "cools",
+      "cooly"
+    ],
+    "cranberry": [
+      "cranberries",
+      "cranberry",
+      "cranberryed",
+      "cranberrying",
+      "cranberryly",
+      "cranberrys"
+    ],
+    "crushed": [
+      "crushed",
+      "crusheding",
+      "crushedly",
+      "crusheds",
+      "crushedy"
+    ],
+    "cured": [
+      "cured",
+      "cureding",
+      "curedly",
+      "cureds",
+      "curedy"
+    ],
+    "currant": [
+      "currant",
+      "curranted",
+      "curranting",
+      "currantly",
+      "currants",
+      "curranty"
+    ],
+    "currants": [
+      "currant",
+      "currants",
+      "currantsed",
+      "currantsing",
+      "currantsly",
+      "currantsy"
+    ],
+    "cut": [
+      "cut",
+      "cuted",
+      "cutly",
+      "cuts",
+      "cuty"
+    ],
+    "dark": [
+      "dark",
+      "darked",
+      "darking",
+      "darkly",
+      "darks",
+      "darky"
+    ],
+    "deep": [
+      "deep",
+      "deeped",
+      "deeping",
+      "deeply",
+      "deeps",
+      "deepy"
+    ],
+    "delicate": [
+      "delicate",
+      "delicated",
+      "delicateing",
+      "delicately",
+      "delicates"
+    ],
+    "delicious": [
+      "deliciou",
+      "delicious",
+      "delicioused",
+      "deliciousing",
+      "deliciously",
+      "deliciousy"
+    ],
+    "deliciously": [
+      "deliciouslies",
+      "deliciously",
+      "deliciouslyed",
+      "deliciouslying",
+      "deliciouslys"
+    ],
+    "density": [
+      "densities",
+      "density",
+      "densityed",
+      "densitying",
+      "densityly",
+      "densitys"
+    ],
+    "dessert": [
+      "dessert",
+      "desserted",
+      "desserting",
+      "dessertly",
+      "desserts",
+      "desserty"
+    ],
+    "dried": [
+      "dried",
+      "drieding",
+      "driedly",
+      "drieds",
+      "driedy"
+    ],
+    "drinkable": [
+      "drinkable",
+      "drinkabled",
+      "drinkableing",
+      "drinkablely",
+      "drinkables"
+    ],
+    "drunk": [
+      "drunk",
+      "drunked",
+      "drunking",
+      "drunkly",
+      "drunks",
+      "drunky"
+    ],
+    "dusty": [
+      "dusties",
+      "dusty",
+      "dustyed",
+      "dustying",
+      "dustyly",
+      "dustys"
+    ],
+    "earth": [
+      "earth",
+      "earthed",
+      "earthing",
+      "earthly",
+      "earths",
+      "earthy"
+    ],
+    "earthy": [
+      "earthies",
+      "earthy",
+      "earthyed",
+      "earthying",
+      "earthyly",
+      "earthys"
+    ],
+    "easy": [
+      "easies",
+      "easy",
+      "easyed",
+      "easying",
+      "easyly",
+      "easys"
+    ],
+    "edge": [
+      "edge",
+      "edged",
+      "edgeing",
+      "edgely",
+      "edges"
+    ],
+    "elegance": [
+      "elegance",
+      "eleganced",
+      "eleganceing",
+      "elegancely",
+      "elegances"
+    ],
+    "enjoyable": [
+      "enjoyable",
+      "enjoyabled",
+      "enjoyableing",
+      "enjoyablely",
+      "enjoyables"
+    ],
+    "espresso": [
+      "espresso",
+      "espressoed",
+      "espressoing",
+      "espressoly",
+      "espressos",
+      "espressoy"
+    ],
+    "eucalyptus": [
+      "eucalyptu",
+      "eucalyptus",
+      "eucalyptused",
+      "eucalyptusing",
+      "eucalyptusly",
+      "eucalyptusy"
+    ],
+    "exotic": [
+      "exotic",
+      "exoticed",
+      "exoticing",
+      "exoticly",
+      "exotics",
+      "exoticy"
+    ],
+    "expressive": [
+      "expressive",
+      "expressived",
+      "expressiveing",
+      "expressively",
+      "expressives"
+    ],
+    "extracted": [
+      "extracted",
+      "extracteding",
+      "extractedly",
+      "extracteds",
+      "extractedy"
+    ],
+    "fennel": [
+      "fennel",
+      "fenneled",
+      "fenneling",
+      "fennelly",
+      "fennels",
+      "fennely"
+    ],
+    "fermentation": [
+      "fermentation",
+      "fermentationed",
+      "fermentationing",
+      "fermentationly",
+      "fermentations",
+      "fermentationy"
+    ],
+    "fermented": [
+      "fermented",
+      "fermenteding",
+      "fermentedly",
+      "fermenteds",
+      "fermentedy"
+    ],
+    "fig": [
+      "fig",
+      "figed",
+      "figly",
+      "figs",
+      "figy"
+    ],
+    "firm": [
+      "firm",
+      "firmed",
+      "firming",
+      "firmly",
+      "firms",
+      "firmy"
+    ],
+    "flat": [
+      "flat",
+      "flated",
+      "flating",
+      "flatly",
+      "flats",
+      "flaty"
+    ],
+    "flavorful": [
+      "flavorful",
+      "flavorfuled",
+      "flavorfuling",
+      "flavorfully",
+      "flavorfuls",
+      "flavorfuly"
+    ],
+    "flesh": [
+      "flesh",
+      "fleshed",
+      "fleshing",
+      "fleshly",
+      "fleshs",
+      "fleshy"
+    ],
+    "fleshy": [
+      "fleshies",
+      "fleshy",
+      "fleshyed",
+      "fleshying",
+      "fleshyly",
+      "fleshys"
+    ],
+    "floral": [
+      "floral",
+      "floraled",
+      "floraling",
+      "florally",
+      "florals",
+      "floraly"
+    ],
+    "flower": [
+      "flower",
+      "flowered",
+      "flowering",
+      "flowerly",
+      "flowers",
+      "flowery"
+    ],
+    "flowers": [
+      "flower",
+      "flowers",
+      "flowersed",
+      "flowersing",
+      "flowersly",
+      "flowersy"
+    ],
+    "focused": [
+      "focused",
+      "focuseding",
+      "focusedly",
+      "focuseds",
+      "focusedy"
+    ],
+    "food": [
+      "food",
+      "fooded",
+      "fooding",
+      "foodly",
+      "foods",
+      "foody"
+    ],
+    "forest": [
+      "forest",
+      "forested",
+      "foresting",
+      "forestly",
+      "forests",
+      "foresty"
+    ],
+    "forward": [
+      "forward",
+      "forwarded",
+      "forwarding",
+      "forwardly",
+      "forwards",
+      "forwardy"
+    ],
+    "fragrant": [
+      "fragrant",
+      "fragranted",
+      "fragranting",
+      "fragrantly",
+      "fragrants",
+      "fragranty"
+    ],
+    "framed": [
+      "framed",
+      "frameding",
+      "framedly",
+      "frameds",
+      "framedy"
+    ],
+    "fruit": [
+      "fruit",
+      "fruited",
+      "fruiting",
+      "fruitly",
+      "fruits",
+      "fruity"
+    ],
+    "fruitiness": [
+      "fruitiness",
+      "fruitinessed",
+      "fruitinessing",
+      "fruitinessly",
+      "fruitinesss",
+      "fruitinessy"
+    ],
+    "fruits": [
+      "fruit",
+      "fruits",
+      "fruitsed",
+      "fruitsing",
+      "fruitsly",
+      "fruitsy"
+    ],
+    "fruity": [
+      "fruities",
+      "fruity",
+      "fruityed",
+      "fruitying",
+      "fruityly",
+      "fruitys"
+    ],
+    "funky": [
+      "funkies",
+      "funky",
+      "funkyed",
+      "funkying",
+      "funkyly",
+      "funkys"
+    ],
+    "game": [
+      "game",
+      "gamed",
+      "gameing",
+      "gamely",
+      "games"
+    ],
+    "generic": [
+      "generic",
+      "genericed",
+      "genericing",
+      "genericly",
+      "generics",
+      "genericy"
+    ],
+    "gentle": [
+      "gentle",
+      "gentled",
+      "gentleing",
+      "gentlely",
+      "gentles"
+    ],
+    "ginger": [
+      "ginger",
+      "gingered",
+      "gingering",
+      "gingerly",
+      "gingers",
+      "gingery"
+    ],
+    "gold": [
+      "gold",
+      "golded",
+      "golding",
+      "goldly",
+      "golds",
+      "goldy"
+    ],
+    "golden": [
+      "golden",
+      "goldened",
+      "goldening",
+      "goldenly",
+      "goldens",
+      "goldeny"
+    ],
+    "gorgeous": [
+      "gorgeou",
+      "gorgeous",
+      "gorgeoused",
+      "gorgeousing",
+      "gorgeously",
+      "gorgeousy"
+    ],
+    "grabby": [
+      "grabbies",
+      "grabby",
+      "grabbyed",
+      "grabbying",
+      "grabbyly",
+      "grabbys"
+    ],
+    "grape": [
+      "grape",
+      "graped",
+      "grapeing",
+      "grapely",
+      "grapes"
+    ],
+    "grapefruit": [
+      "grapefruit",
+      "grapefruited",
+      "grapefruiting",
+      "grapefruitly",
+      "grapefruits",
+      "grapefruity"
+    ],
+    "graphite": [
+      "graphite",
+      "graphited",
+      "graphiteing",
+      "graphitely",
+      "graphites"
+    ],
+    "grass": [
+      "grass",
+      "grassed",
+      "grassing",
+      "grassly",
+      "grasss",
+      "grassy"
+    ],
+    "grassy": [
+      "grassies",
+      "grassy",
+      "grassyed",
+      "grassying",
+      "grassyly",
+      "grassys"
+    ],
+    "green": [
+      "green",
+      "greened",
+      "greening",
+      "greenly",
+      "greens",
+      "greeny"
+    ],
+    "grilled": [
+      "grilled",
+      "grilleding",
+      "grilledly",
+      "grilleds",
+      "grilledy"
+    ],
+    "gritty": [
+      "gritties",
+      "gritty",
+      "grittyed",
+      "grittying",
+      "grittyly",
+      "grittys"
+    ],
+    "ground": [
+      "ground",
+      "grounded",
+      "grounding",
+      "groundly",
+      "grounds",
+      "groundy"
+    ],
+    "grown": [
+      "grown",
+      "growned",
+      "growning",
+      "grownly",
+      "growns",
+      "growny"
+    ],
+    "hard": [
+      "hard",
+      "harded",
+      "harding",
+      "hardly",
+      "hards",
+      "hardy"
+    ],
+    "heady": [
+      "headies",
+      "heady",
+      "headyed",
+      "headying",
+      "headyly",
+      "headys"
+    ],
+    "hearty": [
+      "hearties",
+      "hearty",
+      "heartyed",
+      "heartying",
+      "heartyly",
+      "heartys"
+    ],
+    "heat": [
+      "heat",
+      "heated",
+      "heating",
+      "heatly",
+      "heats",
+      "heaty"
+    ],
+    "herb": [
+      "herb",
+      "herbed",
+      "herbing",
+      "herbly",
+      "herbs",
+      "herby"
+    ],
+    "herbal": [
+      "herbal",
+      "herbaled",
+      "herbaling",
+      "herbally",
+      "herbals",
+      "herbaly"
+    ],
+    "herbs": [
+      "herb",
+      "herbs",
+      "herbsed",
+      "herbsing",
+      "herbsly",
+      "herbsy"
+    ],
+    "high": [
+      "high",
+      "highed",
+      "highing",
+      "highly",
+      "highs",
+      "highy"
+    ],
+    "honey": [
+      "honeies",
+      "honey",
+      "honeyed",
+      "honeying",
+      "honeyly",
+      "honeys"
+    ],
+    "honeydew": [
+      "honeydew",
+      "honeydewed",
+      "honeydewing",
+      "honeydewly",
+      "honeydews",
+      "honeydewy"
+    ],
+    "honeyed": [
+      "honeyed",
+      "honeyeding",
+      "honeyedly",
+      "honeyeds",
+      "honeyedy"
+    ],
+    "honeysuckle": [
+      "honeysuckle",
+      "honeysuckled",
+      "honeysuckleing",
+      "honeysucklely",
+      "honeysuckles"
+    ],
+    "hot": [
+      "hot",
+      "hoted",
+      "hotly",
+      "hots",
+      "hoty"
+    ],
+    "inky": [
+      "inkies",
+      "inky",
+      "inkyed",
+      "inkying",
+      "inkyly",
+      "inkys"
+    ],
+    "inviting": [
+      "inviting",
+      "invitinged",
+      "invitingly",
+      "invitings",
+      "invitingy"
+    ],
+    "jam": [
+      "jam",
+      "jamed",
+      "jamly",
+      "jams",
+      "jamy"
+    ],
+    "jammy": [
+      "jammies",
+      "jammy",
+      "jammyed",
+      "jammying",
+      "jammyly",
+      "jammys"
+    ],
+    "jasmine": [
+      "jasmine",
+      "jasmined",
+      "jasmineing",
+      "jasminely",
+      "jasmines"
+    ],
+    "juice": [
+      "juice",
+      "juiced",
+      "juiceing",
+      "juicely",
+      "juices"
+    ],
+    "lavender": [
+      "lavender",
+      "lavendered",
+      "lavendering",
+      "lavenderly",
+      "lavenders",
+      "lavendery"
+    ],
+    "lead": [
+      "lead",
+      "leaded",
+      "leading",
+      "leadly",
+      "leads",
+      "leady"
+    ],
+    "leaf": [
+      "leaf",
+      "leafed",
+      "leafing",
+      "leafly",
+      "leafs",
+      "leafy"
+    ],
+    "leafy": [
+      "leafies",
+      "leafy",
+      "leafyed",
+      "leafying",
+      "leafyly",
+      "leafys"
+    ],
+    "leather": [
+      "leather",
+      "leathered",
+      "leathering",
+      "leatherly",
+      "leathers",
+      "leathery"
+    ],
+    "leathery": [
+      "leatheries",
+      "leathery",
+      "leatheryed",
+      "leatherying",
+      "leatheryly",
+      "leatherys"
+    ],
+    "leaves": [
+      "leave",
+      "leaves",
+      "leavesed",
+      "leavesing",
+      "leavesly",
+      "leavesy"
+    ],
+    "lemon": [
+      "lemon",
+      "lemoned",
+      "lemoning",
+      "lemonly",
+      "lemons",
+      "lemony"
+    ],
+    "lemony": [
+      "lemonies",
+      "lemony",
+      "lemonyed",
+      "lemonying",
+      "lemonyly",
+      "lemonys"
+    ],
+    "licorice": [
+      "licorice",
+      "licoriced",
+      "licoriceing",
+      "licoricely",
+      "licorices"
+    ],
+    "lime": [
+      "lime",
+      "limed",
+      "limeing",
+      "limely",
+      "limes"
+    ],
+    "linear": [
+      "linear",
+      "lineared",
+      "linearing",
+      "linearly",
+      "linears",
+      "lineary"
+    ],
+    "liqueur": [
+      "liqueur",
+      "liqueured",
+      "liqueuring",
+      "liqueurly",
+      "liqueurs",
+      "liqueury"
+    ],
+    "lively": [
+      "livelies",
+      "lively",
+      "livelyed",
+      "livelying",
+      "livelys"
+    ],
+    "loaded": [
+      "loaded",
+      "loadeding",
+      "loadedly",
+      "loadeds",
+      "loadedy"
+    ],
+    "luscious": [
+      "lusciou",
+      "luscious",
+      "luscioused",
+      "lusciousing",
+      "lusciously",
+      "lusciousy"
+    ],
+    "lychee": [
+      "lychee",
+      "lycheed",
+      "lycheeing",
+      "lycheely",
+      "lychees"
+    ],
+    "mango": [
+      "mango",
+      "mangoed",
+      "mangoing",
+      "mangoly",
+      "mangos",
+      "mangoy"
+    ],
+    "mature": [
+      "mature",
+      "matured",
+      "matureing",
+      "maturely",
+      "matures"
+    ],
+    "meat": [
+      "meat",
+      "meated",
+      "meating",
+      "meatly",
+      "meats",
+      "meaty"
+    ],
+    "meats": [
+      "meat",
+      "meats",
+      "meatsed",
+      "meatsing",
+      "meatsly",
+      "meatsy"
+    ],
+    "meaty": [
+      "meaties",
+      "meaty",
+      "meatyed",
+      "meatying",
+      "meatyly",
+      "meatys"
+    ],
+    "medicinal": [
+      "medicinal",
+      "medicinaled",
+      "medicinaling",
+      "medicinally",
+      "medicinals",
+      "medicinaly"
+    ],
+    "mediterranean": [
+      "mediterranean",
+      "mediterraneaned",
+      "mediterraneaning",
+      "mediterraneanly",
+      "mediterraneans",
+      "mediterraneany"
+    ],
+    "mellow": [
+      "mellow",
+      "mellowed",
+      "mellowing",
+      "mellowly",
+      "mellows",
+      "mellowy"
+    ],
+    "melon": [
+      "melon",
+      "meloned",
+      "meloning",
+      "melonly",
+      "melons",
+      "melony"
+    ],
+    "menthol": [
+      "menthol",
+      "mentholed",
+      "mentholing",
+      "mentholly",
+      "menthols",
+      "mentholy"
+    ],
+    "meyer": [
+      "meyer",
+      "meyered",
+      "meyering",
+      "meyerly",
+      "meyers",
+      "meyery"
+    ],
+    "midpalate": [
+      "midpalate",
+      "midpalated",
+      "midpalateing",
+      "midpalately",
+      "midpalates"
+    ],
+    "mild": [
+      "mild",
+      "milded",
+      "milding",
+      "mildly",
+      "milds",
+      "mildy"
+    ],
+    "mildly": [
+      "mildlies",
+      "mildly",
+      "mildlyed",
+      "mildlying",
+      "mildlys"
+    ],
+    "milk": [
+      "milk",
+      "milked",
+      "milking",
+      "milkly",
+      "milks",
+      "milky"
+    ],
+    "mint": [
+      "mint",
+      "minted",
+      "minting",
+      "mintly",
+      "mints",
+      "minty"
+    ],
+    "minty": [
+      "minties",
+      "minty",
+      "mintyed",
+      "mintying",
+      "mintyly",
+      "mintys"
+    ],
+    "mocha": [
+      "mocha",
+      "mochaed",
+      "mochaing",
+      "mochaly",
+      "mochas",
+      "mochay"
+    ],
+    "moderate": [
+      "moderate",
+      "moderated",
+      "moderateing",
+      "moderately",
+      "moderates"
+    ],
+    "modern": [
+      "modern",
+      "moderned",
+      "moderning",
+      "modernly",
+      "moderns",
+      "moderny"
+    ],
+    "modest": [
+      "modest",
+      "modested",
+      "modesting",
+      "modestly",
+      "modests",
+      "modesty"
+    ],
+    "mountain": [
+      "mountain",
+      "mountained",
+      "mountaining",
+      "mountainly",
+      "mountains",
+      "mountainy"
+    ],
+    "mousse": [
+      "mousse",
+      "moussed",
+      "mousseing",
+      "moussely",
+      "mousses"
+    ],
+    "mushroom": [
+      "mushroom",
+      "mushroomed",
+      "mushrooming",
+      "mushroomly",
+      "mushrooms",
+      "mushroomy"
+    ],
+    "natural": [
+      "natural",
+      "naturaled",
+      "naturaling",
+      "naturally",
+      "naturals",
+      "naturaly"
+    ],
+    "nectarine": [
+      "nectarine",
+      "nectarined",
+      "nectarineing",
+      "nectarinely",
+      "nectarines"
+    ],
+    "neutral": [
+      "neutral",
+      "neutraled",
+      "neutraling",
+      "neutrally",
+      "neutrals",
+      "neutraly"
+    ],
+    "noir": [
+      "noir",
+      "noired",
+      "noiring",
+      "noirly",
+      "noirs",
+      "noiry"
+    ],
+    "nuanced": [
+      "nuanced",
+      "nuanceding",
+      "nuancedly",
+      "nuanceds",
+      "nuancedy"
+    ],
+    "nut": [
+      "nut",
+      "nuted",
+      "nutly",
+      "nuts",
+      "nuty"
+    ],
+    "nutmeg": [
+      "nutmeg",
+      "nutmeged",
+      "nutmeging",
+      "nutmegly",
+      "nutmegs",
+      "nutmegy"
+    ],
+    "nutty": [
+      "nutties",
+      "nutty",
+      "nuttyed",
+      "nuttying",
+      "nuttyly",
+      "nuttys"
+    ],
+    "oak": [
+      "oak",
+      "oaked",
+      "oakly",
+      "oaks",
+      "oaky"
+    ],
+    "oaked": [
+      "oaked",
+      "oakeding",
+      "oakedly",
+      "oakeds",
+      "oakedy"
+    ],
+    "oaky": [
+      "oakies",
+      "oaky",
+      "oakyed",
+      "oakying",
+      "oakyly",
+      "oakys"
+    ],
+    "oily": [
+      "oilies",
+      "oily",
+      "oilyed",
+      "oilying",
+      "oilys"
+    ],
+    "olive": [
+      "olive",
+      "olived",
+      "oliveing",
+      "olively",
+      "olives"
+    ],
+    "opulent": [
+      "opulent",
+      "opulented",
+      "opulenting",
+      "opulently",
+      "opulents",
+      "opulenty"
+    ],
+    "orange": [
+      "orange",
+      "oranged",
+      "orangeing",
+      "orangely",
+      "oranges"
+    ],
+    "oregano": [
+      "oregano",
+      "oreganoed",
+      "oreganoing",
+      "oreganoly",
+      "oreganos",
+      "oreganoy"
+    ],
+    "overripe": [
+      "overripe",
+      "overriped",
+      "overripeing",
+      "overripely",
+      "overripes"
+    ],
+    "packed": [
+      "packed",
+      "packeding",
+      "packedly",
+      "packeds",
+      "packedy"
+    ],
+    "pale": [
+      "pale",
+      "paled",
+      "paleing",
+      "palely",
+      "pales"
+    ],
+    "papaya": [
+      "papaya",
+      "papayaed",
+      "papayaing",
+      "papayaly",
+      "papayas",
+      "papayay"
+    ],
+    "passion": [
+      "passion",
+      "passioned",
+      "passioning",
+      "passionly",
+      "passions",
+      "passiony"
+    ],
+    "peach": [
+      "peach",
+      "peached",
+      "peaching",
+      "peachly",
+      "peachs",
+      "peachy"
+    ],
+    "peaches": [
+      "peache",
+      "peaches",
+      "peachesed",
+      "peachesing",
+      "peachesly",
+      "peachesy"
+    ],
+    "pear": [
+      "pear",
+      "peared",
+      "pearing",
+      "pearly",
+      "pears",
+      "peary"
+    ],
+    "pears": [
+      "pear",
+      "pears",
+      "pearsed",
+      "pearsing",
+      "pearsly",
+      "pearsy"
+    ],
+    "peel": [
+      "peel",
+      "peeled",
+      "peeling",
+      "peelly",
+      "peels",
+      "peely"
+    ],
+    "pencil": [
+      "pencil",
+      "penciled",
+      "penciling",
+      "pencilly",
+      "pencils",
+      "pencily"
+    ],
+    "penetrating": [
+      "penetrating",
+      "penetratinged",
+      "penetratingly",
+      "penetratings",
+      "penetratingy"
+    ],
+    "pepper": [
+      "pepper",
+      "peppered",
+      "peppering",
+      "pepperly",
+      "peppers",
+      "peppery"
+    ],
+    "peppery": [
+      "pepperies",
+      "peppery",
+      "pepperyed",
+      "pepperying",
+      "pepperyly",
+      "pepperys"
+    ],
+    "perfect": [
+      "perfect",
+      "perfected",
+      "perfecting",
+      "perfectly",
+      "perfects",
+      "perfecty"
+    ],
+    "perfume": [
+      "perfume",
+      "perfumed",
+      "perfumeing",
+      "perfumely",
+      "perfumes"
+    ],
+    "perfumed": [
+      "perfumed",
+      "perfumeding",
+      "perfumedly",
+      "perfumeds",
+      "perfumedy"
+    ],
+    "petal": [
+      "petal",
+      "petaled",
+      "petaling",
+      "petally",
+      "petals",
+      "petaly"
+    ],
+    "petals": [
+      "petal",
+      "petals",
+      "petalsed",
+      "petalsing",
+      "petalsly",
+      "petalsy"
+    ],
+    "pie": [
+      "pie",
+      "pied",
+      "piely",
+      "pies"
+    ],
+    "pine": [
+      "pine",
+      "pined",
+      "pineing",
+      "pinely",
+      "pines"
+    ],
+    "pineapple": [
+      "pineapple",
+      "pineappled",
+      "pineappleing",
+      "pineapplely",
+      "pineapples"
+    ],
+    "pink": [
+      "pink",
+      "pinked",
+      "pinking",
+      "pinkly",
+      "pinks",
+      "pinky"
+    ],
+    "pith": [
+      "pith",
+      "pithed",
+      "pithing",
+      "pithly",
+      "piths",
+      "pithy"
+    ],
+    "pithy": [
+      "pithies",
+      "pithy",
+      "pithyed",
+      "pithying",
+      "pithyly",
+      "pithys"
+    ],
+    "pleasant": [
+      "pleasant",
+      "pleasanted",
+      "pleasanting",
+      "pleasantly",
+      "pleasants",
+      "pleasanty"
+    ],
+    "plum": [
+      "plum",
+      "plumed",
+      "pluming",
+      "plumly",
+      "plums",
+      "plumy"
+    ],
+    "plums": [
+      "plum",
+      "plums",
+      "plumsed",
+      "plumsing",
+      "plumsly",
+      "plumsy"
+    ],
+    "polished": [
+      "polished",
+      "polisheding",
+      "polishedly",
+      "polisheds",
+      "polishedy"
+    ],
+    "pomegranate": [
+      "pomegranate",
+      "pomegranated",
+      "pomegranateing",
+      "pomegranately",
+      "pomegranates"
+    ],
+    "pressed": [
+      "pressed",
+      "presseding",
+      "pressedly",
+      "presseds",
+      "pressedy"
+    ],
+    "pretty": [
+      "pretties",
+      "pretty",
+      "prettyed",
+      "prettying",
+      "prettyly",
+      "prettys"
+    ],
+    "prune": [
+      "prune",
+      "pruned",
+      "pruneing",
+      "prunely",
+      "prunes"
+    ],
+    "pure": [
+      "pure",
+      "pured",
+      "pureing",
+      "purely",
+      "pures"
+    ],
+    "purity": [
+      "purities",
+      "purity",
+      "purityed",
+      "puritying",
+      "purityly",
+      "puritys"
+    ],
+    "purple": [
+      "purple",
+      "purpled",
+      "purpleing",
+      "purplely",
+      "purples"
+    ],
+    "racy": [
+      "racies",
+      "racy",
+      "racyed",
+      "racying",
+      "racyly",
+      "racys"
+    ],
+    "raisin": [
+      "raisin",
+      "raisined",
+      "raisining",
+      "raisinly",
+      "raisins",
+      "raisiny"
+    ],
+    "raisiny": [
+      "raisinies",
+      "raisiny",
+      "raisinyed",
+      "raisinying",
+      "raisinyly",
+      "raisinys"
+    ],
+    "raspberries": [
+      "raspberrie",
+      "raspberries",
+      "raspberriesed",
+      "raspberriesing",
+      "raspberriesly",
+      "raspberriesy",
+      "raspberry"
+    ],
+    "raspberry": [
+      "raspberries",
+      "raspberry",
+      "raspberryed",
+      "raspberrying",
+      "raspberryly",
+      "raspberrys"
+    ],
+    "raw": [
+      "raw",
+      "rawed",
+      "rawly",
+      "raws",
+      "rawy"
+    ],
+    "red": [
+      "red",
+      "redly",
+      "reds",
+      "redy"
+    ],
+    "refined": [
+      "refined",
+      "refineding",
+      "refinedly",
+      "refineds",
+      "refinedy"
+    ],
+    "resiny": [
+      "resinies",
+      "resiny",
+      "resinyed",
+      "resinying",
+      "resinyly",
+      "resinys"
+    ],
+    "restrained": [
+      "restrained",
+      "restraineding",
+      "restrainedly",
+      "restraineds",
+      "restrainedy"
+    ],
+    "rhubarb": [
+      "rhubarb",
+      "rhubarbed",
+      "rhubarbing",
+      "rhubarbly",
+      "rhubarbs",
+      "rhubarby"
+    ],
+    "right": [
+      "right",
+      "righted",
+      "righting",
+      "rightly",
+      "rights",
+      "righty"
+    ],
+    "rind": [
+      "rind",
+      "rinded",
+      "rinding",
+      "rindly",
+      "rinds",
+      "rindy"
+    ],
+    "ripe": [
+      "ripe",
+      "riped",
+      "ripeing",
+      "ripely",
+      "ripes"
+    ],
+    "ripeness": [
+      "ripeness",
+      "ripenessed",
+      "ripenessing",
+      "ripenessly",
+      "ripenesss",
+      "ripenessy"
+    ],
+    "riper": [
+      "riper",
+      "ripered",
+      "ripering",
+      "riperly",
+      "ripers",
+      "ripery"
+    ],
+    "river": [
+      "river",
+      "rivered",
+      "rivering",
+      "riverly",
+      "rivers",
+      "rivery"
+    ],
+    "roasted": [
+      "roasted",
+      "roasteding",
+      "roastedly",
+      "roasteds",
+      "roastedy"
+    ],
+    "robust": [
+      "robust",
+      "robusted",
+      "robusting",
+      "robustly",
+      "robusts",
+      "robusty"
+    ],
+    "rock": [
+      "rock",
+      "rocked",
+      "rocking",
+      "rockly",
+      "rocks",
+      "rocky"
+    ],
+    "root": [
+      "root",
+      "rooted",
+      "rooting",
+      "rootly",
+      "roots",
+      "rooty"
+    ],
+    "rose": [
+      "rose",
+      "rosed",
+      "roseing",
+      "rosely",
+      "roses"
+    ],
+    "ros\u00e9": [
+      "ros\u00e9",
+      "ros\u00e9ed",
+      "ros\u00e9ing",
+      "ros\u00e9ly",
+      "ros\u00e9s",
+      "ros\u00e9y"
+    ],
+    "round": [
+      "round",
+      "rounded",
+      "rounding",
+      "roundly",
+      "rounds",
+      "roundy"
+    ],
+    "rounded": [
+      "rounded",
+      "roundeding",
+      "roundedly",
+      "roundeds",
+      "roundedy"
+    ],
+    "rubber": [
+      "rubber",
+      "rubbered",
+      "rubbering",
+      "rubberly",
+      "rubbers",
+      "rubbery"
+    ],
+    "rubbery": [
+      "rubberies",
+      "rubbery",
+      "rubberyed",
+      "rubberying",
+      "rubberyly",
+      "rubberys"
+    ],
+    "rustic": [
+      "rustic",
+      "rusticed",
+      "rusticing",
+      "rusticly",
+      "rustics",
+      "rusticy"
+    ],
+    "sage": [
+      "sage",
+      "saged",
+      "sageing",
+      "sagely",
+      "sages"
+    ],
+    "salt": [
+      "salt",
+      "salted",
+      "salting",
+      "saltly",
+      "salts",
+      "salty"
+    ],
+    "salty": [
+      "salties",
+      "salty",
+      "saltyed",
+      "saltying",
+      "saltyly",
+      "saltys"
+    ],
+    "sandalwood": [
+      "sandalwood",
+      "sandalwooded",
+      "sandalwooding",
+      "sandalwoodly",
+      "sandalwoods",
+      "sandalwoody"
+    ],
+    "saturated": [
+      "saturated",
+      "saturateding",
+      "saturatedly",
+      "saturateds",
+      "saturatedy"
+    ],
+    "sauce": [
+      "sauce",
+      "sauced",
+      "sauceing",
+      "saucely",
+      "sauces"
+    ],
+    "savory": [
+      "savories",
+      "savory",
+      "savoryed",
+      "savorying",
+      "savoryly",
+      "savorys"
+    ],
+    "sea": [
+      "sea",
+      "seaed",
+      "sealy",
+      "seas",
+      "seay"
+    ],
+    "sharp": [
+      "sharp",
+      "sharped",
+      "sharping",
+      "sharply",
+      "sharps",
+      "sharpy"
+    ],
+    "simple": [
+      "simple",
+      "simpled",
+      "simpleing",
+      "simplely",
+      "simples"
+    ],
+    "skins": [
+      "skin",
+      "skins",
+      "skinsed",
+      "skinsing",
+      "skinsly",
+      "skinsy"
+    ],
+    "slender": [
+      "slender",
+      "slendered",
+      "slendering",
+      "slenderly",
+      "slenders",
+      "slendery"
+    ],
+    "smelling": [
+      "smelling",
+      "smellinged",
+      "smellingly",
+      "smellings",
+      "smellingy"
+    ],
+    "smoke": [
+      "smoke",
+      "smoked",
+      "smokeing",
+      "smokely",
+      "smokes"
+    ],
+    "smoked": [
+      "smoked",
+      "smokeding",
+      "smokedly",
+      "smokeds",
+      "smokedy"
+    ],
+    "smoky": [
+      "smokies",
+      "smoky",
+      "smokyed",
+      "smokying",
+      "smokyly",
+      "smokys"
+    ],
+    "snappy": [
+      "snappies",
+      "snappy",
+      "snappyed",
+      "snappying",
+      "snappyly",
+      "snappys"
+    ],
+    "soil": [
+      "soil",
+      "soiled",
+      "soiling",
+      "soilly",
+      "soils",
+      "soily"
+    ],
+    "solid": [
+      "solid",
+      "solided",
+      "soliding",
+      "solidly",
+      "solids",
+      "solidy"
+    ],
+    "sophisticated": [
+      "sophisticated",
+      "sophisticateding",
+      "sophisticatedly",
+      "sophisticateds",
+      "sophisticatedy"
+    ],
+    "sour": [
+      "sour",
+      "soured",
+      "souring",
+      "sourly",
+      "sours",
+      "soury"
+    ],
+    "sparkler": [
+      "sparkler",
+      "sparklered",
+      "sparklering",
+      "sparklerly",
+      "sparklers",
+      "sparklery"
+    ],
+    "sparkling": [
+      "sparkling",
+      "sparklinged",
+      "sparklingly",
+      "sparklings",
+      "sparklingy"
+    ],
+    "spice": [
+      "spice",
+      "spiced",
+      "spiceing",
+      "spicely",
+      "spices"
+    ],
+    "spiced": [
+      "spiced",
+      "spiceding",
+      "spicedly",
+      "spiceds",
+      "spicedy"
+    ],
+    "spices": [
+      "spice",
+      "spices",
+      "spicesed",
+      "spicesing",
+      "spicesly",
+      "spicesy"
+    ],
+    "spicy": [
+      "spicies",
+      "spicy",
+      "spicyed",
+      "spicying",
+      "spicyly",
+      "spicys"
+    ],
+    "spring": [
+      "spring",
+      "springed",
+      "springly",
+      "springs",
+      "springy"
+    ],
+    "stainless": [
+      "stainless",
+      "stainlessed",
+      "stainlessing",
+      "stainlessly",
+      "stainlesss",
+      "stainlessy"
+    ],
+    "stalky": [
+      "stalkies",
+      "stalky",
+      "stalkyed",
+      "stalkying",
+      "stalkyly",
+      "stalkys"
+    ],
+    "star": [
+      "star",
+      "stared",
+      "staring",
+      "starly",
+      "stars",
+      "stary"
+    ],
+    "steak": [
+      "steak",
+      "steaked",
+      "steaking",
+      "steakly",
+      "steaks",
+      "steaky"
+    ],
+    "steel": [
+      "steel",
+      "steeled",
+      "steeling",
+      "steelly",
+      "steels",
+      "steely"
+    ],
+    "stewed": [
+      "stewed",
+      "steweding",
+      "stewedly",
+      "steweds",
+      "stewedy"
+    ],
+    "straightforward": [
+      "straightforward",
+      "straightforwarded",
+      "straightforwarding",
+      "straightforwardly",
+      "straightforwards",
+      "straightforwardy"
+    ],
+    "strawberries": [
+      "strawberrie",
+      "strawberries",
+      "strawberriesed",
+      "strawberriesing",
+      "strawberriesly",
+      "strawberriesy",
+      "strawberry"
+    ],
+    "strawberry": [
+      "strawberries",
+      "strawberry",
+      "strawberryed",
+      "strawberrying",
+      "strawberryly",
+      "strawberrys"
+    ],
+    "streak": [
+      "streak",
+      "streaked",
+      "streaking",
+      "streakly",
+      "streaks",
+      "streaky"
+    ],
+    "streaks": [
+      "streak",
+      "streaks",
+      "streaksed",
+      "streaksing",
+      "streaksly",
+      "streaksy"
+    ],
+    "strong": [
+      "strong",
+      "stronged",
+      "stronging",
+      "strongly",
+      "strongs",
+      "strongy"
+    ],
+    "strongly": [
+      "stronglies",
+      "strongly",
+      "stronglyed",
+      "stronglying",
+      "stronglys"
+    ],
+    "subdued": [
+      "subdued",
+      "subdueding",
+      "subduedly",
+      "subdueds",
+      "subduedy"
+    ],
+    "subtle": [
+      "subtle",
+      "subtled",
+      "subtleing",
+      "subtlely",
+      "subtles"
+    ],
+    "succulent": [
+      "succulent",
+      "succulented",
+      "succulenting",
+      "succulently",
+      "succulents",
+      "succulenty"
+    ],
+    "summer": [
+      "summer",
+      "summered",
+      "summering",
+      "summerly",
+      "summers",
+      "summery"
+    ],
+    "supple": [
+      "supple",
+      "suppled",
+      "suppleing",
+      "supplely",
+      "supples"
+    ],
+    "syrup": [
+      "syrup",
+      "syruped",
+      "syruping",
+      "syruply",
+      "syrups",
+      "syrupy"
+    ],
+    "syrupy": [
+      "syrupies",
+      "syrupy",
+      "syrupyed",
+      "syrupying",
+      "syrupyly",
+      "syrupys"
+    ],
+    "tang": [
+      "tang",
+      "tanged",
+      "tanging",
+      "tangly",
+      "tangs",
+      "tangy"
+    ],
+    "tangerine": [
+      "tangerine",
+      "tangerined",
+      "tangerineing",
+      "tangerinely",
+      "tangerines"
+    ],
+    "tangy": [
+      "tangies",
+      "tangy",
+      "tangyed",
+      "tangying",
+      "tangyly",
+      "tangys"
+    ],
+    "tannic": [
+      "tannic",
+      "tanniced",
+      "tannicing",
+      "tannicly",
+      "tannics",
+      "tannicy"
+    ],
+    "tar": [
+      "tar",
+      "tared",
+      "tarly",
+      "tars",
+      "tary"
+    ],
+    "tart": [
+      "tart",
+      "tarted",
+      "tarting",
+      "tartly",
+      "tarts",
+      "tarty"
+    ],
+    "tasty": [
+      "tasties",
+      "tasty",
+      "tastyed",
+      "tastying",
+      "tastyly",
+      "tastys"
+    ],
+    "tea": [
+      "tea",
+      "teaed",
+      "tealy",
+      "teas",
+      "teay"
+    ],
+    "thyme": [
+      "thyme",
+      "thymed",
+      "thymeing",
+      "thymely",
+      "thymes"
+    ],
+    "toast": [
+      "toast",
+      "toasted",
+      "toasting",
+      "toastly",
+      "toasts",
+      "toasty"
+    ],
+    "toasted": [
+      "toasted",
+      "toasteding",
+      "toastedly",
+      "toasteds",
+      "toastedy"
+    ],
+    "toasty": [
+      "toasties",
+      "toasty",
+      "toastyed",
+      "toastying",
+      "toastyly",
+      "toastys"
+    ],
+    "tobacco": [
+      "tobacco",
+      "tobaccoed",
+      "tobaccoing",
+      "tobaccoly",
+      "tobaccos",
+      "tobaccoy"
+    ],
+    "tomato": [
+      "tomato",
+      "tomatoed",
+      "tomatoing",
+      "tomatoly",
+      "tomatos",
+      "tomatoy"
+    ],
+    "toned": [
+      "toned",
+      "toneding",
+      "tonedly",
+      "toneds",
+      "tonedy"
+    ],
+    "tough": [
+      "tough",
+      "toughed",
+      "toughing",
+      "toughly",
+      "toughs",
+      "toughy"
+    ],
+    "tropical": [
+      "tropical",
+      "tropicaled",
+      "tropicaling",
+      "tropically",
+      "tropicals",
+      "tropicaly"
+    ],
+    "truffle": [
+      "truffle",
+      "truffled",
+      "truffleing",
+      "trufflely",
+      "truffles"
+    ],
+    "underbrush": [
+      "underbrush",
+      "underbrushed",
+      "underbrushing",
+      "underbrushly",
+      "underbrushs",
+      "underbrushy"
+    ],
+    "valley": [
+      "valleies",
+      "valley",
+      "valleyed",
+      "valleying",
+      "valleyly",
+      "valleys"
+    ],
+    "vanilla": [
+      "vanilla",
+      "vanillaed",
+      "vanillaing",
+      "vanillaly",
+      "vanillas",
+      "vanillay"
+    ],
+    "vines": [
+      "vine",
+      "vines",
+      "vinesed",
+      "vinesing",
+      "vinesly",
+      "vinesy"
+    ],
+    "violet": [
+      "violet",
+      "violeted",
+      "violeting",
+      "violetly",
+      "violets",
+      "violety"
+    ],
+    "violets": [
+      "violet",
+      "violets",
+      "violetsed",
+      "violetsing",
+      "violetsly",
+      "violetsy"
+    ],
+    "vivid": [
+      "vivid",
+      "vivided",
+      "vividing",
+      "vividly",
+      "vivids",
+      "vividy"
+    ],
+    "warm": [
+      "warm",
+      "warmed",
+      "warming",
+      "warmly",
+      "warms",
+      "warmy"
+    ],
+    "warmth": [
+      "warmth",
+      "warmthed",
+      "warmthing",
+      "warmthly",
+      "warmths",
+      "warmthy"
+    ],
+    "waves": [
+      "wave",
+      "waves",
+      "wavesed",
+      "wavesing",
+      "wavesly",
+      "wavesy"
+    ],
+    "wet": [
+      "wet",
+      "weted",
+      "wetly",
+      "wets",
+      "wety"
+    ],
+    "whiff": [
+      "whiff",
+      "whiffed",
+      "whiffing",
+      "whiffly",
+      "whiffs",
+      "whiffy"
+    ],
+    "white": [
+      "white",
+      "whited",
+      "whiteing",
+      "whitely",
+      "whites"
+    ],
+    "whole": [
+      "whole",
+      "wholed",
+      "wholeing",
+      "wholely",
+      "wholes"
+    ],
+    "wild": [
+      "wild",
+      "wilded",
+      "wilding",
+      "wildly",
+      "wilds",
+      "wildy"
+    ],
+    "wood": [
+      "wood",
+      "wooded",
+      "wooding",
+      "woodly",
+      "woods",
+      "woody"
+    ],
+    "woody": [
+      "woodies",
+      "woody",
+      "woodyed",
+      "woodying",
+      "woodyly",
+      "woodys"
+    ],
+    "yeast": [
+      "yeast",
+      "yeasted",
+      "yeasting",
+      "yeastly",
+      "yeasts",
+      "yeasty"
+    ],
+    "yeasty": [
+      "yeasties",
+      "yeasty",
+      "yeastyed",
+      "yeastying",
+      "yeastyly",
+      "yeastys"
+    ],
+    "yellow": [
+      "yellow",
+      "yellowed",
+      "yellowing",
+      "yellowly",
+      "yellows",
+      "yellowy"
+    ],
+    "young": [
+      "young",
+      "younged",
+      "younging",
+      "youngly",
+      "youngs",
+      "youngy"
+    ],
+    "youthful": [
+      "youthful",
+      "youthfuled",
+      "youthfuling",
+      "youthfully",
+      "youthfuls",
+      "youthfuly"
+    ]
+  }
+}
