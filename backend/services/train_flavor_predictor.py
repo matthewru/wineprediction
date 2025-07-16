@@ -47,7 +47,7 @@ if os.path.exists("data/wine_with_predictions.csv"):
     print(f"Loaded {len(df)} wine samples from cache")
 else:
     print("Loading raw wine data and generating predictions...")
-df = pd.read_csv("data/wine_clean_tagged.csv")
+    df = pd.read_csv("data/wine_clean_tagged.csv")
     print(f"Loaded {len(df)} wine samples")
     
     # Clean data - drop rows with missing values in required columns
@@ -72,17 +72,17 @@ df = pd.read_csv("data/wine_clean_tagged.csv")
     print("Dropped unnecessary columns")
     
     # === Predict price and rating (only when not cached) ===
-print("Predicting price and rating...")
-df['pred_price_result'] = df.apply(predict_price_lite, axis=1)
-df['pred_rating_result'] = df.apply(predict_rating_lite, axis=1)
+    print("Predicting price and rating...")
+    df['pred_price_result'] = df.apply(predict_price_lite, axis=1)
+    df['pred_rating_result'] = df.apply(predict_rating_lite, axis=1)
 
-    # Extract values
-df['price_min'] = df['pred_price_result'].apply(lambda x: x['weighted_lower'])
-df['price_max'] = df['pred_price_result'].apply(lambda x: x['weighted_upper'])
-df['rating'] = df['pred_rating_result'].apply(lambda x: x['predicted_rating'])
+        # Extract values
+    df['price_min'] = df['pred_price_result'].apply(lambda x: x['weighted_lower'])
+    df['price_max'] = df['pred_price_result'].apply(lambda x: x['weighted_upper'])
+    df['rating'] = df['pred_rating_result'].apply(lambda x: x['predicted_rating'])
 
     # Drop raw results
-df.drop(columns=['pred_price_result', 'pred_rating_result'], inplace=True)
+    df.drop(columns=['pred_price_result', 'pred_rating_result'], inplace=True)
 
     # Save cached version
     df.to_csv("data/wine_with_predictions.csv", index=False)
@@ -135,8 +135,8 @@ else:
     print(f"Created {flavor_labels.shape[1]} unique flavor labels")
     
     # Encode inputs
-print("Encoding inputs...")
-encoded_features = []
+    print("Encoding inputs...")
+    encoded_features = []
 
     for i, (_, row) in enumerate(df.iterrows()):
         if i % 1000 == 0:
@@ -154,8 +154,8 @@ encoded_features = []
     )
     encoded_features.append(features[0])
 
-X = np.array(encoded_features, dtype=np.float32)
-y = flavor_labels.astype(np.float32)
+    X = np.array(encoded_features, dtype=np.float32)
+    y = flavor_labels.astype(np.float32)
 
     # Normalize input features
     print("Normalizing input features...")
