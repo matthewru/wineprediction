@@ -1,0 +1,231 @@
+{
+  "best_threshold": 0.75,
+  "best_threshold_f1_micro": 0.13713785430712347,
+  "threshold_history": [
+    {
+      "epoch": 1,
+      "best_threshold": 0.65,
+      "best_f1_micro": 0.0960151595468338
+    },
+    {
+      "epoch": 2,
+      "best_threshold": 0.7,
+      "best_f1_micro": 0.11689606368541501
+    },
+    {
+      "epoch": 3,
+      "best_threshold": 0.7,
+      "best_f1_micro": 0.12188829923601498
+    },
+    {
+      "epoch": 4,
+      "best_threshold": 0.7,
+      "best_f1_micro": 0.12166416076530681
+    },
+    {
+      "epoch": 5,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.12437710334933341
+    },
+    {
+      "epoch": 6,
+      "best_threshold": 0.7,
+      "best_f1_micro": 0.1253874376522274
+    },
+    {
+      "epoch": 7,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.12845163282721872
+    },
+    {
+      "epoch": 8,
+      "best_threshold": 0.7,
+      "best_f1_micro": 0.12652507779634237
+    },
+    {
+      "epoch": 9,
+      "best_threshold": 0.7,
+      "best_f1_micro": 0.1270140806203668
+    },
+    {
+      "epoch": 10,
+      "best_threshold": 0.7,
+      "best_f1_micro": 0.1282086355143255
+    },
+    {
+      "epoch": 11,
+      "best_threshold": 0.7,
+      "best_f1_micro": 0.1289004457652303
+    },
+    {
+      "epoch": 12,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.12868186594001726
+    },
+    {
+      "epoch": 13,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13010448702979593
+    },
+    {
+      "epoch": 14,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13141819867644802
+    },
+    {
+      "epoch": 15,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13201148444579927
+    },
+    {
+      "epoch": 16,
+      "best_threshold": 0.7,
+      "best_f1_micro": 0.13015716042123268
+    },
+    {
+      "epoch": 17,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13325279569014775
+    },
+    {
+      "epoch": 18,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13111973965938334
+    },
+    {
+      "epoch": 19,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.1313711542169729
+    },
+    {
+      "epoch": 20,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.131560736211899
+    },
+    {
+      "epoch": 21,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.1315828766229786
+    },
+    {
+      "epoch": 22,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13306639932698552
+    },
+    {
+      "epoch": 23,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13323773981064801
+    },
+    {
+      "epoch": 24,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13433586655951604
+    },
+    {
+      "epoch": 25,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.1341452883375792
+    },
+    {
+      "epoch": 26,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13475221334076287
+    },
+    {
+      "epoch": 27,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13375198101204605
+    },
+    {
+      "epoch": 28,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13467105232976884
+    },
+    {
+      "epoch": 29,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13526763106997516
+    },
+    {
+      "epoch": 30,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13572215181644298
+    },
+    {
+      "epoch": 31,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13284060230852138
+    },
+    {
+      "epoch": 32,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13317651612711126
+    },
+    {
+      "epoch": 33,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13700111026704845
+    },
+    {
+      "epoch": 34,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13449850673422192
+    },
+    {
+      "epoch": 35,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13568106709733374
+    },
+    {
+      "epoch": 36,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13529764942511482
+    },
+    {
+      "epoch": 37,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.1333029373285687
+    },
+    {
+      "epoch": 38,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13713785430712347
+    },
+    {
+      "epoch": 39,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13569228872298764
+    },
+    {
+      "epoch": 40,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.1365467699279454
+    },
+    {
+      "epoch": 41,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13359280132903797
+    },
+    {
+      "epoch": 42,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.1347552471732691
+    },
+    {
+      "epoch": 43,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13482182189144698
+    },
+    {
+      "epoch": 44,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13485744621670887
+    },
+    {
+      "epoch": 45,
+      "best_threshold": 0.75,
+      "best_f1_micro": 0.13462722771488148
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "best_params": {
+    "hidden_sizes": [
+      256,
+      128,
+      64
+    ],
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "batch_size": 128,
+    "activation": "relu"
+  },
+  "best_metrics": {
+    "f1_micro": 0.09465585153303839,
+    "f1_macro": 0.0655854789635589,
+    "precision_micro": 0.05655400214878653,
+    "recall_micro": 0.2901107149559017,
+    "hamming_loss": 0.07343483439018894,
+    "exact_match_ratio": 0.0,
+    "best_threshold": 0.75,
+    "epochs_trained": 15,
+    "avg_preds_per_sample": 
