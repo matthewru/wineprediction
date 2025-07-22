@@ -107,27 +107,25 @@ test_payloads = [
 
 def test_wine_prediction(payload_data, test_name):
     """Test a single wine payload against all endpoints"""
-    print(f"\n🍷 Testing: {test_name}")
-    print("=" * 60)
-    print(f"Wine details: {payload_data}")
-    print("-" * 60)
-    
-    # Test price prediction
-    print("1. Price Prediction:")
+    print(f"\n{'='*60}")
+    print(f"Testing: {test_name}")
+    print(f"{'='*60}")
+
+    # Test predict-price endpoint
+    print("1. Predict-Price:")
     try:
         r_price = requests.post("http://localhost:5001/predict-price-lite", json=payload_data, timeout=10)
         print(f"   Status: {r_price.status_code}")
         if r_price.status_code == 200:
             price_data = r_price.json()
             print(f"   Price Range: {price_data.get('weighted_range', 'N/A')}")
-            print(f"   Top Bucket: {price_data.get('top_bucket', 'N/A')}")
         else:
             print(f"   Error: {r_price.text}")
     except requests.exceptions.RequestException as e:
         print(f"   Connection Error: {e}")
 
-    # Test rating prediction
-    print("2. Rating Prediction:")
+    # Test predict-rating endpoint
+    print("2. Predict-Rating:")
     try:
         r_rating = requests.post("http://localhost:5001/predict-rating-lite", json=payload_data, timeout=10)
         print(f"   Status: {r_rating.status_code}")
@@ -139,13 +137,14 @@ def test_wine_prediction(payload_data, test_name):
     except requests.exceptions.RequestException as e:
         print(f"   Connection Error: {e}")
 
-    # Test flavor prediction
-    print("3. Flavor Prediction:")
+    # Test predict-flavor endpoint
+    print("3. Predict-Flavor:")
     flavor_payload = {
         **payload_data,
-        "confidence_threshold": 0.3,
-        "top_k": 10
+        "confidence_threshold": 0.2,  # Changed from 0.3 to match predict-all
+        "top_k": 8
     }
+    
     try:
         r_flavor = requests.post("http://localhost:5001/predict-flavor", json=flavor_payload, timeout=10)
         print(f"   Status: {r_flavor.status_code}")
@@ -153,45 +152,69 @@ def test_wine_prediction(payload_data, test_name):
             flavor_data = r_flavor.json()
             flavors = flavor_data.get('flavors', [])
             print(f"   Found {len(flavors)} flavor tags:")
-            for i, flavor in enumerate(flavors[:5]):  # Show top 5
+            for i, flavor in enumerate(flavors[:8]):  # Show top 8
                 print(f"     {i+1}. {flavor['flavor']:<15} ({flavor['confidence']:.3f})")
-            if len(flavors) > 5:
-                print(f"     ... and {len(flavors) - 5} more")
+            if len(flavors) > 8:
+                print(f"     ... and {len(flavors) - 8} more")
         else:
             print(f"   Error: {r_flavor.text}")
     except requests.exceptions.RequestException as e:
         print(f"   Connection Error: {e}")
 
+    # Test predict-mouthfeel endpoint
+    print("4. Predict-Mouthfeel:")
+    mouthfeel_payload = {
+        **payload_data,
+        "confidence_threshold": 0.2,  # Changed from 0.3 to match predict-all
+        "top_k": 8
+    }
+    
+    try:
+        r_mouthfeel = requests.post("http://localhost:5001/predict-mouthfeel", json=mouthfeel_payload, timeout=10)
+        print(f"   Status: {r_mouthfeel.status_code}")
+        if r_mouthfeel.status_code == 200:
+            mouthfeel_data = r_mouthfeel.json()
+            mouthfeel = mouthfeel_data.get('mouthfeel', [])
+            print(f"   Found {len(mouthfeel)} mouthfeel tags:")
+            for i, feel in enumerate(mouthfeel[:8]):  # Show top 8
+                print(f"     {i+1}. {feel['mouthfeel']:<15} ({feel['confidence']:.3f})")
+            if len(mouthfeel) > 8:
+                print(f"     ... and {len(mouthfeel) - 8} more")
+        else:
+            print(f"   Error: {r_mouthfeel.text}")
+    except requests.exceptions.RequestException as e:
+        print(f"   Connection Error: {e}")
+
     # Test predict-all endpoint
-    print("4. Predict-All:")
+    print("5. Predict-All:")
     all_payload = {
         **payload_data,
-        "confidence_threshold": 0.4,
-        "top_k": 5
+        "confidence_threshold": 0.2,  # Lowered from 0.4 to get more tags  
+        "top_k": 10  # Increased from 5 to have more room
     }
+    
     try:
-        r_all = requests.post("http://localhost:5001/predict-all", json=all_payload, timeout=10)
+        r_all = requests.post("http://localhost:5001/predict-all", json=all_payload, timeout=15)
         print(f"   Status: {r_all.status_code}")
         if r_all.status_code == 200:
             all_data = r_all.json()
             
-            # Price info
+            # Price
             price_info = all_data.get('price', {})
             print(f"   Price: {price_info.get('weighted_range', 'N/A')}")
             
-            # Rating info
+            # Rating
             rating_info = all_data.get('rating', {})
             print(f"   Rating: {rating_info.get('predicted_rating', 'N/A'):.1f}")
             
-            # Top flavors
+            # Flavors
             flavors = all_data.get('flavors', [])
-            if flavors:
-                print(f"   Top flavors: {', '.join([f['flavor'] for f in flavors[:3]])}")
+            print(f"   Flavors ({len(flavors)}): {', '.join([f['flavor'] for f in flavors[:5]])}")
             
-            # Derived features
-            derived = all_data.get('derived_features', {})
-            if derived:
-                print(f"   Price range: ${derived.get('price_min', 0):.2f} - ${derived.get('price_max', 0):.2f}")
+            # Mouthfeel
+            mouthfeel = all_data.get('mouthfeel', [])
+            print(f"   Mouthfeel ({len(mouthfeel)}): {', '.join([m['mouthfeel'] for m in mouthfeel[:5]])}")
+            
         else:
             print(f"   Error: {r_all.text}")
     except requests.exceptions.RequestException as e:

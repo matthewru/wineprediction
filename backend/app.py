@@ -3,6 +3,7 @@ from flask_cors import CORS
 from services.predict_price_lite import predict_price_lite
 from services.predict_rating_lite import predict_rating_lite
 from services.predict_flavor import predict_flavor_tags_from_dict, load_model_eagerly, check_models_exist
+from services.predict_mouthfeel import predict_mouthfeel_tags_from_dict
 import os
 
 app = Flask(__name__)
@@ -166,14 +167,67 @@ def predict_flavor_endpoint():
         print(f"Error (flavor): {str(e)}")
         return jsonify({"error": str(e)}), 500
 
+@app.route('/predict-mouthfeel', methods=['POST'])
+def predict_mouthfeel_endpoint():
+    data = request.json
+    print(f"Received data (mouthfeel): {data}")
+    
+    try:
+        # Extract parameters from request
+        confidence_threshold = data.get('confidence_threshold', 0.5)
+        top_k = data.get('top_k', 10)
+        
+        # Check if we have all required basic fields
+        required_fields = ['variety', 'country', 'province', 'age', 'region_hierarchy']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"error": f"Missing required field: {field}"}), 400
+        
+        # If price_min/price_max not provided, predict them
+        if 'price_min' not in data or 'price_max' not in data:
+            print("  Predicting prices first...")
+            price_prediction = predict_price_lite(data)
+            data['price_min'] = float(price_prediction['weighted_lower'])
+            data['price_max'] = float(price_prediction['weighted_upper'])
+        
+        # If rating not provided, predict it
+        if 'rating' not in data:
+            print("  Predicting rating first...")
+            rating_prediction = predict_rating_lite(data)
+            data['rating'] = float(rating_prediction['predicted_rating'])
+        
+        # Now predict mouthfeel
+        print("  Predicting mouthfeel...")
+        mouthfeel_prediction = predict_mouthfeel_tags_from_dict(
+            data,
+            confidence_threshold=confidence_threshold,
+            top_k=top_k
+        )
+        
+        result = {
+            "mouthfeel": mouthfeel_prediction,
+            "input_data": data,
+            "prediction_info": {
+                "confidence_threshold": confidence_threshold,
+                "top_k": top_k,
+                "total_found": len(mouthfeel_prediction)
+            }
+        }
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        print(f"Error in mouthfeel prediction: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/predict-all', methods=['POST'])
 def predict_all_endpoint():
-    """Convenience endpoint that predicts price, rating, and flavors all at once"""
+    """Convenience endpoint that predicts price, rating, flavors, and mouthfeel all at once"""
     data = request.json
     print(f"Received data (all): {data}")
     
     try:
-        # Extract flavor prediction parameters
+        # Extract prediction parameters
         confidence_threshold = data.get('confidence_threshold', 0.5)
         top_k = data.get('top_k', 10)
         
@@ -201,36 +255,45 @@ def predict_all_endpoint():
         
         # Step 3: Predict flavors (using price and rating predictions)
         print("  Step 3: Predicting flavors...")
-        flavor_input = {
+        prediction_input = {
             **data,
             "price_min": price_min,
             "price_max": price_max,
             "rating": rating
         }
         flavor_prediction = predict_flavor_tags_from_dict(
-            flavor_input,
+            prediction_input,
             confidence_threshold=confidence_threshold,
             top_k=top_k
         )
         
-        return jsonify({
+        # Step 4: Predict mouthfeel (using price and rating predictions)
+        print("  Step 4: Predicting mouthfeel...")
+        mouthfeel_prediction = predict_mouthfeel_tags_from_dict(
+            prediction_input,
+            confidence_threshold=confidence_threshold,
+            top_k=top_k
+        )
+        
+        # Combine all results
+        result = {
             "price": price_prediction,
             "rating": rating_prediction,
             "flavors": flavor_prediction,
+            "mouthfeel": mouthfeel_prediction,
             "input_data": data,
-            "derived_features": {
-                "price_min": price_min,
-                "price_max": price_max,
-                "rating": rating
-            },
-            "parameters": {
+            "prediction_info": {
                 "confidence_threshold": confidence_threshold,
-                "top_k": top_k
+                "top_k": top_k,
+                "flavor_count": len(flavor_prediction),
+                "mouthfeel_count": len(mouthfeel_prediction)
             }
-        })
-
+        }
+        
+        return jsonify(result)
+        
     except Exception as e:
-        print(f"Error (predict-all): {str(e)}")
+        print(f"Error in combined prediction: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/health', methods=['GET'])
