@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -38,8 +39,10 @@ export default function Layout() {
   }
   
   return (
-    <WineProvider>
-      <Stack screenOptions={{ headerShown: false }} />
-    </WineProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <WineProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </WineProvider>
+    </GestureHandlerRootView>
   );
 }

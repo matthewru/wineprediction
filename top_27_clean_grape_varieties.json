@@ -1,0 +1,302 @@
+{
+  "top_27_single_grapes": {
+    "total_wines_in_datasets": 160534,
+    "grape_varieties": [
+      {
+        "rank": 1,
+        "variety": "Pinot Noir",
+        "mouthfeel_count": 8868,
+        "flavor_count": 9417,
+        "total_count": 18285,
+        "percentage": 11.4,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 2,
+        "variety": "Chardonnay",
+        "mouthfeel_count": 6834,
+        "flavor_count": 7127,
+        "total_count": 13961,
+        "percentage": 8.7,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 3,
+        "variety": "Cabernet Sauvignon",
+        "mouthfeel_count": 5386,
+        "flavor_count": 5726,
+        "total_count": 11112,
+        "percentage": 6.9,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 4,
+        "variety": "Riesling",
+        "mouthfeel_count": 4150,
+        "flavor_count": 4183,
+        "total_count": 8333,
+        "percentage": 5.2,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 5,
+        "variety": "Syrah",
+        "mouthfeel_count": 3354,
+        "flavor_count": 3577,
+        "total_count": 6931,
+        "percentage": 4.3,
+        "includes_synonyms": [
+          "Shiraz",
+          "Syrah"
+        ]
+      },
+      {
+        "rank": 6,
+        "variety": "Sauvignon Blanc",
+        "mouthfeel_count": 2610,
+        "flavor_count": 2721,
+        "total_count": 5331,
+        "percentage": 3.3,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 7,
+        "variety": "Zinfandel",
+        "mouthfeel_count": 1901,
+        "flavor_count": 2037,
+        "total_count": 3938,
+        "percentage": 2.5,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 8,
+        "variety": "Malbec",
+        "mouthfeel_count": 1820,
+        "flavor_count": 1961,
+        "total_count": 3781,
+        "percentage": 2.4,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 9,
+        "variety": "Nebbiolo",
+        "mouthfeel_count": 1809,
+        "flavor_count": 1845,
+        "total_count": 3654,
+        "percentage": 2.3,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 10,
+        "variety": "Merlot",
+        "mouthfeel_count": 1493,
+        "flavor_count": 1597,
+        "total_count": 3090,
+        "percentage": 1.9,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 11,
+        "variety": "Tempranillo",
+        "mouthfeel_count": 1324,
+        "flavor_count": 1424,
+        "total_count": 2748,
+        "percentage": 1.7,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 12,
+        "variety": "Sangiovese",
+        "mouthfeel_count": 1317,
+        "flavor_count": 1369,
+        "total_count": 2686,
+        "percentage": 1.7,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 13,
+        "variety": "Pinot Gris",
+        "mouthfeel_count": 1102,
+        "flavor_count": 1123,
+        "total_count": 2225,
+        "percentage": 1.4,
+        "includes_synonyms": [
+          "Pinot Grigio",
+          "Pinot Gris"
+        ]
+      },
+      {
+        "rank": 14,
+        "variety": "Gr\u00fcner Veltliner",
+        "mouthfeel_count": 992,
+        "flavor_count": 1003,
+        "total_count": 1995,
+        "percentage": 1.2,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 15,
+        "variety": "Cabernet Franc",
+        "mouthfeel_count": 757,
+        "flavor_count": 788,
+        "total_count": 1545,
+        "percentage": 1.0,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 16,
+        "variety": "Gew\u00fcrztraminer",
+        "mouthfeel_count": 656,
+        "flavor_count": 667,
+        "total_count": 1323,
+        "percentage": 0.8,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 17,
+        "variety": "Gamay",
+        "mouthfeel_count": 588,
+        "flavor_count": 594,
+        "total_count": 1182,
+        "percentage": 0.7,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 18,
+        "variety": "Viognier",
+        "mouthfeel_count": 522,
+        "flavor_count": 549,
+        "total_count": 1071,
+        "percentage": 0.7,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 19,
+        "variety": "Carmen\u00e8re",
+        "mouthfeel_count": 431,
+        "flavor_count": 495,
+        "total_count": 926,
+        "percentage": 0.6,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 20,
+        "variety": "Grenache",
+        "mouthfeel_count": 445,
+        "flavor_count": 467,
+        "total_count": 912,
+        "percentage": 0.6,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 21,
+        "variety": "Petite Sirah",
+        "mouthfeel_count": 419,
+        "flavor_count": 443,
+        "total_count": 862,
+        "percentage": 0.5,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 22,
+        "variety": "Barbera",
+        "mouthfeel_count": 388,
+        "flavor_count": 405,
+        "total_count": 793,
+        "percentage": 0.5,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 23,
+        "variety": "Chenin Blanc",
+        "mouthfeel_count": 354,
+        "flavor_count": 358,
+        "total_count": 712,
+        "percentage": 0.4,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 24,
+        "variety": "Glera",
+        "mouthfeel_count": 237,
+        "flavor_count": 247,
+        "total_count": 484,
+        "percentage": 0.3,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 25,
+        "variety": "Sangiovese Grosso",
+        "mouthfeel_count": 238,
+        "flavor_count": 244,
+        "total_count": 482,
+        "percentage": 0.3,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 26,
+        "variety": "Nero d'Avola",
+        "mouthfeel_count": 226,
+        "flavor_count": 243,
+        "total_count": 469,
+        "percentage": 0.3,
+        "includes_synonyms": []
+      },
+      {
+        "rank": 27,
+        "variety": "Melon",
+        "mouthfeel_count": 233,
+        "flavor_count": 233,
+        "total_count": 466,
+        "percentage": 0.3,
+        "includes_synonyms": []
+      }
+    ],
+    "coverage": {
+      "total_wines_covered": 99297,
+      "coverage_percentage": 61.9
+    }
+  },
+  "simple_grape_list": [
+    "Pinot Noir",
+    "Chardonnay",
+    "Cabernet Sauvignon",
+    "Riesling",
+    "Syrah",
+    "Sauvignon Blanc",
+    "Zinfandel",
+    "Malbec",
+    "Nebbiolo",
+    "Merlot",
+    "Tempranillo",
+    "Sangiovese",
+    "Pinot Gris",
+    "Gr\u00fcner Veltliner",
+    "Cabernet Franc",
+    "Gew\u00fcrztraminer",
+    "Gamay",
+    "Viognier",
+    "Carmen\u00e8re",
+    "Grenache",
+    "Petite Sirah",
+    "Barbera",
+    "Chenin Blanc",
+    "Glera",
+    "Sangiovese Grosso",
+    "Nero d'Avola",
+    "Melon"
+  ],
+  "synonym_info": {
+    "notes": "Shiraz and Syrah combined, Pinot Gris and Pinot Grigio combined",
+    "synonyms_merged": {
+      "Syrah": [
+        "Syrah",
+        "Shiraz"
+      ],
+      "Pinot Gris": [
+        "Pinot Gris",
+        "Pinot Grigio"
+      ]
+    }
+  }
+}

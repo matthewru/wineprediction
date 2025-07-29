@@ -150,21 +150,21 @@ export default function CountryScreen() {
       if (hasRealSecondaryRegions) {
         setCurrentStep('secondary-region');
       } else {
-        // Skip secondary region step and go directly to wine features
-        router.push('/wine-features');
+        // Skip secondary region step and go directly to grape selection
+        router.push('/BubbleScroller');
       }
     } else if (currentStep === 'secondary-region') {
-      // Save secondary region and navigate to wine features
+      // Save secondary region and navigate to grape selection
       setWineData(prev => ({
         ...prev,
         region2: currentSecondaryRegion
       }));
-      router.push('/wine-features');
+      router.push('/BubbleScroller');
     }
   };
 
   const handleSkip = () => {
-    router.push('/wine-features');
+    router.push('/BubbleScroller');
   };
 
   const handleBack = () => {
