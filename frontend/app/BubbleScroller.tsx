@@ -189,7 +189,7 @@ const BubbleScroller = () => {
   const { country, region1, region2, variety, age } = wineData;
   
   const scrollViewRef = useRef<ScrollView>(null);
-  const [sliderValue, setSliderValue] = useState(age || 10); // Use age from wine context or default to 10
+  const [sliderValue, setSliderValue] = useState(age || 2); // Use age from wine context or default to 2
   const totalWidth = getTotalWidth();
   const containerHeight = getContainerHeight();
 
@@ -350,7 +350,7 @@ const BubbleScroller = () => {
       {/* Wine Age Slider */}
       <View style={styles.sliderContainer}>
         <Slider 
-          min={8}
+          min={2}
           max={30}
           step={1}
           value={sliderValue}
