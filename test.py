@@ -114,7 +114,7 @@ def test_wine_prediction(payload_data, test_name):
     # Test predict-price endpoint
     print("1. Predict-Price:")
     try:
-        r_price = requests.post("http://localhost:5001/predict-price-lite", json=payload_data, timeout=10)
+        r_price = requests.post("http://3.19.60.226:5001/predict-price-lite", json=payload_data, timeout=10)
         print(f"   Status: {r_price.status_code}")
         if r_price.status_code == 200:
             price_data = r_price.json()
@@ -127,7 +127,7 @@ def test_wine_prediction(payload_data, test_name):
     # Test predict-rating endpoint
     print("2. Predict-Rating:")
     try:
-        r_rating = requests.post("http://localhost:5001/predict-rating-lite", json=payload_data, timeout=10)
+        r_rating = requests.post("http://3.19.60.226:5001/predict-rating-lite", json=payload_data, timeout=10)
         print(f"   Status: {r_rating.status_code}")
         if r_rating.status_code == 200:
             rating_data = r_rating.json()
@@ -146,7 +146,7 @@ def test_wine_prediction(payload_data, test_name):
     }
     
     try:
-        r_flavor = requests.post("http://localhost:5001/predict-flavor", json=flavor_payload, timeout=10)
+        r_flavor = requests.post("http://3.19.60.226:5001/predict-flavor", json=flavor_payload, timeout=10)
         print(f"   Status: {r_flavor.status_code}")
         if r_flavor.status_code == 200:
             flavor_data = r_flavor.json()
@@ -170,7 +170,7 @@ def test_wine_prediction(payload_data, test_name):
     }
     
     try:
-        r_mouthfeel = requests.post("http://localhost:5001/predict-mouthfeel", json=mouthfeel_payload, timeout=10)
+        r_mouthfeel = requests.post("http://3.19.60.226:5001/predict-mouthfeel", json=mouthfeel_payload, timeout=10)
         print(f"   Status: {r_mouthfeel.status_code}")
         if r_mouthfeel.status_code == 200:
             mouthfeel_data = r_mouthfeel.json()
@@ -194,7 +194,7 @@ def test_wine_prediction(payload_data, test_name):
     }
     
     try:
-        r_all = requests.post("http://localhost:5001/predict-all", json=all_payload, timeout=15)
+        r_all = requests.post("http://3.19.60.226:5001/predict-all", json=all_payload, timeout=15)
         print(f"   Status: {r_all.status_code}")
         if r_all.status_code == 200:
             all_data = r_all.json()
@@ -226,7 +226,7 @@ print("=" * 70)
 # Test health check first
 print("\n🏥 Health Check:")
 try:
-    r_health = requests.get("http://localhost:5001/health", timeout=5)
+    r_health = requests.get("http://3.19.60.226:5001/health", timeout=5)
     print(f"Status: {r_health.status_code}")
     if r_health.status_code == 200:
         health_data = r_health.json()
@@ -239,7 +239,7 @@ try:
         print("⚠️  Server may not be running or models not loaded properly")
 except requests.exceptions.RequestException as e:
     print(f"Connection Error: {e}")
-    print("❌ Cannot connect to server. Make sure it's running on http://localhost:5001")
+    print("❌ Cannot connect to server. Make sure it's running on http://3.19.60.226:5001")
 
 # Run tests for each payload
 for i, test_case in enumerate(test_payloads, 1):

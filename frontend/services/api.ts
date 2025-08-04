@@ -3,11 +3,11 @@
 // Get the appropriate API URL based on environment
 const getApiUrl = () => {
   if (__DEV__) {
-    // Development - use your computer's IP address
-    // Replace this IP with your computer's actual IP if it changes
-    const COMPUTER_IP = '10.0.0.140'; // Your Mac's IP address
+    // Development - use your EC2 server IP address
+    // Replace this IP with your actual EC2 IP address
+    const EC2_IP = '3.19.60.226'; // Replace with your actual EC2 IP
     
-    return `http://${COMPUTER_IP}:5001`;
+    return `http://${EC2_IP}:5001`;
   } else {
     // Production - replace with your actual deployed URL
     return 'https://your-deployed-backend.com';
