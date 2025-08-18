@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useWine } from '../context/WineContext';
 import { wineAPI, type AllPredictionsResponse, type WinePredictionInput } from '../services/api';
 import { wineTheme } from '../constants/Colors';
 import { fonts } from '../constants/Fonts';
+import * as Progress from 'react-native-progress';
 
 export default function ResultsScreen() {
   const router = useRouter();
@@ -107,74 +108,103 @@ export default function ResultsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Wine Analysis Results</Text>
-          <Text style={styles.subtitle}>
-            {wineData.variety} from {wineData.country}
-          </Text>
-        </View>
-
-        {/* Price Prediction */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>💰 Price Range</Text>
-          <View style={styles.priceContainer}>
-            <Text style={styles.priceRange}>
-              ${predictions.price.weighted_lower.toFixed(0)} - ${predictions.price.weighted_upper.toFixed(0)}
-            </Text>
-            <Text style={styles.confidence}>{predictions.price.confidence_interval}</Text>
-          </View>
-        </View>
-
-        {/* Rating Prediction */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>⭐ Quality Rating</Text>
-          <View style={styles.ratingContainer}>
-            <Text style={styles.rating}>{predictions.rating.predicted_rating.toFixed(1)}/100</Text>
-            <Text style={styles.ratingDescription}>
-              {predictions.rating.predicted_rating >= 90 ? 'Exceptional' :
-               predictions.rating.predicted_rating >= 85 ? 'Very Good' :
-               predictions.rating.predicted_rating >= 80 ? 'Good' : 'Average'}
+      <View style={styles.content}>
+        <View style={styles.topSection}>
+          <View style={styles.header}>
+            <Text style={styles.title}>Wine Analysis Results</Text>
+            <Text style={styles.subtitle}>
+              {wineData.variety} from {wineData.country}
             </Text>
           </View>
-        </View>
 
-        {/* Flavor Profile */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>🍇 Flavor Profile</Text>
-          <View style={styles.tagsContainer}>
-            {predictions.flavors.map((flavor, index) => (
-              <View key={index} style={styles.tag}>
-                <Text style={styles.tagText}>{flavor.flavor}</Text>
-                <Text style={styles.tagConfidence}>{(flavor.confidence * 100).toFixed(0)}%</Text>
-              </View>
-            ))}
+          <View style={styles.infoGrid}>
+            <View style={styles.infoCard}>
+              <Text style={styles.infoLabel}>Age</Text>
+              <Text style={styles.infoValue}>{wineData.age} years</Text>
+            </View>
+            <View style={styles.infoCard}>
+              <Text style={styles.infoLabel}>Rating</Text>
+              <Text style={styles.infoValue}>{predictions.rating.predicted_rating.toFixed(1)}/100</Text>
+            </View>
+            <View style={styles.infoCard}>
+              <Text style={styles.infoLabel}>Price Range</Text>
+              <Text style={styles.infoValue}>
+                ${predictions.price.weighted_lower.toFixed(0)} - ${predictions.price.weighted_upper.toFixed(0)}
+              </Text>
+              <Text style={styles.confidence}>{predictions.price.confidence_interval}</Text>
+            </View>
+            <View style={styles.infoCard}>
+              <Text style={styles.infoLabel}>Location</Text>
+              <Text style={styles.infoValue}>
+                {wineData.country}{wineData.region1 ? `, ${wineData.region1}` : ''}{wineData.region2 ? `, ${wineData.region2}` : ''}
+              </Text>
+            </View>
           </View>
         </View>
 
-        {/* Mouthfeel */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>👄 Mouthfeel</Text>
-          <View style={styles.tagsContainer}>
-            {predictions.mouthfeel.map((feel, index) => (
-              <View key={index} style={styles.tag}>
-                <Text style={styles.tagText}>{feel.mouthfeel}</Text>
-                <Text style={styles.tagConfidence}>{(feel.confidence * 100).toFixed(0)}%</Text>
+        <View style={styles.dividerHorizontal} />
+
+        <View style={styles.bottomSection}>
+          <View style={styles.bottomSplit}>
+            <View style={styles.leftPane}>
+              <View style={[styles.panelBox, { flex: 1 }]}>
+                <Text style={styles.panelTitle}>Flavor Profile</Text>
+                {predictions.flavors.slice(0, 5).map((flavor, i) => (
+                  <View key={`flavor-${i}`} style={styles.progressItem}>
+                    <Text style={styles.progressLabel}>{flavor.flavor}</Text>
+                    <Progress.Bar
+                      progress={Math.max(0, Math.min(1, flavor.confidence))}
+                      height={8}
+                      width={null}
+                      color={wineTheme.colors.primary}
+                      unfilledColor={`${wineTheme.colors.text}22`}
+                      borderWidth={0}
+                      borderRadius={8}
+                      style={styles.progressBar}
+                    />
+                  </View>
+                ))}
               </View>
-            ))}
+              <View style={[styles.panelBox, { flex: 1 }]}>
+                <Text style={styles.panelTitle}>Mouthfeel</Text>
+                {predictions.mouthfeel.slice(0, 5).map((feel, i) => (
+                  <View key={`mouthfeel-${i}`} style={styles.progressItem}>
+                    <Text style={styles.progressLabel}>{feel.mouthfeel}</Text>
+                    <Progress.Bar
+                      progress={Math.max(0, Math.min(1, feel.confidence))}
+                      height={8}
+                      width={null}
+                      color={wineTheme.colors.primary}
+                      unfilledColor={`${wineTheme.colors.text}22`}
+                      borderWidth={0}
+                      borderRadius={8}
+                      style={styles.progressBar}
+                    />
+                  </View>
+                ))}
+              </View>
+            </View>
+
+            <View style={styles.dividerVertical} />
+
+            <View style={styles.rightPane}>
+              <View style={[styles.placeholderBox, { flex: 1 }]}>
+                <Text style={styles.placeholderTitle}>Wine Visual</Text>
+                <Text style={styles.placeholderSubtitle}>Bottle/Label preview</Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.actionsContainer}>
+            <TouchableOpacity style={styles.primaryButton} onPress={handleStartOver}>
+              <Text style={styles.primaryButtonText}>Analyze Another Wine</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.secondaryButton} onPress={handleBack}>
+              <Text style={styles.secondaryButtonText}>Go Back</Text>
+            </TouchableOpacity>
           </View>
         </View>
-
-        {/* Actions */}
-        <View style={styles.actionsContainer}>
-          <TouchableOpacity style={styles.primaryButton} onPress={handleStartOver}>
-            <Text style={styles.primaryButtonText}>Analyze Another Wine</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.secondaryButton} onPress={handleBack}>
-            <Text style={styles.secondaryButtonText}>Go Back</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -184,9 +214,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: wineTheme.colors.background,
   },
+  content: {
+    flex: 1,
+    padding: 12,
+    paddingBottom: 12,
+  },
   scrollContent: {
     padding: 20,
     paddingBottom: 40,
+    flexGrow: 1,
   },
   loadingContainer: {
     flex: 1,
@@ -255,23 +291,129 @@ const styles = StyleSheet.create({
     fontFamily: fonts.outfit,
   },
   header: {
-    marginBottom: 32,
+    marginBottom: 10,
     alignItems: 'center',
   },
   title: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: '700',
     fontFamily: fonts.spaceGrotesk,
     color: wineTheme.colors.text,
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontFamily: fonts.outfit,
     color: wineTheme.colors.text,
     opacity: 0.8,
     textAlign: 'center',
+  },
+  topSection: {
+    justifyContent: 'flex-start',
+  },
+  dividerHorizontal: {
+    height: 1,
+    backgroundColor: `${wineTheme.colors.text}22`,
+    marginVertical: 4,
+  },
+  infoGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    justifyContent: 'space-between',
+  },
+  infoCard: {
+    backgroundColor: wineTheme.colors.surface,
+    borderRadius: 12,
+    padding: 10,
+    flexGrow: 1,
+    flexBasis: '48%',
+    borderWidth: 1,
+    borderColor: `${wineTheme.colors.primary}33`,
+  },
+  infoLabel: {
+    fontSize: 12,
+    color: wineTheme.colors.text,
+    opacity: 0.7,
+    fontFamily: fonts.outfit,
+    marginBottom: 4,
+  },
+  infoValue: {
+    fontSize: 15,
+    fontWeight: '700',
+    fontFamily: fonts.spaceGrotesk,
+    color: wineTheme.colors.primary,
+    lineHeight: 20,
+    flexShrink: 1,
+  },
+  bottomSection: {
+    flex: 1,
+  },
+  bottomSplit: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  leftPane: {
+    flex: 1,
+    gap: 8,
+    paddingRight: 8,
+  },
+  rightPane: {
+    flex: 1,
+    paddingLeft: 8,
+  },
+  panelBox: {
+    backgroundColor: wineTheme.colors.surface,
+    borderRadius: 12,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: `${wineTheme.colors.primary}33`,
+  },
+  panelTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    fontFamily: fonts.spaceGrotesk,
+    color: wineTheme.colors.text,
+    marginBottom: 6,
+  },
+  progressItem: {
+    marginBottom: 8,
+  },
+  progressLabel: {
+    fontSize: 12,
+    fontFamily: fonts.outfit,
+    color: wineTheme.colors.text,
+    marginBottom: 4,
+  },
+  progressBar: {
+    width: '100%',
+  },
+  dividerVertical: {
+    width: 1,
+    backgroundColor: `${wineTheme.colors.text}22`,
+  },
+  placeholderBox: {
+    backgroundColor: wineTheme.colors.surface,
+    borderRadius: 12,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: `${wineTheme.colors.primary}33`,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  placeholderTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    fontFamily: fonts.spaceGrotesk,
+    color: wineTheme.colors.text,
+    marginBottom: 4,
+  },
+  placeholderSubtitle: {
+    fontSize: 12,
+    fontFamily: fonts.outfit,
+    color: wineTheme.colors.text,
+    opacity: 0.7,
   },
   section: {
     backgroundColor: wineTheme.colors.surface,
@@ -352,12 +494,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   actionsContainer: {
-    marginTop: 24,
-    gap: 12,
+    marginTop: 6,
+    gap: 6,
   },
   primaryButton: {
     backgroundColor: wineTheme.colors.primary,
-    paddingVertical: 16,
+    paddingVertical: 10,
     borderRadius: 12,
     alignItems: 'center',
   },
@@ -370,7 +512,7 @@ const styles = StyleSheet.create({
   secondaryButton: {
     borderWidth: 2,
     borderColor: wineTheme.colors.primary,
-    paddingVertical: 16,
+    paddingVertical: 10,
     borderRadius: 12,
     alignItems: 'center',
     backgroundColor: 'transparent',
