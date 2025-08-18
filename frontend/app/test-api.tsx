@@ -93,7 +93,7 @@ export default function TestApiScreen() {
       <ScrollView style={styles.resultsContainer}>
         <Text style={styles.resultsTitle}>Test Results:</Text>
         {results.length === 0 ? (
-          <Text style={styles.noResults}>No tests run yet. Tap "Run All Tests" to start.</Text>
+          <Text style={styles.noResults}>No tests run yet. Tap &quot;Run All Tests&quot; to start.</Text>
         ) : (
           results.map((result, index) => (
             <Text key={index} style={styles.resultText}>

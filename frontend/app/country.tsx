@@ -8,6 +8,7 @@ import CountryMap from '@/components/CountryMap';
 import { useWine } from '../context/WineContext';
 import type { ICarouselInstance } from 'react-native-reanimated-carousel';
 import Carousel from 'react-native-reanimated-carousel';
+import GlobeSelector, { GlobeSelectorHandle } from '../components/GlobeSelector';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -67,6 +68,7 @@ export default function CountryScreen() {
   const countryCarouselRef = useRef<ICarouselInstance>(null);
   const primaryRegionCarouselRef = useRef<ICarouselInstance>(null);
   const secondaryRegionCarouselRef = useRef<ICarouselInstance>(null);
+  const globeRef = useRef<GlobeSelectorHandle>(null);
 
   // Get current selections
   const currentCountry = countryList[selectedCountryIndex];
@@ -105,11 +107,15 @@ export default function CountryScreen() {
 
   // Navigation handlers for country step
   const handleCountryPrev = () => {
-    countryCarouselRef.current?.prev();
+    const nextIndex = (selectedCountryIndex - 1 + countryList.length) % countryList.length;
+    setSelectedCountryIndex(nextIndex);
+    globeRef.current?.flyToCountry(countryList[nextIndex]);
   };
   
   const handleCountryNext = () => {
-    countryCarouselRef.current?.next();
+    const nextIndex = (selectedCountryIndex + 1) % countryList.length;
+    setSelectedCountryIndex(nextIndex);
+    globeRef.current?.flyToCountry(countryList[nextIndex]);
   };
 
   // Navigation handlers for primary region step (manual cycling, no carousel)
@@ -192,8 +198,8 @@ export default function CountryScreen() {
 
   // Sync carousels when step changes or when going back
   useEffect(() => {
-    if (currentStep === 'country' && countryCarouselRef.current) {
-      countryCarouselRef.current.scrollTo({ index: selectedCountryIndex, animated: false });
+    if (currentStep === 'country' && globeRef.current) {
+      globeRef.current.flyToCountry(currentCountry);
     }
   }, [currentStep, selectedCountryIndex]);
 
@@ -220,20 +226,14 @@ export default function CountryScreen() {
         </View>
       </View>
 
-      <Carousel
-        ref={countryCarouselRef}
-        loop
-        width={screenWidth}
-        height={600}
-        data={countryList}
-        scrollAnimationDuration={250}
-        onSnapToItem={(index) => setSelectedCountryIndex(index)}
-        renderItem={({ item }) => (
-          <View style={styles.countrySlide}>
-            <CountryMap country={item} />
-          </View>
-        )}
-      />
+      <View style={styles.countrySlide}>
+        <GlobeSelector
+          ref={globeRef}
+          countries={countryList}
+          selectedCountry={currentCountry}
+          style={{ width: screenWidth, height: 600 }}
+        />
+      </View>
     </>
   );
 

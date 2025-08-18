@@ -21,6 +21,7 @@
     "expo-blur": "~14.1.5",
     "expo-constants": "~17.1.7",
     "expo-font": "~13.3.2",
+    "expo-gl": "~15.1.7",
     "expo-haptics": "~14.1.4",
     "expo-image": "~2.3.2",
     "expo-linking": "~7.1.7",
@@ -29,6 +30,7 @@
     "expo-status-bar": "~2.2.3",
     "expo-symbols": "~0.4.5",
     "expo-system-ui": "~5.0.10",
+    "expo-three": "^7.0.1",
     "expo-web-browser": "~14.2.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
@@ -41,11 +43,17 @@
     "react-native-svg": "^15.12.0",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-web": "~0.20.0",
-    "react-native-webview": "13.13.5"
+    "react-native-webview": "13.13.5",
+    "three": "^0.145.0",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2",
+    "world-countries": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
+    "@types/three": "^0.179.0",
+    "@types/topojson-client": "^3.1.5",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~9.2.0",
     "typescript": "~5.8.3"
