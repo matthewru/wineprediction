@@ -4,10 +4,31 @@ from services.predict_price_lite import predict_price_lite
 from services.predict_rating_lite import predict_rating_lite
 from services.predict_flavor import predict_flavor_tags_from_dict, load_model_eagerly, check_models_exist
 from services.predict_mouthfeel import predict_mouthfeel_tags_from_dict
+from mongo import init_mongo, db
 import os
+
+# Added imports for Google auth and JWT
+from google.oauth2 import id_token as google_id_token
+from google.auth.transport import requests as google_requests
+import jwt
+from pymongo import ReturnDocument
+from mongo import get_bottles_by_user
+from mongo import add_bottle
+from mongo import get_public_bottles
+from mongo import now
 
 app = Flask(__name__)
 CORS(app)
+
+# Initialize MongoDB
+print("🗄️ Initializing MongoDB...")
+MONGO_READY = init_mongo()
+
+# JWT secret
+JWT_SECRET = os.environ.get("JWT_SECRET", "change_me")
+
+# Allowed Google audiences (comma-separated client IDs)
+GOOGLE_CLIENT_IDS = [s.strip() for s in os.environ.get("GOOGLE_CLIENT_IDS", "").split(",") if s.strip()]
 
 # Warm up the models on startup to avoid cold start penalty
 print("🔥 Warming up models...")
@@ -70,6 +91,132 @@ try:
 except Exception as e:
     print(f"⚠️  Flavor model startup failed: {e}")
     print("    Note: Train the flavor model first with train_flavor_predictor.py")
+
+# ---- Auth helpers and endpoints ----
+
+def sign_app_jwt(payload: dict) -> str:
+    return jwt.encode(payload, JWT_SECRET, algorithm="HS256")
+
+
+def decode_app_jwt(token: str) -> dict:
+    return jwt.decode(token, JWT_SECRET, algorithms=["HS256"])  # type: ignore
+
+
+def require_auth(fn):
+    def wrapper(*args, **kwargs):
+        auth_header = request.headers.get("Authorization", "")
+        token = auth_header[7:] if auth_header.startswith("Bearer ") else ""
+        if not token:
+            return jsonify({"error": "Unauthorized"}), 401
+        try:
+            payload = decode_app_jwt(token)
+            request.user = payload  # type: ignore
+        except Exception:
+            return jsonify({"error": "Unauthorized"}), 401
+        return fn(*args, **kwargs)
+    wrapper.__name__ = fn.__name__
+    return wrapper
+
+
+@app.route('/auth/google', methods=['POST'])
+def auth_google():
+    body = request.get_json(silent=True) or {}
+    id_token_str = body.get('idToken')
+    if not id_token_str:
+        return jsonify({"error": "Missing idToken"}), 400
+    try:
+        ticket = google_id_token.verify_oauth2_token(id_token_str, google_requests.Request())
+        if GOOGLE_CLIENT_IDS:
+            aud = ticket.get('aud')
+            if aud not in set(GOOGLE_CLIENT_IDS):
+                return jsonify({"error": "Invalid audience"}), 401
+        sub = ticket.get('sub')
+        if not sub:
+            return jsonify({"error": "Invalid token"}), 401
+        email = ticket.get('email')
+        name = ticket.get('name')
+        picture = ticket.get('picture')
+
+        user = db.users.find_one_and_update(
+            {"google_id": sub},
+            {
+                "$setOnInsert": {"google_id": sub, "created_at": int(os.times().elapsed)},
+                "$set": {"email": email, "name": name, "image": picture, "updated_at": int(os.times().elapsed)}
+            },
+            upsert=True,
+            return_document=ReturnDocument.AFTER
+        )
+
+        token = sign_app_jwt({"user_id": str(user.get("_id")), "google_id": sub})
+        return jsonify({"token": token, "user": {"_id": str(user.get("_id")), "email": user.get("email"), "name": user.get("name"), "image": user.get("image")}})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/me', methods=['GET'])
+@require_auth
+def me():
+    user_id = request.user.get("user_id")  # type: ignore
+    user = db.users.find_one({"_id": user_id})
+    if not user:
+        return jsonify({"error": "Not found"}), 404
+    return jsonify({"user": {"_id": str(user.get("_id")), "email": user.get("email"), "name": user.get("name"), "image": user.get("image")}})
+
+@app.route('/cellar', methods=['GET'])
+@require_auth
+def get_cellar():
+    user_google_id = request.user.get("google_id")  # type: ignore
+    try:
+        user = db.users.find_one({"google_id": user_google_id}, {"cellar": 1}) or {}
+        items = user.get("cellar", [])
+        return jsonify({"items": items})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/cellar', methods=['POST'])
+@require_auth
+def create_bottle():
+    user_id = request.user.get("user_id")  # type: ignore
+    user_google_id = request.user.get("google_id")  # type: ignore
+    body = request.get_json(silent=True) or {}
+    try:
+        # Normalize payload
+        publish_public = bool(body.get("public", False))
+        bottle_payload = {k: v for k, v in body.items() if k != "public"}
+        bottle_payload.setdefault("created_at", now())
+
+        public_id = None
+        if publish_public:
+            # Insert ONE public copy into global pool
+            public_id = add_bottle(user_id, {**bottle_payload, "public": True})
+
+        # Push an embedded copy into the user's document list (personal cellar)
+        embedded_copy = {**bottle_payload, "saved_at": now(), "public": publish_public}
+        if public_id is not None:
+            embedded_copy["bottle_id"] = public_id
+        db.users.update_one(
+            {"google_id": user_google_id},
+            {"$push": {"cellar": embedded_copy}},
+            upsert=True,
+        )
+
+        return jsonify({"ok": True, "id": public_id}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/cellar/public', methods=['GET'])
+def list_public_cellar():
+    try:
+        items = get_public_bottles(limit=50)
+        serialized = []
+        for doc in items:
+            doc_copy = dict(doc)
+            if doc_copy.get("_id") is not None:
+                doc_copy["_id"] = str(doc_copy["_id"])
+            serialized.append(doc_copy)
+        return jsonify({"items": serialized})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/predict-price-lite', methods=['POST'])
 def predict_price_lite_endpoint():
@@ -299,18 +446,30 @@ def predict_all_endpoint():
 @app.route('/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
+    mongo_status = "connected"
+    try:
+        db.command('ping')
+    except Exception as e:
+        mongo_status = f"error: {e.__class__.__name__}"
+
     return jsonify({
         "status": "healthy",
         "models": {
             "price": "available",
             "rating": "available", 
             "flavor": "available" if 'predict_flavor_tags_from_dict' in globals() else "training_required"
+        },
+        "mongo": {
+            "status": mongo_status,
+            "ready_at_startup": bool(MONGO_READY)
         }
     })
 
 if __name__ == '__main__':
     print("🚀 Starting Flask server...")
     print("📍 Available endpoints:")
+    print("   POST /auth/google        - Verify Google ID token and return app JWT")
+    print("   GET  /me                 - Get current user by JWT")
     print("   POST /predict-price-lite   - Predict wine price range")
     print("   POST /predict-rating-lite  - Predict wine rating")
     print("   POST /predict-flavor       - Predict wine flavors")

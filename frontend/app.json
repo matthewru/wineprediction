@@ -2,21 +2,28 @@
   "expo": {
     "name": "frontend",
     "slug": "frontend",
+    "owner": "matthewru7",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "frontend",
+    "scheme": ["frontend", 
+              "com.googleusercontent.apps.308667438784-gj75dhcphnuacfn1hgmncq5fv454g962"],
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.matthewru.wine-app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.matthewru.wine_app"
     },
     "web": {
       "bundler": "metro",
@@ -34,10 +41,22 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-secure-store",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "apiUrl": "http://3.19.60.226:5001",
+      "googleAndroidClientId": "308667438784-63139ks534cn9pbhdjcvr4csb8fguh88.apps.googleusercontent.com",
+      "googleIosClientId": "308667438784-gj75dhcphnuacfn1hgmncq5fv454g962.apps.googleusercontent.com",
+      "googleWebClientId": "308667438784-4i2ie5nm8v6f0op6if9b4sodm977nrvf.apps.googleusercontent.com",
+      "router": {},
+      "eas": {
+        "projectId": "223aabb5-499a-4afd-adf0-8699634c3bbe"
+      }
     }
   }
 }

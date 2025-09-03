@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useWine } from '../context/WineContext';
@@ -7,6 +7,9 @@ import { wineAPI, type AllPredictionsResponse, type WinePredictionInput } from '
 import { wineTheme } from '../constants/Colors';
 import { fonts } from '../constants/Fonts';
 import * as Progress from 'react-native-progress';
+import Bottle from '../components/Bottle';
+import * as SecureStore from 'expo-secure-store';
+import { API_BASE_URL } from '../services/api';
 
 export default function ResultsScreen() {
   const router = useRouter();
@@ -14,6 +17,9 @@ export default function ResultsScreen() {
   const [predictions, setPredictions] = useState<AllPredictionsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [flavorProgress, setFlavorProgress] = useState<number[]>([]);
+  const [mouthfeelProgress, setMouthfeelProgress] = useState<number[]>([]);
+  const [isPublic, setIsPublic] = useState<boolean>(false);
 
   const fetchPredictions = async () => {
     try {
@@ -55,6 +61,24 @@ export default function ResultsScreen() {
     fetchPredictions();
   }, []); // Empty dependency array - only runs once when component mounts
 
+  // Animate progress bars when predictions load/update
+  useEffect(() => {
+    if (!predictions) return;
+    const flavorItems = predictions.flavors.slice(0, 5);
+    const mouthfeelItems = predictions.mouthfeel.slice(0, 5);
+    setFlavorProgress(new Array(flavorItems.length).fill(0));
+    setMouthfeelProgress(new Array(mouthfeelItems.length).fill(0));
+    const t = setTimeout(() => {
+      setFlavorProgress(
+        flavorItems.map(f => Math.max(0, Math.min(1, f.confidence)))
+      );
+      setMouthfeelProgress(
+        mouthfeelItems.map(m => Math.max(0, Math.min(1, m.confidence)))
+      );
+    }, 50);
+    return () => clearTimeout(t);
+  }, [predictions]);
+
   const handleRetry = () => {
     fetchPredictions();
   };
@@ -65,6 +89,50 @@ export default function ResultsScreen() {
 
   const handleStartOver = () => {
     router.push('/');
+  };
+
+  const handleSaveToCellar = async () => {
+    try {
+      if (!predictions) return;
+      const token = await SecureStore.getItemAsync('auth_token');
+      if (!token) {
+        Alert.alert('Not signed in', 'Please sign in again.');
+        router.replace('/');
+        return;
+      }
+      const payload = {
+        name: `${wineData.variety} (${wineData.country}${wineData.region1 ? ', ' + wineData.region1 : ''})`,
+        variety: wineData.variety,
+        country: wineData.country,
+        region1: wineData.region1,
+        region2: wineData.region2,
+        age: wineData.age,
+        predicted: {
+          price: predictions.price,
+          rating: predictions.rating,
+          flavors: predictions.flavors.slice(0, 10),
+          mouthfeel: predictions.mouthfeel.slice(0, 10),
+        },
+        created_via: 'results',
+        public: isPublic,
+      };
+      const res = await fetch(`${API_BASE_URL}/cellar`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || `HTTP ${res.status}`);
+      }
+      Alert.alert('Saved', isPublic ? 'Wine saved to your cellar and public list.' : 'Wine saved to your cellar.');
+      router.replace('/cellar');
+    } catch (e: any) {
+      Alert.alert('Save failed', e?.message ?? 'Unknown error');
+    }
   };
 
   if (loading) {
@@ -153,12 +221,16 @@ export default function ResultsScreen() {
                   <View key={`flavor-${i}`} style={styles.progressItem}>
                     <Text style={styles.progressLabel}>{flavor.flavor}</Text>
                     <Progress.Bar
-                      progress={Math.max(0, Math.min(1, flavor.confidence))}
+                      progress={flavorProgress[i] ?? 0}
+                      animated
+                      animationType="timing"
+                      animationConfig={{ duration: 600 }}
                       height={8}
                       width={null}
                       color={wineTheme.colors.primary}
                       unfilledColor={`${wineTheme.colors.text}22`}
-                      borderWidth={0}
+                      borderWidth={2}
+                      borderColor={`${wineTheme.colors.primary}55`}
                       borderRadius={8}
                       style={styles.progressBar}
                     />
@@ -171,12 +243,16 @@ export default function ResultsScreen() {
                   <View key={`mouthfeel-${i}`} style={styles.progressItem}>
                     <Text style={styles.progressLabel}>{feel.mouthfeel}</Text>
                     <Progress.Bar
-                      progress={Math.max(0, Math.min(1, feel.confidence))}
+                      progress={mouthfeelProgress[i] ?? 0}
+                      animated
+                      animationType="timing"
+                      animationConfig={{ duration: 600 }}
                       height={8}
                       width={null}
                       color={wineTheme.colors.primary}
                       unfilledColor={`${wineTheme.colors.text}22`}
-                      borderWidth={0}
+                      borderWidth={2}
+                      borderColor={`${wineTheme.colors.primary}55`}
                       borderRadius={8}
                       style={styles.progressBar}
                     />
@@ -188,9 +264,8 @@ export default function ResultsScreen() {
             <View style={styles.dividerVertical} />
 
             <View style={styles.rightPane}>
-              <View style={[styles.placeholderBox, { flex: 1 }]}>
-                <Text style={styles.placeholderTitle}>Wine Visual</Text>
-                <Text style={styles.placeholderSubtitle}>Bottle/Label preview</Text>
+              <View style={[styles.panelBox, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
+                <Bottle color={wineTheme.colors.primary} scale={1.3} />
               </View>
             </View>
           </View>
@@ -199,9 +274,22 @@ export default function ResultsScreen() {
             <TouchableOpacity style={styles.primaryButton} onPress={handleStartOver}>
               <Text style={styles.primaryButtonText}>Analyze Another Wine</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.secondaryButton} onPress={handleBack}>
-              <Text style={styles.secondaryButtonText}>Go Back</Text>
-            </TouchableOpacity>
+            <View style={{ flexDirection: 'row', gap: 8 }}>
+              <TouchableOpacity style={[styles.secondaryButton, { flex: 1 }]} onPress={handleBack}>
+                <Text style={styles.secondaryButtonText}>Go Back</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.toggleButton, { flex: 1 }]}
+                onPress={() => setIsPublic((v) => !v)}
+              >
+                <Text style={[styles.toggleButtonText, isPublic && styles.toggleButtonTextActive]}>
+                  {isPublic ? 'Public' : 'Private'}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.primaryButton, { flex: 1 }]} onPress={handleSaveToCellar}>
+                <Text style={styles.primaryButtonText}>{isPublic ? 'Save Public' : 'Save Private'}</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -366,7 +454,7 @@ const styles = StyleSheet.create({
   panelBox: {
     backgroundColor: wineTheme.colors.surface,
     borderRadius: 12,
-    padding: 10,
+    padding: 8,
     borderWidth: 1,
     borderColor: `${wineTheme.colors.primary}33`,
   },
@@ -375,19 +463,19 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontFamily: fonts.spaceGrotesk,
     color: wineTheme.colors.text,
-    marginBottom: 6,
+    marginBottom: 4,
   },
   progressItem: {
-    marginBottom: 8,
+    marginBottom: 6,
   },
   progressLabel: {
     fontSize: 12,
     fontFamily: fonts.outfit,
     color: wineTheme.colors.text,
-    marginBottom: 4,
+    marginBottom: 3,
   },
   progressBar: {
-    width: '100%',
+    alignSelf: 'stretch',
   },
   dividerVertical: {
     width: 1,
@@ -522,5 +610,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     fontFamily: fonts.outfit,
+  },
+  toggleButton: {
+    borderWidth: 2,
+    borderColor: wineTheme.colors.primary,
+    paddingVertical: 10,
+    borderRadius: 12,
+    alignItems: 'center',
+    backgroundColor: wineTheme.colors.surface,
+  },
+  toggleButtonText: {
+    color: wineTheme.colors.text,
+    fontSize: 16,
+    fontWeight: '600',
+    fontFamily: fonts.outfit,
+  },
+  toggleButtonTextActive: {
+    color: wineTheme.colors.primary,
   },
 }); 

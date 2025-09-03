@@ -3,18 +3,18 @@
 // Get the appropriate API URL based on environment
 const getApiUrl = () => {
   if (__DEV__) {
-    // Development - use your EC2 server IP address
-    // Replace this IP with your actual EC2 IP address
-    const EC2_IP = '3.19.60.226'; // Replace with your actual EC2 IP
-    
-    return `http://${EC2_IP}:5001`;
+    // Development - point to your locally running Flask server
+    // const EC2_IP = '3.19.60.226'; // Previous AWS EC2 IP (kept for reference)
+    // return `http://${EC2_IP}:5001`; // Previous dev target (AWS)
+    // return 'http://localhost:5001';
+    return 'https://08ab12273c71.ngrok-free.app';
   } else {
     // Production - replace with your actual deployed URL
     return 'https://your-deployed-backend.com';
   }
 };
 
-const API_BASE_URL = getApiUrl();
+export const API_BASE_URL = getApiUrl();
 
 // Rating curve function to fix rating inflation
 const adjustRating = (rawRating: number): number => {
@@ -79,12 +79,18 @@ class WineAPI {
     console.log('Request data:', data);
     
     try {
+      // Attach auth token if available
+      let headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      try {
+        const { getItemAsync } = await import('expo-secure-store');
+        const token = await getItemAsync('auth_token');
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+      } catch {}
+
       // Create fetch promise
       const fetchPromise = fetch(url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify(data),
       });
 
@@ -106,13 +112,13 @@ class WineAPI {
       console.error(`API request failed for ${endpoint}:`, error);
       
       // Provide more specific error messages
-      if (error instanceof TypeError && error.message.includes('Network request failed')) {
+      if (error instanceof TypeError && (error as any).message.includes('Network request failed')) {
         throw new Error(`Cannot connect to server at ${API_BASE_URL}. Make sure the Flask server is running and your phone is on the same WiFi network.`);
-      } else if (error instanceof Error && error.message === 'Request timed out') {
+      } else if (error instanceof Error && (error as any).message === 'Request timed out') {
         throw new Error('Request timed out. The server might be overloaded.');
       }
       
-      throw error;
+      throw error as any;
     }
   }
 
@@ -195,7 +201,7 @@ class WineAPI {
       return response.json();
     } catch (error) {
       console.error('Health check failed:', error);
-      throw error;
+      throw error as any;
     }
   }
 }

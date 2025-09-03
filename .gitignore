@@ -2,3 +2,4 @@ backend/models/
 backend/data/
 __pycache__/
 backend/cache/
+.env
