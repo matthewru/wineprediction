@@ -78,6 +78,12 @@ export default function CellarScreen() {
     }
   }, [activeTab]);
 
+  const handleOpenDetails = (item: CellarItem, idx: number) => {
+    const id = item._id ?? item.bottle_id ?? String(idx);
+    const param = encodeURIComponent(JSON.stringify(item));
+    router.push(`/cellar/${id}?item=${param}` as any);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerRow}>
@@ -120,8 +126,8 @@ export default function CellarScreen() {
           contentContainerStyle={{ paddingBottom: 24 }}
           data={items}
           keyExtractor={(it, idx) => (it._id ?? it.bottle_id ?? String(idx))}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
+          renderItem={({ item, index }) => (
+            <TouchableOpacity style={styles.card} onPress={() => handleOpenDetails(item, index)}>
               <View style={styles.cardHeader}>
                 <ThemedText type="subtitle" style={{ flexShrink: 1 }}>
                   {item.name ?? 'Bottle'}
@@ -133,7 +139,7 @@ export default function CellarScreen() {
                 </View>
               </View>
               {/* Add more fields when available */}
-            </View>
+            </TouchableOpacity>
           )}
         />
       ))}
@@ -157,8 +163,8 @@ export default function CellarScreen() {
           contentContainerStyle={{ paddingBottom: 24 }}
           data={publicItems}
           keyExtractor={(it, idx) => (it._id ?? String(idx))}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
+          renderItem={({ item, index }) => (
+            <TouchableOpacity style={styles.card} onPress={() => handleOpenDetails(item, index)}>
               <View style={styles.cardHeader}>
                 <ThemedText type="subtitle" style={{ flexShrink: 1 }}>
                   {item.name ?? 'Bottle'}
@@ -169,7 +175,7 @@ export default function CellarScreen() {
                   </ThemedText>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
       ))}
