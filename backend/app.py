@@ -16,6 +16,7 @@ from mongo import get_bottles_by_user
 from mongo import add_bottle
 from mongo import get_public_bottles
 from mongo import now
+from embedding_utils import build_embedding
 
 app = Flask(__name__)
 CORS(app)
@@ -442,6 +443,22 @@ def predict_all_endpoint():
     except Exception as e:
         print(f"Error in combined prediction: {str(e)}")
         return jsonify({"error": str(e)}), 500
+
+@app.route('/embed', methods=['POST'])
+def embed_wine():
+    body = request.get_json(silent=True) or {}
+    try:
+        vocab = body.get('vocab') if isinstance(body.get('vocab'), dict) else None
+        weights = body.get('weights') if isinstance(body.get('weights'), dict) else None
+        wine = {k: v for k, v in body.items() if k not in ('vocab','weights')}
+        vec, vocab_used = build_embedding(wine, vocab=vocab, weights=weights)
+        return jsonify({
+            "embedding": vec,
+            "length": len(vec),
+            "vocab": vocab_used,
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 @app.route('/health', methods=['GET'])
 def health_check():
