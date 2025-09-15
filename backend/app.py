@@ -17,6 +17,9 @@ from mongo import add_bottle
 from mongo import get_public_bottles
 from mongo import now
 from embedding_utils import build_embedding
+import numpy as np
+import json
+from bson import ObjectId
 
 app = Flask(__name__)
 CORS(app)
@@ -30,6 +33,57 @@ JWT_SECRET = os.environ.get("JWT_SECRET", "change_me")
 
 # Allowed Google audiences (comma-separated client IDs)
 GOOGLE_CLIENT_IDS = [s.strip() for s in os.environ.get("GOOGLE_CLIENT_IDS", "").split(",") if s.strip()]
+
+# ---- Catalog embeddings (for real-wine match) ----
+_BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+_DATA_DIR = os.path.join(_BASE_DIR, 'data')
+_VOCAB_PATH = os.path.join(_DATA_DIR, 'global_vocab_v2_normalized.json')
+_EMB_PATH = os.path.join(_DATA_DIR, 'catalog_embeddings.npz')
+_META_PATH = os.path.join(_DATA_DIR, 'catalog_meta.jsonl')
+
+CATALOG_X: np.ndarray | None = None  # (N, D) float16 L2-normalized
+CATALOG_DIM: int | None = None
+GLOBAL_VOCAB: dict | None = None
+CATALOG_META: list[dict] | None = None
+
+def _load_vocab_and_catalog():
+    global CATALOG_X, CATALOG_DIM, GLOBAL_VOCAB
+    global CATALOG_META
+    if GLOBAL_VOCAB is None:
+        try:
+            with open(_VOCAB_PATH, 'r', encoding='utf-8') as f:
+                GLOBAL_VOCAB = json.load(f)
+            print(f"📚 Loaded vocab from {_VOCAB_PATH}")
+        except Exception as e:
+            print(f"⚠️  Failed to load vocab: {e}")
+            GLOBAL_VOCAB = {}
+    if CATALOG_X is None:
+        try:
+            data = np.load(_EMB_PATH)
+            CATALOG_X = data['X']  # float16, L2-normalized
+            CATALOG_DIM = int(CATALOG_X.shape[1])
+            print(f"📦 Loaded catalog embeddings: {CATALOG_X.shape} from {_EMB_PATH}")
+        except Exception as e:
+            print(f"⚠️  Failed to load catalog embeddings: {e}")
+    if CATALOG_META is None:
+        try:
+            meta: list[dict] = []
+            with open(_META_PATH, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        meta.append(json.loads(line))
+                    except Exception:
+                        meta.append({})
+            CATALOG_META = meta
+            print(f"🧾 Loaded catalog meta rows: {len(CATALOG_META)} from {_META_PATH}")
+        except Exception as e:
+            print(f"⚠️  Failed to load catalog meta: {e}")
+
+# Attempt eager load (non-fatal if missing)
+_load_vocab_and_catalog()
 
 # Warm up the models on startup to avoid cold start penalty
 print("🔥 Warming up models...")
@@ -158,64 +212,111 @@ def auth_google():
 @require_auth
 def me():
     user_id = request.user.get("user_id")  # type: ignore
-    user = db.users.find_one({"_id": user_id})
+    user = None
+    try:
+        if isinstance(user_id, str) and ObjectId.is_valid(user_id):
+            user = db.users.find_one({"_id": ObjectId(user_id)})
+    except Exception:
+        user = None
+    if not user:
+        # Fallback via google_id if present
+        gid = request.user.get("google_id") if isinstance(request.user, dict) else None  # type: ignore
+        if gid:
+            user = db.users.find_one({"google_id": gid})
     if not user:
         return jsonify({"error": "Not found"}), 404
     return jsonify({"user": {"_id": str(user.get("_id")), "email": user.get("email"), "name": user.get("name"), "image": user.get("image")}})
 
+# ---- Cellar endpoints ----
 @app.route('/cellar', methods=['GET'])
 @require_auth
 def get_cellar():
-    user_google_id = request.user.get("google_id")  # type: ignore
+    user_id = request.user.get("user_id")  # type: ignore
     try:
-        user = db.users.find_one({"google_id": user_google_id}, {"cellar": 1}) or {}
-        items = user.get("cellar", [])
+        items = get_bottles_by_user(str(user_id), limit=int(request.args.get('limit', 100)))
+        # Ensure _id serialized
+        for it in items:
+            if isinstance(it.get('_id'), ObjectId):
+                it['_id'] = str(it['_id'])
         return jsonify({"items": items})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 @app.route('/cellar', methods=['POST'])
 @require_auth
-def create_bottle():
+def post_cellar():
     user_id = request.user.get("user_id")  # type: ignore
-    user_google_id = request.user.get("google_id")  # type: ignore
     body = request.get_json(silent=True) or {}
     try:
-        # Normalize payload
-        publish_public = bool(body.get("public", False))
-        bottle_payload = {k: v for k, v in body.items() if k != "public"}
-        bottle_payload.setdefault("created_at", now())
-
-        public_id = None
-        if publish_public:
-            # Insert ONE public copy into global pool
-            public_id = add_bottle(user_id, {**bottle_payload, "public": True})
-
-        # Push an embedded copy into the user's document list (personal cellar)
-        embedded_copy = {**bottle_payload, "saved_at": now(), "public": publish_public}
-        if public_id is not None:
-            embedded_copy["bottle_id"] = public_id
-        db.users.update_one(
-            {"google_id": user_google_id},
-            {"$push": {"cellar": embedded_copy}},
-            upsert=True,
-        )
-
-        return jsonify({"ok": True, "id": public_id}), 201
+        public = bool(body.get('public', False))
+        bottle = {k: v for k, v in body.items() if k not in ('_id', 'user_id', 'created_at')}
+        bottle['public'] = public
+        bottle_id = add_bottle(str(user_id), bottle)
+        return jsonify({"ok": True, "bottle_id": bottle_id})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 @app.route('/cellar/public', methods=['GET'])
 def list_public_cellar():
     try:
-        items = get_public_bottles(limit=50)
-        serialized = []
-        for doc in items:
-            doc_copy = dict(doc)
-            if doc_copy.get("_id") is not None:
-                doc_copy["_id"] = str(doc_copy["_id"])
-            serialized.append(doc_copy)
-        return jsonify({"items": serialized})
+        items = get_public_bottles(limit=int(request.args.get('limit', 100)))
+        for it in items:
+            if isinstance(it.get('_id'), ObjectId):
+                it['_id'] = str(it['_id'])
+        return jsonify({"items": items})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/match-real', methods=['POST'])
+def match_real():
+    """Return top-k nearest catalog indices and scores for the given wine payload.
+    Expects the same wine shape as /embed. Uses normalized vocab and catalog embeddings.
+    """
+    _load_vocab_and_catalog()
+    if CATALOG_X is None or GLOBAL_VOCAB is None:
+        return jsonify({"error": "Catalog or vocab not loaded on server"}), 500
+    body = request.get_json(silent=True) or {}
+    top_k = int(body.get('top_k', 5))
+    try:
+        vec, _ = build_embedding(
+            body,
+            vocab=GLOBAL_VOCAB,
+            include_geo=True,
+            include_variety=True,
+            include_numeric=True,
+        )
+        q = np.asarray(vec, dtype=np.float32)
+        if q.ndim != 1:
+            q = q.ravel()
+        if CATALOG_X.shape[1] != q.shape[0]:
+            return jsonify({"error": f"Dim mismatch: catalog {CATALOG_X.shape[1]} vs query {q.shape[0]}"}), 400
+        # Ensure unit length (defensive)
+        n = np.linalg.norm(q)
+        if n > 0:
+            q = q / n
+        # Cosine scores via dot product (CATALOG_X is L2-normalized)
+        scores = (CATALOG_X.astype(np.float32) @ q)
+        if top_k <= 0:
+            top_k = 5
+        top_k = min(int(top_k), scores.shape[0])
+        idx = np.argpartition(scores, -top_k)[-top_k:]
+        idx = idx[np.argsort(scores[idx])[::-1]]
+        result = []
+        for i in idx:
+            item = {"index": int(i), "score": float(scores[i])}
+            if CATALOG_META and 0 <= int(i) < len(CATALOG_META):
+                m = CATALOG_META[int(i)] or {}
+                item.update({
+                    "name": m.get("name"),
+                    "variety": m.get("variety"),
+                    "country": m.get("country"),
+                    "region1": m.get("region1"),
+                    "region2": m.get("region2"),
+                    "price": m.get("price"),
+                    "rating": m.get("rating"),
+                })
+            result.append(item)
+        return jsonify({"count": int(CATALOG_X.shape[0]), "dim": int(CATALOG_X.shape[1]), "top_k": top_k, "matches": result})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
