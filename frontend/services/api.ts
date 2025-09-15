@@ -7,7 +7,7 @@ const getApiUrl = () => {
     // const EC2_IP = '3.19.60.226'; // Previous AWS EC2 IP (kept for reference)
     // return `http://${EC2_IP}:5001`; // Previous dev target (AWS)
     // return 'http://localhost:5001';
-    return 'https://679d2c678aa2.ngrok-free.app';
+    return 'https://ba579be95fe0.ngrok-free.app';
   } else {
     // Production - replace with your actual deployed URL
     return 'https://your-deployed-backend.com';
@@ -89,14 +89,44 @@ export interface MatchItem {
   country?: string;
   region1?: string;
   region2?: string;
+  age?: number | null;
   price?: number | null;
   rating?: number | null;
+  because?: string;
+  source?: 'catalog' | 'public';
+  bottle_id?: string; // for public items
+  predicted?: any;
 }
 
 export interface MatchRealResponse {
   count: number;
   dim: number;
   top_k: number;
+  matches: MatchItem[];
+}
+
+// ---- Recommendations ----
+export interface RecommendFilters {
+  variety?: string;
+  country?: string;
+  price_min?: number;
+  price_max?: number;
+}
+
+export interface RecommendRequest {
+  top_k?: number;
+  diversity_lambda?: number;
+  filters?: RecommendFilters;
+  source?: 'catalog' | 'public' | 'both';
+  blend?: { ratio_catalog?: number };
+}
+
+export interface RecommendResponse {
+  top_k: number;
+  diversity_lambda: number;
+  filters: RecommendFilters;
+  source?: 'catalog' | 'public' | 'both';
+  blend?: { ratio_catalog?: number };
   matches: MatchItem[];
 }
 
@@ -217,6 +247,10 @@ class WineAPI {
 
   async matchReal(input: MatchRealInput): Promise<MatchRealResponse> {
     return this.makeRequest<MatchRealResponse>('/match-real', input);
+  }
+
+  async recommend(input: RecommendRequest): Promise<RecommendResponse> {
+    return this.makeRequest<RecommendResponse>('/recommend', input);
   }
 
   async healthCheck(): Promise<{ status: string; models_loaded?: boolean }> {

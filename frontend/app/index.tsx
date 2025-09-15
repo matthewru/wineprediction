@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { wineTheme } from '../constants/Colors';
 import { ThemedText } from '../components/ThemedText';
 import { WineButton } from '../components/WineButton';
+import { Link } from 'expo-router';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -74,6 +75,9 @@ export default function HomeScreen() {
           style={styles.signIn}
           disabled={!request}
         />
+        <Link href="/test-api" style={{ marginTop: 8, color: wineTheme.colors.primary }}>
+          Developer: Open Test API ▶
+        </Link>
       </View>
     </SafeAreaView>
   );

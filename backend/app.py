@@ -16,10 +16,11 @@ from mongo import get_bottles_by_user
 from mongo import add_bottle
 from mongo import get_public_bottles
 from mongo import now
-from embedding_utils import build_embedding
+from embedding_utils import build_embedding, DEFAULT_WEIGHTS
 import numpy as np
 import json
 from bson import ObjectId
+from typing import List, Tuple
 
 app = Flask(__name__)
 CORS(app)
@@ -45,6 +46,10 @@ CATALOG_X: np.ndarray | None = None  # (N, D) float16 L2-normalized
 CATALOG_DIM: int | None = None
 GLOBAL_VOCAB: dict | None = None
 CATALOG_META: list[dict] | None = None
+_OFFSETS_COMPUTED: bool = False
+_OFFSETS: dict[str, tuple[int, int]] | None = None  # name -> (start, length)
+
+_DEF_EMPTY_LIST: list[str] = []
 
 def _load_vocab_and_catalog():
     global CATALOG_X, CATALOG_DIM, GLOBAL_VOCAB
@@ -81,6 +86,131 @@ def _load_vocab_and_catalog():
             print(f"🧾 Loaded catalog meta rows: {len(CATALOG_META)} from {_META_PATH}")
         except Exception as e:
             print(f"⚠️  Failed to load catalog meta: {e}")
+    # Compute offsets when vocab and catalog are available
+    _compute_offsets_if_ready()
+
+def _compute_offsets_if_ready():
+    global _OFFSETS_COMPUTED, _OFFSETS
+    if _OFFSETS_COMPUTED:
+        return
+    if GLOBAL_VOCAB is None:
+        return
+    try:
+        flavors_vocab = GLOBAL_VOCAB.get("flavors") or GLOBAL_VOCAB.get("flavor_vocab") or []
+        mouthfeel_vocab = GLOBAL_VOCAB.get("mouthfeel") or GLOBAL_VOCAB.get("mouthfeel_vocab") or []
+        # Geography
+        geo = GLOBAL_VOCAB.get("geography_vocab") or {}
+        countries_vocab = GLOBAL_VOCAB.get("countries") or geo.get("countries") or []
+        regions1_vocab = GLOBAL_VOCAB.get("regions1") or geo.get("primary_regions") or []
+        regions2_vocab = GLOBAL_VOCAB.get("regions2") or geo.get("secondary_regions") or []
+        varieties_vocab = GLOBAL_VOCAB.get("varieties") or GLOBAL_VOCAB.get("variety_vocab") or []
+        price_bins = GLOBAL_VOCAB.get("price_bins") or GLOBAL_VOCAB.get("price_buckets") or []
+        rating_bins = GLOBAL_VOCAB.get("rating_buckets") or []
+        age_bins = GLOBAL_VOCAB.get("age_buckets") or []
+
+        parts = [
+            ("flavors", len(flavors_vocab)),
+            ("mouthfeel", len(mouthfeel_vocab)),
+            ("variety", len(varieties_vocab)),
+            ("country", len(countries_vocab)),
+            ("region1", len(regions1_vocab)),
+            ("region2", len(regions2_vocab)),
+            ("age", len(age_bins)),
+            ("rating", len(rating_bins)),
+            ("price", len(price_bins)),
+        ]
+        start = 0
+        offsets: dict[str, tuple[int, int]] = {}
+        for name, ln in parts:
+            offsets[name] = (start, ln)
+            start += ln
+        _OFFSETS = offsets
+        _OFFSETS_COMPUTED = True
+        # Optional sanity check with CATALOG_DIM
+        if CATALOG_X is not None and start != CATALOG_X.shape[1]:
+            print(f"⚠️  Offset dim mismatch: computed {start}, catalog {CATALOG_X.shape[1]}")
+    except Exception as e:
+        print(f"⚠️  Failed to compute offsets: {e}")
+
+def _decode_flavor_mouthfeel_from_row(row: np.ndarray) -> tuple[list[dict], list[dict]]:
+    """Decode top flavor and mouthfeel tags from a normalized embedding row using block offsets.
+    Returns (flavors, mouthfeel) as lists of {tag/confidence} dicts.
+    """
+    _compute_offsets_if_ready()
+    if _OFFSETS is None or GLOBAL_VOCAB is None:
+        return [], []
+    try:
+        flavors_vocab = GLOBAL_VOCAB.get("flavors") or GLOBAL_VOCAB.get("flavor_vocab") or []
+        mouthfeel_vocab = GLOBAL_VOCAB.get("mouthfeel") or GLOBAL_VOCAB.get("mouthfeel_vocab") or []
+        start_f, len_f = _OFFSETS.get("flavors", (0, 0))
+        start_m, len_m = _OFFSETS.get("mouthfeel", (0, 0))
+        if len_f <= 0 and len_m <= 0:
+            return [], []
+        w_f = float(DEFAULT_WEIGHTS.get("flavors", 1.0))
+        w_m = float(DEFAULT_WEIGHTS.get("mouthfeel", 0.7))
+        # Extract slices and roughly invert weights
+        fv = row[start_f:start_f + len_f].astype(np.float32)
+        mv = row[start_m:start_m + len_m].astype(np.float32)
+        if len_f > 0 and w_f > 0:
+            fv = fv / w_f
+        if len_m > 0 and w_m > 0:
+            mv = mv / w_m
+        # Normalize within-slice for pseudo-confidence
+        def top_k_from_slice(vec: np.ndarray, vocab: list[str], is_flavor: bool) -> list[dict]:
+            if vec.size == 0:
+                return []
+            pos_idx = np.where(vec > 0)[0]
+            if pos_idx.size == 0:
+                return []
+            vals = vec[pos_idx]
+            k = min(10, pos_idx.size)
+            top_idx_part = np.argpartition(vals, -k)[-k:]
+            top_idx_sorted = top_idx_part[np.argsort(vals[top_idx_part])[::-1]]
+            res: list[dict] = []
+            maxv = float(vals[top_idx_sorted[0]]) if top_idx_sorted.size > 0 else 1.0
+            maxv = max(maxv, 1e-6)
+            for j in top_idx_sorted:
+                idx = int(pos_idx[j])
+                tag = vocab[idx] if idx < len(vocab) else None
+                if not tag:
+                    continue
+                conf = float(vals[j]) / maxv
+                if is_flavor:
+                    res.append({"flavor": tag, "confidence": conf})
+                else:
+                    res.append({"mouthfeel": tag, "confidence": conf})
+            return res
+
+        flavors = top_k_from_slice(fv, flavors_vocab, True)
+        mouthfeel = top_k_from_slice(mv, mouthfeel_vocab, False)
+        return flavors, mouthfeel
+    except Exception:
+        return [], []
+
+def _decode_age_bucket_from_row(row: np.ndarray) -> str | None:
+    _compute_offsets_if_ready()
+    if _OFFSETS is None or GLOBAL_VOCAB is None:
+        return None
+    try:
+        start_a, len_a = _OFFSETS.get("age", (0, 0))
+        if len_a <= 0:
+            return None
+        age_buckets = GLOBAL_VOCAB.get("age_buckets") or []
+        if not age_buckets:
+            return None
+        a = row[start_a:start_a + len_a].astype(np.float32)
+        # Inverse the weight approximately
+        w_a = float(DEFAULT_WEIGHTS.get("age", 0.2) or 0.2)
+        if w_a > 0:
+            a = a / w_a
+        if a.size == 0:
+            return None
+        idx = int(np.argmax(a))
+        if 0 <= idx < len(age_buckets):
+            return str(age_buckets[idx])
+        return None
+    except Exception:
+        return None
 
 # Attempt eager load (non-fatal if missing)
 _load_vocab_and_catalog()
@@ -227,6 +357,56 @@ def me():
         return jsonify({"error": "Not found"}), 404
     return jsonify({"user": {"_id": str(user.get("_id")), "email": user.get("email"), "name": user.get("name"), "image": user.get("image")}})
 
+@app.route('/me/profile', methods=['GET'])
+@require_auth
+def me_profile():
+    user_id = request.user.get("user_id")  # type: ignore
+    user = None
+    try:
+        if isinstance(user_id, str) and ObjectId.is_valid(user_id):
+            user = db.users.find_one({"_id": ObjectId(user_id)})
+    except Exception:
+        user = None
+    if not user:
+        gid = request.user.get("google_id") if isinstance(request.user, dict) else None  # type: ignore
+        if gid:
+            user = db.users.find_one({"google_id": gid})
+    if not user:
+        return jsonify({"error": "Not found"}), 404
+    vec = user.get("profile_vec")
+    dim = user.get("profile_dim")
+    updated = user.get("profile_updated_at")
+    norm = None
+    if isinstance(vec, list) and vec:
+        try:
+            import math
+            norm = float(math.sqrt(sum((float(x) * float(x)) for x in vec)))
+        except Exception:
+            norm = None
+    sample = vec[:8] if isinstance(vec, list) else []
+
+    full = request.args.get('full') in ('1','true','yes')
+    include_bottles = request.args.get('include_bottles') in ('1','true','yes')
+    limit = min(int(request.args.get('limit', 100)), 500)
+
+    resp = {
+        "user_id": str(user.get("_id")),
+        "has_profile": bool(isinstance(vec, list) and len(vec) == int(dim or 0) and (dim or 0) > 0),
+        "profile_dim": int(dim) if dim is not None else None,
+        "profile_updated_at": int(updated) if updated is not None else None,
+        "norm": norm,
+        "sample": sample,
+    }
+    if full and isinstance(vec, list):
+        resp["profile_vec"] = vec
+    if include_bottles:
+        items = get_bottles_by_user(str(user.get("_id")), limit=limit)
+        for it in items:
+            if isinstance(it.get('_id'), ObjectId):
+                it['_id'] = str(it['_id'])
+        resp["bottles"] = items
+    return jsonify(resp)
+
 # ---- Cellar endpoints ----
 @app.route('/cellar', methods=['GET'])
 @require_auth
@@ -242,6 +422,85 @@ def get_cellar():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+def _compute_user_profile_vector(user_id: str) -> Tuple[List[float] | None, int | None]:
+    """Compute a normalized profile vector by averaging embeddings of user's bottles.
+    Returns (vec_list, dim) or (None, None) if not computable.
+    """
+    _load_vocab_and_catalog()
+    try:
+        bottles = get_bottles_by_user(str(user_id), limit=200)
+        if not bottles:
+            return None, None
+        vecs: List[np.ndarray] = []
+        weights: List[float] = []
+        for b in bottles:
+            try:
+                wine = {
+                    "name": b.get("name"),
+                    "variety": b.get("variety"),
+                    "country": b.get("country"),
+                    "region1": b.get("region1"),
+                    "region2": b.get("region2"),
+                    "age": b.get("age"),
+                    "price": (b.get("predicted", {}) or {}).get("price", {}).get("weighted_upper") or b.get("price"),
+                    "rating": (b.get("predicted", {}) or {}).get("rating", {}).get("predicted_rating") or b.get("rating"),
+                    "predicted": {
+                        "flavors": (b.get("predicted", {}) or {}).get("flavors", []) or (b.get("tags", {}) or {}).get("flavors", []),
+                        "mouthfeel": (b.get("predicted", {}) or {}).get("mouthfeel", []) or (b.get("tags", {}) or {}).get("mouthfeel", []),
+                    },
+                }
+                vec, _ = build_embedding(
+                    wine,
+                    vocab=GLOBAL_VOCAB or {},
+                    include_geo=True,
+                    include_variety=True,
+                    include_numeric=True,
+                )
+                v = np.asarray(vec, dtype=np.float32)
+                if v.ndim != 1:
+                    v = v.ravel()
+                # Simple weight: favor higher ratings if available
+                w = 1.0
+                try:
+                    r = float(wine.get("rating")) if wine.get("rating") is not None else None
+                    if r is not None:
+                        w = max(0.5, min(1.5, (r - 70.0) / 20.0))  # 70→0.5, 90→1.0, 100→1.5
+                except Exception:
+                    pass
+                vecs.append(v)
+                weights.append(float(w))
+            except Exception:
+                continue
+        if not vecs:
+            return None, None
+        M = np.vstack(vecs)
+        W = np.asarray(weights, dtype=np.float32)
+        if W.sum() <= 0:
+            W = np.ones_like(W)
+        avg = (M * W[:, None]).sum(axis=0) / W.sum()
+        # Normalize
+        n = float(np.linalg.norm(avg))
+        if n > 0:
+            avg = avg / n
+        vec_list = [float(x) for x in avg.astype(np.float32)]
+        return vec_list, int(avg.shape[0])
+    except Exception:
+        return None, None
+
+def _save_user_profile_vector(user_id: str, vec: List[float] | None, dim: int | None) -> None:
+    try:
+        q = None
+        if isinstance(user_id, str) and ObjectId.is_valid(user_id):
+            q = {"_id": ObjectId(user_id)}
+        else:
+            q = {"_id": user_id}
+        if vec is None or dim is None:
+            db.users.update_one(q, {"$unset": {"profile_vec": "", "profile_dim": ""}, "$set": {"profile_updated_at": now()}}, upsert=False)
+        else:
+            db.users.update_one(q, {"$set": {"profile_vec": vec, "profile_dim": int(dim), "profile_updated_at": now()}}, upsert=False)
+    except Exception:
+        pass
+
 @app.route('/cellar', methods=['POST'])
 @require_auth
 def post_cellar():
@@ -252,7 +511,10 @@ def post_cellar():
         bottle = {k: v for k, v in body.items() if k not in ('_id', 'user_id', 'created_at')}
         bottle['public'] = public
         bottle_id = add_bottle(str(user_id), bottle)
-        return jsonify({"ok": True, "bottle_id": bottle_id})
+        # Recompute and store profile vector
+        vec, dim = _compute_user_profile_vector(str(user_id))
+        _save_user_profile_vector(str(user_id), vec, dim)
+        return jsonify({"ok": True, "bottle_id": bottle_id, "profile_updated": True, "profile_dim": dim})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -266,6 +528,319 @@ def list_public_cellar():
         return jsonify({"items": items})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+def _load_user_by_request() -> dict | None:
+    user_id = request.user.get("user_id") if isinstance(request.user, dict) else None  # type: ignore
+    user = None
+    try:
+        if isinstance(user_id, str) and ObjectId.is_valid(user_id):
+            user = db.users.find_one({"_id": ObjectId(user_id)})
+    except Exception:
+        user = None
+    if not user:
+        gid = request.user.get("google_id") if isinstance(request.user, dict) else None  # type: ignore
+        if gid:
+            user = db.users.find_one({"google_id": gid})
+    return user
+
+
+@app.route('/recommend', methods=['POST'])
+@require_auth
+def recommend():
+    """Return recommendations for the authenticated user based on their profile_vec.
+    Body: {
+      top_k?: int,
+      diversity_lambda?: float (0..1),
+      filters?: { variety?: str, country?: str, price_min?: number, price_max?: number },
+      source?: 'catalog'|'public'|'both'
+    }
+    """
+    _load_vocab_and_catalog()
+    if CATALOG_X is None or CATALOG_META is None:
+        return jsonify({"error": "Catalog not loaded"}), 500
+    user = _load_user_by_request()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    vec = user.get("profile_vec")
+    dim = user.get("profile_dim")
+    if not isinstance(vec, list) or not vec or int(dim or 0) != CATALOG_X.shape[1]:
+        return jsonify({"error": "Profile vector missing or dim mismatch"}), 400
+
+    body = request.get_json(silent=True) or {}
+    top_k = int(body.get('top_k', 10))
+    top_k = max(1, min(top_k, 50))
+    diversity_lambda = body.get('diversity_lambda', 0.2)
+    try:
+        diversity_lambda = float(diversity_lambda)
+    except Exception:
+        diversity_lambda = 0.2
+    diversity_lambda = max(0.0, min(1.0, diversity_lambda))
+    filters = body.get('filters') or {}
+    f_variety = (filters.get('variety') or '').strip().lower() or None
+    f_country = (filters.get('country') or '').strip().lower() or None
+    f_price_min = filters.get('price_min')
+    f_price_max = filters.get('price_max')
+    source = (body.get('source') or 'both').lower()
+    if source not in ('catalog', 'public', 'both'):
+        source = 'both'
+    blend = body.get('blend') or {}
+    try:
+        ratio_catalog = float(blend.get('ratio_catalog', 0.7))
+    except Exception:
+        ratio_catalog = 0.7
+    ratio_catalog = max(0.0, min(1.0, ratio_catalog))
+
+    # Build query vector
+    q = np.asarray(vec, dtype=np.float32)
+    if q.ndim != 1:
+        q = q.ravel()
+    # Defensive normalization
+    n = float(np.linalg.norm(q))
+    if n > 0:
+        q = q / n
+
+    matches_cat: list[dict] = []
+    matches_pub: list[dict] = []
+
+    # ---- Catalog branch ----
+    if source in ('catalog', 'both'):
+        N = CATALOG_X.shape[0]
+        mask = np.ones(N, dtype=bool)
+        if f_variety is not None:
+            vmask = np.fromiter(((m.get('variety') or '') == f_variety for m in CATALOG_META), dtype=bool, count=N)
+            mask &= vmask
+        if f_country is not None:
+            cmask = np.fromiter(((m.get('country') or '') == f_country for m in CATALOG_META), dtype=bool, count=N)
+            mask &= cmask
+        if f_price_min is not None or f_price_max is not None:
+            pmin = float(f_price_min) if f_price_min is not None else -1e9
+            pmax = float(f_price_max) if f_price_max is not None else 1e9
+            pmask = np.fromiter((
+                (m.get('price') is not None) and (float(m.get('price')) >= pmin) and (float(m.get('price')) <= pmax)
+                for m in CATALOG_META
+            ), dtype=bool, count=N)
+            mask &= pmask
+        scores_cat = (CATALOG_X.astype(np.float32) @ q)
+        if not mask.all():
+            scores_cat[~mask] = -1e9
+        pool = max(top_k * 10, top_k)
+        pool = min(pool, N)
+        cand_idx = np.argpartition(scores_cat, -pool)[-pool:]
+        cand_idx = cand_idx[np.argsort(scores_cat[cand_idx])[::-1]]
+        # Optionally MMR rerank within catalog pool
+        if diversity_lambda > 0 and top_k > 1 and len(cand_idx) > top_k:
+            selected_indices: list[int] = []
+            remaining = cand_idx.tolist()
+            Xc = CATALOG_X[remaining].astype(np.float32)
+            sims_to_query = scores_cat[remaining]
+            best0 = int(np.argmax(sims_to_query))
+            selected_indices.append(remaining[best0])
+            Xsel = [Xc[best0]]
+            del remaining[best0]
+            Xc = np.delete(Xc, best0, axis=0)
+            sims_to_query = np.delete(sims_to_query, best0, axis=0)
+            while len(selected_indices) < top_k and len(remaining) > 0:
+                if len(Xsel) == 1:
+                    max_sim_sel = (Xc @ Xsel[0])
+                else:
+                    Xsel_mat = np.vstack(Xsel).T
+                    max_sim_sel = np.max(Xc @ Xsel_mat, axis=1)
+                mmr_scores = diversity_lambda * sims_to_query - (1.0 - diversity_lambda) * max_sim_sel
+                j = int(np.argmax(mmr_scores))
+                selected_indices.append(remaining[j])
+                Xsel.append(Xc[j])
+                del remaining[j]
+                Xc = np.delete(Xc, j, axis=0)
+                sims_to_query = np.delete(sims_to_query, j, axis=0)
+            final_cat = np.array(selected_indices, dtype=int)
+        else:
+            final_cat = cand_idx[:top_k]
+        for i in final_cat:
+            m = CATALOG_META[int(i)] or {}
+            # Decode tags from the embedding row
+            try:
+                row = CATALOG_X[int(i)].astype(np.float32)
+            except Exception:
+                row = None
+            flv, mth = _decode_flavor_mouthfeel_from_row(row) if row is not None else ([], [])
+            age_bucket = _decode_age_bucket_from_row(row) if row is not None else None
+            pred_block = {
+                "rating": {"predicted_rating": m.get("rating")},
+                "price": {"weighted_lower": m.get("price"), "weighted_upper": m.get("price")},
+                "flavors": flv,
+                "mouthfeel": mth,
+                "age_bucket": age_bucket,
+            }
+            matches_cat.append({
+                "index": int(i),
+                "score": float(scores_cat[int(i)]),
+                "name": m.get("name"),
+                "variety": m.get("variety"),
+                "country": m.get("country"),
+                "region1": m.get("region1"),
+                "region2": m.get("region2"),
+                "age": m.get("age"),
+                "price": m.get("price"),
+                "rating": m.get("rating"),
+                "predicted": pred_block,
+                "because": _build_because(m, f_variety, f_country, f_price_min, f_price_max),
+                "source": "catalog",
+            })
+
+    # ---- Public branch ----
+    if source in ('public', 'both'):
+        # Cap how many public bottles we consider for performance
+        cap = min(int(body.get('public_limit', 300)), 1000)
+        q_public = {"public": True}
+        if f_variety is not None:
+            q_public["variety"] = f_variety
+        if f_country is not None:
+            q_public["country"] = f_country
+        public_bottles = list(db.bottles.find(q_public).sort("created_at", -1).limit(cap))
+        if public_bottles:
+            X_list: list[np.ndarray] = []
+            meta_list: list[dict] = []
+            for b in public_bottles:
+                try:
+                    wine = {
+                        "name": b.get("name"),
+                        "variety": b.get("variety"),
+                        "country": b.get("country"),
+                        "region1": b.get("region1"),
+                        "region2": b.get("region2"),
+                        "age": b.get("age"),
+                        "price": b.get("price") or (b.get("predicted", {}) or {}).get("price", {}).get("weighted_upper"),
+                        "rating": b.get("rating") or (b.get("predicted", {}) or {}).get("rating", {}).get("predicted_rating"),
+                        "predicted": {
+                            "flavors": (b.get("predicted", {}) or {}).get("flavors", []) or (b.get("tags", {}) or {}).get("flavors", []),
+                            "mouthfeel": (b.get("predicted", {}) or {}).get("mouthfeel", []) or (b.get("tags", {}) or {}).get("mouthfeel", []),
+                        },
+                    }
+                    vec_b, _ = build_embedding(
+                        wine,
+                        vocab=GLOBAL_VOCAB or {},
+                        include_geo=True,
+                        include_variety=True,
+                        include_numeric=True,
+                    )
+                    vb = np.asarray(vec_b, dtype=np.float32)
+                    if vb.ndim != 1:
+                        vb = vb.ravel()
+                    nvb = float(np.linalg.norm(vb))
+                    if nvb > 0:
+                        vb = vb / nvb
+                    # Decode age bucket from embedding row
+                    age_bucket = _decode_age_bucket_from_row(vb)
+                    # Price filter for public
+                    if f_price_min is not None or f_price_max is not None:
+                        pmin = float(f_price_min) if f_price_min is not None else -1e9
+                        pmax = float(f_price_max) if f_price_max is not None else 1e9
+                        pv = wine.get("price")
+                        if pv is None or float(pv) < pmin or float(pv) > pmax:
+                            continue
+                    X_list.append(vb)
+                    pb_pred = (b.get("predicted") or {}).copy() if isinstance(b.get("predicted"), dict) else {}
+                    if age_bucket and isinstance(pb_pred, dict):
+                        pb_pred["age_bucket"] = age_bucket
+                    meta_list.append({
+                        "_id": str(b.get("_id")) if isinstance(b.get("_id"), ObjectId) else b.get("_id"),
+                        "name": wine.get("name"),
+                        "variety": wine.get("variety"),
+                        "country": wine.get("country"),
+                        "region1": wine.get("region1"),
+                        "region2": wine.get("region2"),
+                        "age": wine.get("age"),
+                        "price": wine.get("price"),
+                        "rating": wine.get("rating"),
+                        "predicted": pb_pred,
+                    })
+                except Exception:
+                    continue
+            if X_list:
+                Xpub = np.vstack(X_list)  # M x D
+                scores_pub = (Xpub @ q)
+                # take top_k from public set
+                m = min(top_k, scores_pub.shape[0])
+                idx_pub = np.argpartition(scores_pub, -m)[-m:]
+                idx_pub = idx_pub[np.argsort(scores_pub[idx_pub])[::-1]]
+                for j in idx_pub:
+                    mta = meta_list[int(j)]
+                    matches_pub.append({
+                        "index": -1,  # not from catalog
+                        "score": float(scores_pub[int(j)]),
+                        "name": mta.get("name"),
+                        "variety": mta.get("variety"),
+                        "country": mta.get("country"),
+                        "region1": mta.get("region1"),
+                        "region2": mta.get("region2"),
+                        "age": mta.get("age"),
+                        "price": mta.get("price"),
+                        "rating": mta.get("rating"),
+                        "predicted": mta.get("predicted"),
+                        "because": _build_because(mta, f_variety, f_country, f_price_min, f_price_max),
+                        "source": "public",
+                        "bottle_id": mta.get("_id"),
+                    })
+
+    # Combine with blending
+    if not matches_cat and not matches_pub:
+        return jsonify({"top_k": top_k, "diversity_lambda": diversity_lambda, "filters": {"variety": f_variety, "country": f_country, "price_min": f_price_min, "price_max": f_price_max}, "matches": []})
+    # Sort each source by score
+    if matches_cat:
+        matches_cat.sort(key=lambda x: float(x.get('score', 0.0)), reverse=True)
+    if matches_pub:
+        matches_pub.sort(key=lambda x: float(x.get('score', 0.0)), reverse=True)
+    # Desired counts per source
+    want_cat = int(round(top_k * ratio_catalog)) if source == 'both' else (top_k if source == 'catalog' else 0)
+    want_pub = top_k - want_cat if source == 'both' else (top_k if source == 'public' else 0)
+    out: list[dict] = []
+    i_cat = 0
+    i_pub = 0
+    # Interleave roughly by ratio
+    while len(out) < top_k and (i_cat < len(matches_cat) or i_pub < len(matches_pub)):
+        take_cat = len(out) % 2 == 0  # alternate starting with catalog
+        if source == 'public':
+            take_cat = False
+        if source == 'catalog':
+            take_cat = True
+        if take_cat and i_cat < len(matches_cat) and (len([m for m in out if m.get('source')=='catalog']) < want_cat or i_pub >= len(matches_pub)):
+            out.append(matches_cat[i_cat]); i_cat += 1; continue
+        if i_pub < len(matches_pub) and (len([m for m in out if m.get('source')=='public']) < want_pub or i_cat >= len(matches_cat)):
+            out.append(matches_pub[i_pub]); i_pub += 1; continue
+        # Fallback fill
+        if i_cat < len(matches_cat):
+            out.append(matches_cat[i_cat]); i_cat += 1; continue
+        if i_pub < len(matches_pub):
+            out.append(matches_pub[i_pub]); i_pub += 1; continue
+        break
+    out = out[:top_k]
+
+    return jsonify({
+        "top_k": int(top_k),
+        "diversity_lambda": float(diversity_lambda),
+        "filters": {"variety": f_variety, "country": f_country, "price_min": f_price_min, "price_max": f_price_max},
+        "source": source,
+        "blend": {"ratio_catalog": ratio_catalog},
+        "matches": out
+    })
+
+
+def _build_because(m: dict, f_variety, f_country, f_price_min, f_price_max) -> str:
+    parts: list[str] = []
+    if f_variety and (m.get('variety') == f_variety):
+        parts.append(f"same variety: {f_variety}")
+    if f_country and (m.get('country') == f_country):
+        parts.append(f"same country: {f_country}")
+    try:
+        p = float(m.get('price')) if m.get('price') is not None else None
+        if p is not None and f_price_min is not None and f_price_max is not None:
+            parts.append("within price range")
+    except Exception:
+        pass
+    if not parts:
+        parts.append("high similarity to your profile")
+    return ", ".join(parts)
 
 @app.route('/match-real', methods=['POST'])
 def match_real():

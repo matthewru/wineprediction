@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { wineAPI } from '../services/api';
+import { wineAPI, API_BASE_URL } from '../services/api';
+import * as SecureStore from 'expo-secure-store';
 
 export default function TestApiScreen() {
   const [testing, setTesting] = useState(false);
@@ -38,6 +39,69 @@ export default function TestApiScreen() {
       addResult(`Flavors: ${prediction.flavors.map(f => f.flavor).join(', ')}`);
     } catch (error) {
       addResult(`❌ Prediction failed: ${error}`);
+    }
+  };
+
+  const testProfile = async () => {
+    try {
+      addResult('Testing profile fetch...');
+      const token = await SecureStore.getItemAsync('auth_token');
+      if (!token) {
+        addResult('❌ No auth_token found. Sign in first.');
+        return;
+      }
+      const res = await fetch(`${API_BASE_URL}/me/profile`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const txt = await res.text();
+      addResult(`Profile status ${res.status}: ${txt}`);
+    } catch (error) {
+      addResult(`❌ Profile fetch failed: ${error}`);
+    }
+  };
+
+  const testProfileFull = async () => {
+    try {
+      addResult('Testing full profile vector...');
+      const token = await SecureStore.getItemAsync('auth_token');
+      if (!token) {
+        addResult('❌ No auth_token found. Sign in first.');
+        return;
+      }
+      const res = await fetch(`${API_BASE_URL}/me/profile?full=1`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      const vecLen = Array.isArray(data.profile_vec) ? data.profile_vec.length : 0;
+      addResult(`Full profile: has_profile=${data.has_profile} dim=${data.profile_dim} len=${vecLen} norm=${data.norm}`);
+      if (vecLen > 0) {
+        addResult(`First 8 vals: ${(data.profile_vec as number[]).slice(0,8).map((v:number)=>v.toFixed(4)).join(', ')}`);
+      }
+    } catch (error) {
+      addResult(`❌ Full profile fetch failed: ${error}`);
+    }
+  };
+
+  const testProfileWithBottles = async () => {
+    try {
+      addResult('Testing profile with bottles...');
+      const token = await SecureStore.getItemAsync('auth_token');
+      if (!token) {
+        addResult('❌ No auth_token found. Sign in first.');
+        return;
+      }
+      const res = await fetch(`${API_BASE_URL}/me/profile?full=1&include_bottles=1&limit=50`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      const count = Array.isArray(data.bottles) ? data.bottles.length : 0;
+      addResult(`Bottles fetched: ${count}. has_profile=${data.has_profile} dim=${data.profile_dim}`);
+      if (count > 0) {
+        const names = (data.bottles as any[]).slice(0, 3).map(b => b.name || 'Bottle').join(' | ');
+        addResult(`Sample bottles: ${names}`);
+      }
+    } catch (error) {
+      addResult(`❌ Profile+bottles fetch failed: ${error}`);
     }
   };
 
@@ -80,6 +144,30 @@ export default function TestApiScreen() {
           disabled={testing}
         >
           <Text style={styles.secondaryButtonText}>❤️ Health Check</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={[styles.button, styles.secondaryButton]} 
+          onPress={testProfile}
+          disabled={testing}
+        >
+          <Text style={styles.secondaryButtonText}>👤 Check Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={[styles.button, styles.secondaryButton]} 
+          onPress={testProfileFull}
+          disabled={testing}
+        >
+          <Text style={styles.secondaryButtonText}>📈 Profile (Full Vector)</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={[styles.button, styles.secondaryButton]} 
+          onPress={testProfileWithBottles}
+          disabled={testing}
+        >
+          <Text style={styles.secondaryButtonText}>🍷 Profile + Bottles</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
